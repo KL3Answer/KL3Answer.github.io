@@ -1,6 +1,6 @@
 ---
 title: Java基础知识（十二）Collection、Map总结
-date: 2014-04-12 11:23:45
+date: 2015-04-12 11:23:45
 tags: 
 	- Java基础知识
 ---
