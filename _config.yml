@@ -71,3 +71,7 @@ deploy:
   type: git
   repo: https://github.com/kl3answer/kl3answer.github.io.git
   branch: master
+  
+# Social
+social:
+  github: KL3Answer  
