@@ -1,5 +1,5 @@
 ---
-title: Java基础知识（十三）Java数据结构总结
+title: Java基础知识（十五）Files类和Path接口
 date: 2015-04-13 10:53:45
 tags: 
 	- Java基础知识
