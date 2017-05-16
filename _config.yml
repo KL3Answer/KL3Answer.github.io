@@ -76,5 +76,4 @@ deploy:
 social:
   github: KL3Answer  
 
-# Pictures  
-post_asset_folder:true  
+

@@ -11,11 +11,11 @@ tags:
 	 * 处理设备之间的数据传输，java对数据的操作是流的方式
 	 * java用于操作流的对象都在IO包中
 	 * 
-	 * 流按流向
+	 * 按流向
 	 * 		输入流		（从外存导入到内存）
 	 * 		输出流		（从内存导出到外存）
 	 * 
-	 * 流按操作：
+	 * 按操作：
 	 * 		字节流：可以操作任意数据，因为计算机中的数据都是以字节（byte）为单位的二进制码的形式存储的
 	 * 			拷贝非纯文本的文件推荐使用字节流，因为字符流转码浪费时间
 	 * 			
@@ -53,22 +53,30 @@ tags:
 	 * 
 	 * InputStream类（abstract）
 	 * 		所有输入字节流的超类
-	 * 		子类 如：FileInputStream		构造：FileInputStream(String name)		FileInputStream(File file)		FileInputStream(FileDescriptor fdObj)
+	 * 		子类 如：FileInputStream		
+	 * 		构造：FileInputStream(String name)		
+	 * 	         FileInputStream(File file)		
+	 * 	         FileInputStream(FileDescriptor fdObj)
 	 * OutputStream类（abstract）
 	 * 		所有输出字节流的超类
 	 * 
-	 * Reader类（abstract）(实际上是读取器，对流对象使用了解码)
+	 * Reader类（abstract）(对字节流进行解码)
 	 * 		所有输入字符流的超类
 	 * 		子类如：FileReader
-	 * Writer类（abstract）
+	 * Writer类（abstract）（对字节流编码）
 	 * 		所有输出字符流的超类
 	 */
 
-### 二、
+### 二、JavaIO流的类结构
+借用一张图：
 
 ![](https://raw.githubusercontent.com/KL3Answer/KL3Answer.github.io/hexo/source/pics/io_pic01.jpg)
 
+可以看出Java中的流对象纷繁复杂，这里无法一一详细示例，所以后面只有几个简单的示例。
+
+
+
 
 	
-	
+
 	
