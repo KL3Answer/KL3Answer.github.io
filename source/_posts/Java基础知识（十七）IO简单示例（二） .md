@@ -1,5 +1,5 @@
 ---
-title: Java基础知识（十七）IO流简单示例（一）
+title: Java基础知识（十七）IO流简单示例（二）
 date: 2015-04-14 14:50:46
 tags: 
 	- Java基础知识
