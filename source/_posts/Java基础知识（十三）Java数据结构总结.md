@@ -65,19 +65,12 @@ tags:
 
 	ConcurrentHashMap, ConcurrentSkipListMap, EnumMap, HashMap, Hashtable, IdentityHashMap, LinkedHashMap, TreeMap, WeakHashMap 
 
- 
-
- 
-
 并发与线程安全等
 
 通常含有Concurrent，CopyOnWrite，Blocking的是线程安全的，但是这些线程安全通常是有条件的，所以在使用前一定要仔细阅读文档。
-
  
 
- 
-
-###二、具体实现
+### 二、具体实现
 
 1、 List<E>系列：
 

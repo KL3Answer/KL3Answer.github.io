@@ -74,7 +74,7 @@ tags:
 		//获取url对象的url连接器，将连接封装成对象;java中内置的可以解析的具体协议的对象+socket
 		URLConnection con=url.openConnection();
 
-###二、Socket通信的示例
+### 二、Socket通信的示例
 
 Server代码
 

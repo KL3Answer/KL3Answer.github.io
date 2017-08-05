@@ -1,9 +1,9 @@
 # Header
 menu:
   笔记: /#blog
-  状态: /about
+  # 状态: /about
   归档: /archive
-  彩蛋: /eggs
+  暂时没想好叫什么: /eggs
 
 # Site favicon
 favicon: /favicon.png
@@ -19,6 +19,4 @@ awesome_toc: true
 
 # Enable githubRepoWidget
 github_repo_widget: false
-
-
 
