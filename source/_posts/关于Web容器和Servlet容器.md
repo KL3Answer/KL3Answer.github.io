@@ -40,19 +40,20 @@ Servlet的运行，需要容器的支撑（用于提供一些底层的功能）�
 			   |-----lib 		该工程使用的jar包
 			   |-----web.xml	   	项目的描述文件
 			   |-----其他资源文件等
-2. 	当我们启动toncat的时候，都发生了什么？
+2. 	当我们启动tomcat的时候，都发生了什么？
 如果要说清楚tomcat的运行原理，可能要另起一篇文章了，所以这里只讲在tomcat context启动之后的东西。
 当启动web容器加载web应用：
 
-* 容器读取web.xml，加载两个节点:<listener></listener> 和 <context-param></context-param>；
+* 容器读取web.xml，加载两个节点: `<listener></listener>` 和 `
+<context-param></context-param>`；
 
 * 容器创建一个ServletContext,该实例有许多可以让servlet从servlet容器获取信息的方法；
 
-* 容器将<context-param></context-param>转化为键值对,并交给ServletContext；
+* 容器将`<context-param></context-param>`转化为键值对,并交给ServletContext；
 
-* 容器创建<listener></listener>中的类实例,即创建监听，在监听中会有contextInitialized(ServletContextEvent args)初始化方法；
+* 容器创建`<listener></listener>`中的类实例,即创建监听，在监听中会有contextInitialized(ServletContextEvent args)初始化方法；
 
-* 得到这个context-param的值之后,你就可以做一些操作了.注意,这个时候你的WEB项目还没有完全启动完成.这个动作  会比所有的Servlet都要早。换句话说,这个时候,你对<context-param>中的键值做的操作,将在你的WEB项目完全启动之前被执行；
+* 得到这个context-param的值之后,你就可以做一些操作了.注意,这个时候你的WEB项目还没有完全启动完成.这个动作  会比所有的Servlet都要早。换句话说,这个时候,你对`<context-param>`中的键值做的操作,将在你的WEB项目完全启动之前被执行；
 
 总结一下，web.xml中各个节点的加载顺序为（同个类型之间的顺序是根据对应的 mapping 的顺序进行调用）:
 		
