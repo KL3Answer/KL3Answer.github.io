@@ -3,7 +3,7 @@ menu:
   笔记: /#blog
   # 状态: /about
   归档: /archive
-  暂时没想好叫什么: /eggs
+  其他: /eggs
 
 # Site favicon
 favicon: /favicon.png
