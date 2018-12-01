@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（十八）多线程（三）Thread简单示例 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、Thread的方法 构造方法 //target为实现Runnable接口后的类 Thread t=new Thread(target,name); Thread t=new Thread(target); Thread t=new Thread();  设置为守护线程 /*  * Daemon守护线程：  *         和一般线程一样，只是在没有非守护线程运行时守护线程会自动结束  *">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（十八）多线程（三）Thread简单示例 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/04/14/Java基础知识（十八）多线程（三） Thread简单示例/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、Thread的方法 构造方法 //target为实现Runnable接口后的类 Thread t=new Thread(target,name); Thread t=new Thread(target); Thread t=new Thread();  设置为守护线程 /*  * Daemon守护线程：  *         和一般线程一样，只是在没有非守护线程运行时守护线程会自动结束  *">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.429Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（十八）多线程（三）Thread简单示例 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、Thread的方法 构造方法 //target为实现Runnable接口后的类 Thread t=new Thread(target,name); Thread t=new Thread(target); Thread t=new Thread();  设置为守护线程 /*  * Daemon守护线程：  *         和一般线程一样，只是在没有非守护线程运行时守护线程会自动结束  *">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（十八）多线程（三）Thread简单示例</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-04-14" class="post-meta__date date">2015-04-14</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、Thread的方法"><a href="#一、Thread的方法" class="headerlink" title="一、Thread的方法"></a>一、Thread的方法</h3><ul>
+<li><p>构造方法</p>
+<pre><code>//target为实现Runnable接口后的类
+Thread t=new Thread(target,name);
+Thread t=new Thread(target);
+Thread t=new Thread();
+</code></pre></li>
+<li><p>设置为守护线程</p>
+<pre><code>/*
+ * Daemon守护线程：
+ *         和一般线程一样，只是在没有非守护线程运行时守护线程会自动结束
+ *         
+ * setDaemon(boolean b)        设置为守护线程
+ * 
+ * 守护线程不应该去访问固有资源，因为它可能随时中断
+ * */
+public static void demo_01() {
+Thread t1=new Thread(){
+    public void run(){
+        Thread t=Thread.currentThread();
+        t.setName(&quot;非守护线程&quot;);
+        int i=0;
+        while(i&lt;100){
+            System.out.println(t.getName()+&quot;------&quot;+i);
+            i++;
+        }
+    }
+};        
+Thread t2=new Thread(){
+    public void run(){
+        Thread t=Thread.currentThread();
+        t.setName(&quot;Daemon&quot;);
+        int i=0;
+        while(true){
+            System.out.println(t.getName()+&quot;-------&quot;+i);
+            i++;
+        }
+    }
+};
+t2.setDaemon(true);
+t1.start();
+t2.start();
+</code></pre><p>  }</p>
+</li>
+<li><p>加入线程</p>
+<pre><code>public class Demo_04_join {
+    static int i;
+    public static void main(String[] args){
+        /*join()加入线程
+         * 当前线程暂停，等待指定的线程执行结束后，当前线程再继续
+         * 
+         * join(int time) 插队执行time毫秒，time之后交替执行
+         * 
+         * 
+         * 
+         * */
+        final Thread t1=new Thread(){
+            public void run(){
+                Thread t=Thread.currentThread();
+                t.setName(&quot;t1&quot;);
+                while(true){
+                    System.out.println(t.getName()+&quot;-------&quot;+i++);
+                }
+            }
+        };
+        Thread t2=new Thread(){
+            public void run(){
+                Thread t=Thread.currentThread();
+                t.setName(&quot;t2&quot;);
+                while(true){
+                    if(i%3==0){
+                        try {
+                            t1.join(10);
+                        } catch (InterruptedException e) {
+
+                            e.printStackTrace();
+                        }
+                    }
+                    System.out.println(t.getName()+&quot;--------&quot;+i++);
+                }
+            }
+        };
+        t1.start();
+        t2.start();
+    }
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>yield和priority</p>
+<p>  没有示例</p>
+<pre><code>/*
+ * static void yield()
+ * 使当前线程处于让步状态 
+ * 使其他优先级不高于它的线程被调度
+ *     并不一定立即让出线程
+ * 
+ * */    
+
+/*void    setPriority(int newPriority)
+ * 设置优先级，默认是5
+ * static    int    MIN_PRIORITY        1    
+ * static    int MAX_PRIORITY        10
+ * 优先级越高cpu分配的处理时间越多
+ * 
+ * 
+ * 两个相邻的数并没有太大的区别
+ * 
+ * */
+</code></pre></li>
+<li><p>线程组</p>
+</li>
+</ul>
+<pre><code>public class Demo_05_ThreadGroup {
+    public static void main(String[] args){
+            /*ThreadGroup
+             * 
+             * 线程组：
+             *     将线程编组
+             * */
+            /* Java中使用ThreadGroup来表示线程组，它可以对一批线程进行分类管理，Java允许程序直接对线程组进行控制。
+            * 默认情况下，所有的线程都属于主线程组。
+            * public final ThreadGroup getThreadGroup()//通过线程对象获取他所属于的组
+            * public final String getName()//通过线程组对象获取他组的名字
+            * 我们也可以给线程设置分组
+            * 1,ThreadGroup(String name) 创建线程组对象并给其赋值名字
+            * 2,创建线程对象
+            * 3,Thread(ThreadGroup?group, Runnable?target, String?name) 
+            * 4,设置整组的优先级或者守护线程*/
+
+            // 默认情况下，所有的线程都属于同一个组
+            System.out.println(Thread.currentThread().getThreadGroup().getName());
+
+
+            demo_02();
+        }
+
+
+    public static void demo_02() {
+        ThreadGroup tg=new ThreadGroup(&quot;A_Demo_ThreadGroup&quot;);//创建新的线程组
+        Printer p=new Printer();                            //创建一个实现了Runnable接口的类
+        Thread t0=new Thread(tg,p,&quot;thread_01&quot;);                //将线程一放在组中
+        Thread t1=new Thread(tg,p,&quot;thread_02&quot;);
+        System.out.println(tg.getName());                    
+        System.out.println(t0.getThreadGroup().getName());
+        System.out.println(t1.getThreadGroup().getName());
+        System.out.println(t0.getName());
+        System.out.println(t1.getName());
+        tg.setDaemon(true);                                    //将tg设置为守护线程
+    }
+
+}
+</code></pre><ul>
+<li><p>其他</p>
+<pre><code>/*
+ * 停止线程：
+ *     1、stop()方法              已过时
+ *     2、run()方法结束时            没有唤醒时会出问题
+ *         怎么控制程序的结束
+ *         任务中都会有循环结构，只要控制循环，就可以结束任务
+ * 
+ *         控制循环通常用定义标记来实现
+ *     3、interrupt()            中断线程的冻结状态，将线程强制恢复到运行状态，
+ *                             让线程具备cpu的执行资格
+ *                             但是会抛出InterruptedException，记得要在catch中处理
+ * 
+ * 
+ * */
+</code></pre><p>注意：停止线程推荐使用一个标志变量来终止</p>
+</li>
+</ul>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

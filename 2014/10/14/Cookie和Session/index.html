@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Cookie和Session | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、Cookie/* * Cookie    Cookie是由HTTP协议制定的，一个Cookie的大小不能超过4kb，一个服务器最多向一个浏览器保存20个cookie，             一个浏览器最多可以保存300个cookie *     服务器使用cookie追踪客户端状态，用于存储信息的文件（用户名密码等）, *     cookie技术也称为会话跟踪技术（默认浏览器打开到关闭的过">
+<meta name="keywords" content="笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cookie和Session | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2014/10/14/Cookie和Session/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、Cookie/* * Cookie    Cookie是由HTTP协议制定的，一个Cookie的大小不能超过4kb，一个服务器最多向一个浏览器保存20个cookie，             一个浏览器最多可以保存300个cookie *     服务器使用cookie追踪客户端状态，用于存储信息的文件（用户名密码等）, *     cookie技术也称为会话跟踪技术（默认浏览器打开到关闭的过">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:25.944Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cookie和Session | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、Cookie/* * Cookie    Cookie是由HTTP协议制定的，一个Cookie的大小不能超过4kb，一个服务器最多向一个浏览器保存20个cookie，             一个浏览器最多可以保存300个cookie *     服务器使用cookie追踪客户端状态，用于存储信息的文件（用户名密码等）, *     cookie技术也称为会话跟踪技术（默认浏览器打开到关闭的过">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Cookie和Session</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2014-10-14" class="post-meta__date date">2014-10-14</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/笔记/">笔记</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、Cookie"><a href="#一、Cookie" class="headerlink" title="一、Cookie"></a>一、Cookie</h3><pre><code>/*
+* Cookie    Cookie是由HTTP协议制定的，一个Cookie的大小不能超过4kb，一个服务器最多向一个浏览器保存20个cookie，
+            一个浏览器最多可以保存300个cookie
+*     服务器使用cookie追踪客户端状态，用于存储信息的文件（用户名密码等）,
+*     cookie技术也称为会话跟踪技术（默认浏览器打开到关闭的过程称为会话），
+* 不能跨浏览器
+* 
+*    浏览器归还Cookie的请求头：Cookie:aaa=AAA;bbb=BB
+*            response头：Set-Cookie:aaa=AAA;Set-Cookie:bbb=BBB
+* 
+* 因为浏览器竞争很激烈，所以很多浏览器会在一定范围违反http协议
+* 
+* 服务器 ：
+*     1、校验信息
+*     2、保存信息在cookie上
+*     3、把cookie发送到浏览器（浏览器可以选择保存cookie）
+*     4、下一次登录时浏览器会发送cookie
+* 
+*Cookie属性
+*    name value    maxAge Path
+*
+*
+* Cookie使用：
+*     Cookie        new Cookie(name,value)        创建一个Cookie对象
+*  Cookie[]    request.getCookies()        获取若request中的所有cookie文件        
+* 
+* Cookied的方法
+*             cookie对象.setMaxAge(int expiry)         在一个硬盘上的存活时间(秒值)(不设置值或负值只在内存中，不写入硬盘)
+*  String    cookie对象.getName()        
+*                    getValue()
+*                    setValue()            
+*                      setPath(String uri)    
+                    设置cookie有效路径(与客户端保存路径无关！！关联servlet路径？)（此时只有在访问该路径时，浏览器才会发送这个cookie）
+*                    如果cookie没有设置有效路径，那么默认的有效路径就是当前工程（访问路径包含Cookie路径）
+*    e.g.
+*        a在/a/下，b在/a/b/下，c在/a/b/c/下
+*        aCookie.path=/a/;bCookie.path=/a/b/;cCookie.path=/a/b/c/;
+*        则访问a时，返回aCookie
+*        访问b时，返回aCookie、bCookie
+*        访问c时，返回aCookie、bCookie、cCookie
+*    
+*     response.addCookie(cookie)  把cookie对象发送给浏览器，
+*         如果一个cookie没有设置一个有效(存活)时间，是不会在产生cookie文件的,
+*         但是在浏览器关闭之前可以获取到（一个会话之间）
+* 
+*     删除cookie
+*         setMaxAge(0)
+*         其实是创建一个同名的cookie，设置有效时间为0（0时浏览器会马上删除这个Cookie），覆盖掉源文件
+*     注意：如果要删除一个cookie，其有效时间要为0，而且path路径必须一致（信息一致才能覆盖） 
+*  
+*  
+*  
+*  
+*  Cookie的domain
+*      domain用于指定Cookie的域名，当多个二级域中共享Cookie中才使用
+*  e.g.
+*      www.news.baidu.com和www.zhidao.baidu.com和www.tieba.baidu.com之间共享Cookie时可以使用domain
+*  设置domain为：cookie.setDomain(&quot;baidu.com&quot;)
+*  设置path为:cookie.setPath(&quot;/&quot;)
+*  
+*  
+* */
+</code></pre><h3 id="二、Session"><a href="#二、Session" class="headerlink" title="二、Session"></a>二、Session</h3><pre><code>/*
+ * HttpSession是由javaweb提供的，用于会话跟踪的类，是服务器端对象，保存在服务器里
+ * HttpSession是javaweb三大域对象之一（request、session、application（SerlvetContext））
+ * 底层依赖于cookie，或是URL重写 
+ * 
+ * HttpSession的作用范围，是从用户访问服务器开始到该用户关闭浏览器结束
+ * 会话：一个用户对服务器的多次连贯性请求
+ * 服务器会为每一个客户端创建一个session对象，sessoion对象就好比客户在服务器的账户，
+ * 它们被服务器保存在一个Map中，这个map被称为session缓存
+ * 
+ * 在Servlet中获取session request.getSession()
+ * 在jsp中获取session：session是jsp的内置对象，不用创建就可以使用
+ * 
+ * session的默认最大不活动时间是30分钟（从最后一次访问时间计算，若超过改时间没有被使用，服务器会将其从session池中移除），
+   可以在tomcat/config/web.xml中配置的（当然也可以自己手动配置），
+ * 若要改变项目的最大不活动时间，可以在项目下的web.xml中配置
+ * 
+ *     &lt;sesion-config&gt;
+ *         &lt;session-timeout&gt;30&lt;/session-timeout&gt;//单位：分钟
+ *     &lt;/sesion-config&gt;
+ * 
+ * 获取session：
+ *     request.getSession()    向服务器获取session，如果已经存在session为该浏览器服务，就不会创建新的对象的
+ *                             创建后把session的id保存到cookie（这个cookie的有效时间为-1，只在内存中存在）中，
+                               然后发送给浏览器（JSESSIONID）
+ *                             如果浏览器带有session的id，服务器就会从所有的session中寻找该session为浏览器服务
+ *         
+ * session常见方法：
+ *     String    getId()      获取JSESSONID的值
+ *    int     getMaxInactiveInterval()    获取最大不活动时间 
+ *     void    invalidate()    让sesion失效
+ *     boolean    isNew()        查看session是否为新
+ * 
+ * 
+ * */
+
+/*Session的钝化与激活
+ * 钝化：服务器在关闭的时候，会把session保存的数据存在tomcat/work/catalina/localhost目录下的一个文件上（从内存写到硬盘上）
+ * 激活：服务器在启动时会自动把硬盘上的session文件读取到内存中，还原session数据
+ * 
+ * 注意：session的数据如果要实现钝化，其该数据所属的类要实现Serializable接口
+ * 
+ * 在web.xml配置session
+ * &lt;Manager&gt;&lt;/Manager&gt;等（自己查）
+ * 
+ * 
+ * 
+ *  //以保证后面可以根据sessionid获取到session  
+    getServletContext().setAttribute(session.getId(), session);
+ * */
+
+/*当用户禁用了Cookie,session功能无法使用时
+ * 可以URL重写，其实就是把session的id放在url里面发送给服务器
+ * String url=request.getContextPath()+&quot;/跳转的资源&quot;;
+ * url=response.encodeURL(url);//该方法会对url进行重写；当请求中没有归还session这个cookie时会重写url，否则不重写，url必须时指向本站的url
+ * response.sendRedirect(url);
+ * 
+ * 或者也可以自己在url后面添加&quot;;jsessionid=它的id&quot;
+ * 
+ * */
+
+/*Cookie和Session的区别
+ *     Cookie是客户端的技术，Session是属于服务器端的技术
+ *    Session依赖与Cookie
+ *     
+ * 
+ * */    
+</code></pre>
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

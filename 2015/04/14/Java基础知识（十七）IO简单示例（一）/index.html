@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（十七）IO流简单示例（一） | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="注：这些流对象的关系不是成对的，你可以使用任意一个输入流与任意一个输出流进行操作，这里只是为了方便示例的书写一、FileInputStream、FileOutputStreamFileInputStream /*read方法      int    read()      int    read(byte[] b)      int    read(byte[] b, int off, int l">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（十七）IO流简单示例（一） | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/04/14/Java基础知识（十七）IO简单示例（一）/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="注：这些流对象的关系不是成对的，你可以使用任意一个输入流与任意一个输出流进行操作，这里只是为了方便示例的书写一、FileInputStream、FileOutputStreamFileInputStream /*read方法      int    read()      int    read(byte[] b)      int    read(byte[] b, int off, int l">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.241Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（十七）IO流简单示例（一） | HQ&#39;s Cabin">
+<meta name="twitter:description" content="注：这些流对象的关系不是成对的，你可以使用任意一个输入流与任意一个输出流进行操作，这里只是为了方便示例的书写一、FileInputStream、FileOutputStreamFileInputStream /*read方法      int    read()      int    read(byte[] b)      int    read(byte[] b, int off, int l">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（十七）IO流简单示例（一）</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-04-14" class="post-meta__date date">2015-04-14</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="注：这些流对象的关系不是成对的，你可以使用任意一个输入流与任意一个输出流进行操作，这里只是为了方便示例的书写"><a href="#注：这些流对象的关系不是成对的，你可以使用任意一个输入流与任意一个输出流进行操作，这里只是为了方便示例的书写" class="headerlink" title="注：这些流对象的关系不是成对的，你可以使用任意一个输入流与任意一个输出流进行操作，这里只是为了方便示例的书写"></a>注：这些流对象的关系不是成对的，你可以使用任意一个输入流与任意一个输出流进行操作，这里只是为了方便示例的书写</h3><h3 id="一、FileInputStream、FileOutputStream"><a href="#一、FileInputStream、FileOutputStream" class="headerlink" title="一、FileInputStream、FileOutputStream"></a>一、FileInputStream、FileOutputStream</h3><p>FileInputStream</p>
+<pre><code>/*read方法
+     int    read()
+     int    read(byte[] b)
+     int    read(byte[] b, int off, int len)
+*/
+</code></pre><p>示例1.1</p>
+<pre><code>//创建字节输入流对象
+//用读取流关联一个文件，文件必须存在
+FileInputStream fis=new FileInputStream(&quot;D:\\test.txt&quot;);
+
+//读取一个字节,读取完后指针后移
+int x=fis.read();
+
+//将byte存储为int是为了防止读取到-1的时候出错
+System.out.println(x);
+//读一个字节,读到流的结束标记时返回-1
+x=fis.read();
+System.out.println(x);
+
+//常用的做法，一直读取直到末尾
+while(x!=-1){
+    x=fis.read();
+    System.out.print(Character.toChars(x));
+}
+fis.close();
+</code></pre><p>FileOutpuStream</p>
+<pre><code>/*write方法
+    void    write(byte[] b)
+    void    write(byte[] b, int off, int len)
+    void    write(int b)
+*/
+</code></pre><p>示例1.2</p>
+<pre><code>//创建字节输出流对象，没有就会自动创建一个文件
+//如果有这个文件的话会清空，重新写这个文件
+FileOutputStream fos=new FileOutputStream(&quot;D:\\old.txt&quot;);
+fos.write(97);
+fos.write(98);
+fos.write(99);
+
+//在文件后面继续添加，不清空
+FileOutputStream fos1=new FileOutputStream(&quot;D:\\old.txt&quot;,true);
+fos1.write(102);
+fos1.write(133);
+FileInputStream fis1=new FileInputStream(&quot;D:\\old.txt&quot;);
+int y=0;
+while((y=fis1.read())!=-1){
+    try{
+        System.out.println((char)y);
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+}
+fis1.close();//无缓冲
+</code></pre><p>使用数组进行缓冲</p>
+<pre><code>private static void demo_03() throws FileNotFoundException, IOException {
+    System.out.println(&quot;-------&quot;);
+    FileInputStream fis4=new FileInputStream(&quot;D:\\Backups\\Data\\Pictures\\old.bmp&quot;);
+    FileOutputStream fos4=new FileOutputStream(&quot;D:\\Backups\\Data\\Pictures\\new.bmp&quot;);
+    byte[] arr1=new byte[1024*8];//使用小数组
+    int len;
+    //将文件的字节流读取到byte数组中，返回读取的有效字节个数,如果读到流的结尾则返回-1
+    while((len=fis4.read(arr1))!=-1){
+        //arr将从0到len（不含）的元素写出
+        fos4.write(arr1,0,len);
+        //不指定长度写出arr中所有元素，当未存满的时候可能会出现被覆盖的风险
+        //fos3.write(arr);
+    }
+    //关闭并将缓存区中剩余的刷出，一定要将缓存区中的刷出！
+    fis4.close();
+    fos4.close();
+}
+</code></pre><h3 id="二、BufferedInputStream、BufferedOutputStream"><a href="#二、BufferedInputStream、BufferedOutputStream" class="headerlink" title="二、BufferedInputStream、BufferedOutputStream"></a>二、BufferedInputStream、BufferedOutputStream</h3><ol>
+<li><p>示例2.1</p>
+<pre><code>private static void demo_01() throws FileNotFoundException, IOException {
+BufferedInputStream bis = null;
+BufferedOutputStream bos = null;
+//try finally 用于关流，不catch,不隐藏Exception    
+try {
+    //创建缓冲区对象，对输入流进行包装
+    bis = new BufferedInputStream(new FileInputStream(
+            &quot;D:\\old.bmp&quot;));
+    //使用了数组
+    bos = new BufferedOutputStream(new FileOutputStream(&quot;D:\\new.bmp&quot;));
+    int len;
+    while ((len = bis.read()) != -1) {
+        //write len个缓冲区的字节
+        //只有在缓冲区写满的时候调用write才会flush刷新写出，因此在流末尾的时候（即读取的最后一次）并没有写出
+        bos.write(len);
+    }
+} finally {
+    //设置关流
+    try {//嵌套try finally ，防止关流时的异常，能多关一个就多关一个
+        if (bis != null)
+            bis.close();//关闭BufferedInputStream,此时其实就是关闭的FIS
+    } finally {
+        if (bos != null)
+            //必须关流
+            bos.close();
+    }
+}
+/*
+ * flush()    刷新缓冲区    具备刷新的功能，但是不关闭流
+ *     
+ * close()    关闭流        关闭流，在关闭流之前会先刷新一次缓冲区，
+ *                         将缓冲区的字节都刷新到文件上再关闭（因为最后一次没写进文件，或存取可能没存满）
+ * */
+/*
+ * 字节流读取中文
+ *         因为中文是两个字符表示，所以读取的时候可能会出问题，只读半个codepointer出现乱码
+ * 字节流写出中文
+ *         字节流直接操作的字节,所以写出中文必须将字符串转换成字节数组 
+ *         写出回车换行 write(&quot;\r\n&quot;.getBytes());
+ * */
+}
+</code></pre><p>这里其实可以使用JDK1.7的新特新ARM来管理流资源，示例这么写是为了逻辑更加清晰。</p>
+</li>
+<li><p>示例2.2</p>
+<pre><code>private static void demo_02() throws IOException, FileNotFoundException {
+    //简单的加密
+    try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(&quot;D:\\new.jpg&quot;));
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(&quot;D:\\copy.jpg&quot;));) {
+        int b;
+        while ((b = bis.read()) != -1) {
+            bos.write(b ^ 123);//对字节使用异或运算
+        }
+    }
+}
+</code></pre></li>
+</ol>
+<h3 id="三、-InputStreamReader、OutputStreamWriter"><a href="#三、-InputStreamReader、OutputStreamWriter" class="headerlink" title="三、    InputStreamReader、OutputStreamWriter"></a>三、    InputStreamReader、OutputStreamWriter</h3><p>转换流</p>
+<pre><code>/*转换流：
+ * 字节流与字符流相转换（可以转换不同码表的字符）
+ * 
+ * InputStreamReader    extends    Reader    解码
+ *     可以被BufferedReader包装
+ *     可以包装Stream
+ * OutputStreamwriter    extends    Writer    编码
+ *     BufferedWriter
+ * 
+ * 
+ *     InputStreamReader(InputStream in)
+ *        Creates an InputStreamReader that uses the default charset.
+ *
+ *    InputStreamReader(InputStream in, Charset cs)
+ *        Creates an InputStreamReader that uses the given charset.
+ *
+ *    InputStreamReader(InputStream in, CharsetDecoder dec)
+ *        Creates an InputStreamReader that uses the given charset decoder.
+ *
+ *    InputStreamReader(InputStream in, String charsetName)
+ *        Creates an InputStreamReader that uses the named charset.
+ * */    
+
+/*BufferedReader常用方法：
+ * readLine()    读一行
+ * 
+ *Bufferedwriter方法：
+ * newLine()    写一个行分隔符
+ * 
+ * */
+</code></pre><p>示例3.1</p>
+<pre><code>public void test01() throws IOException{
+    InputStream in=System.in;
+    InputStreamReader isr=new 
+    //转换流，将读取的字节使用码表转换成字符
+    InputStreamReader(in);
+    BufferedReader br=new 
+    //对字符流进行装饰
+    BufferedReader(isr);
+    String line=null;
+    while((line=br.readLine())!=null){
+        if(&quot;over&quot;.equals(line)){
+            break;
+        }
+        System.out.println(line.toUpperCase());
+    }
+
+    //OutputStreamWriter  字符流转换成字节流，类似  
+
+}    
+</code></pre><p>其子类：FileWriter</p>
+<p>示例3.2</p>
+<pre><code>FileWriter fw0 = null;//创建写入流对象
+    try {
+        //字符流FileWriter
+        fw0 = new FileWriter(&quot;D:\\demo.txt&quot;);
+        //此时把数据写入到了临时缓冲区,在这抛出异常有可能是写入时外存出现问题
+        fw0.write(&quot;asdsdsa&quot;);
+        //注意：在windows中换行&quot;\r\n&quot;
+        //在unix中换行&quot;\n&quot;
+        fw0.flush();//进行刷新，将数据直接写入目的地
+    } finally {
+        try {
+            if (fw0 != null) {
+                fw0.close();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(&quot;关闭失败&quot;);
+        }
+    }
+</code></pre><p>示例3.3 倒序拷贝</p>
+<pre><code>//倒序拷贝
+try (
+    BufferedReader br = new BufferedReader(new FileReader(&quot;D:\\d1.txt&quot;));
+    BufferedWriter bw = new BufferedWriter(new FileWriter(&quot;D:\\mow.txt&quot;));
+) {
+    ArrayList&lt;String&gt; al = new ArrayList&lt;&gt;();
+    String s;
+    while ((s = br.readLine()) != null) {
+        al.add(s);
+    }
+    for (int i = al.size() - 1; i &gt;= 0; i--) {
+        bw.write(al.get(i));
+        bw.newLine();
+    }
+}
+</code></pre><p>LineNumberReader(extends BufferedReader)</p>
+<p>使用了装饰者模式</p>
+<pre><code>/*带行号的BufferedReader，行号从0开始
+ *    
+ *getLineNumber():
+ *setLineNumber(int number):设置为0则第一行行号为1
+ */
+</code></pre><h3 id="四、标准输入输出流"><a href="#四、标准输入输出流" class="headerlink" title="四、标准输入输出流"></a>四、标准输入输出流</h3><pre><code>/*System
+ *     static    PrintStream        err        “标准”错误输出流
+ *     static    InputStream        in        “标准”输入流
+ *     static    OutputStream    out        “标准”输出流
+ * /
+</code></pre><p>示例4.1 从外部设备录入数据</p>
+<pre><code>private static void demo() throws IOException {
+    System.out.println(&quot;start:&quot;);
+    InputStream in=System.in;//字节流
+    //从外部设备录入数据
+    int ch=in.read();//在输入数据可用、检测到流末尾或者抛出异常前，此方法为阻塞
+    //    in.close();
+    //    InputStream in2=System.in;
+    //    in2.close();系统流对象只有一个，关闭之后就不能使用了，不需要关，随系统的关闭自动关闭
+    StringBuilder sb=new StringBuilder();
+    int ch1=0;
+    System.out.println(&quot;please enter anything,&quot;exit&quot; to quit:&quot;);
+    while((ch1=in.read())!=-1){//读一行数据
+        if(ch1==&apos;\r&apos;){
+            continue;
+        }
+        if(ch1==&apos;\n&apos;){
+            String temp=sb.toString();
+            if(&quot;exit&quot;.equals(temp)){
+                System.out.println(&quot;quit now&quot;);
+                break;
+            }
+            System.out.println(temp);
+            sb.delete(0,sb.length());
+        }else{
+            sb.append((char)ch1);
+        }
+    }
+}
+</code></pre><p>示例4.2 使用System中的流拷贝文件</p>
+<pre><code>private static void copy() throws FileNotFoundException, IOException {
+    System.setIn(new FileInputStream(&quot;D:\\c.jpg&quot;));//改变标准输入流
+    System.setOut(new PrintStream(&quot;D:\\d1.jpg&quot;));
+    InputStream is=System.in;//改变后指向了一个文件
+    PrintStream ps=System.out;
+    byte[] b=new byte[8192];
+    int len;
+    while((len=is.read(b))!=-1){
+        ps.write(b,0,len);
+    }
+    is.close();
+    ps.close();
+}
+</code></pre><h3 id="五、SequenceInputStream"><a href="#五、SequenceInputStream" class="headerlink" title="五、SequenceInputStream"></a>五、SequenceInputStream</h3><p>序列流，使多个输入流有顺序地输入</p>
+<p>示例5.1 合并两个文件</p>
+<pre><code>private static void test_01() throws FileNotFoundException, IOException {
+    FileInputStream fis0 = new FileInputStream(&quot;D:/a.txt&quot;);
+    FileInputStream fis1 = new FileInputStream(&quot;D:/b.txt&quot;);
+    //输出到一个文件中
+    SequenceInputStream sis = new SequenceInputStream(fis0, fis1);
+    FileOutputStream fos = new FileOutputStream(&quot;D:/c.txt&quot;);
+    int b;
+    while ((b = sis.read()) != -1) {
+        fos.write(b);
+    }
+    fis1.close();
+    //SequenceInputStream在关闭对象的时候会将构造方法中的流对象都关闭
+    sis.close();
+    fos.close();
+}
+</code></pre><p>示例5.2     切个文件并合并</p>
+<p>切割</p>
+<pre><code>//切割文件
+public static void splitFile(File file) throws IOException {
+    FileInputStream fis = new FileInputStream(file);
+    byte[] buf = new byte[size];
+    FileOutputStream fos = null;
+    int len = 0;
+    int count = 1;
+    File dir = new File(&quot;d:\\&quot;);
+    while ((len = fis.read(buf)) != -1) {
+        fos = new FileOutputStream(new File(dir, count++ + &quot;_&quot; + &quot;.part&quot;));
+        fos.write(len);
+        fos.close();
+    }
+
+    //将被切割的文件信息保存到prop集合中
+    fos = new FileOutputStream(new File(dir, count + &quot;.Properties&quot;));
+    Properties prop = new Properties();
+    prop.setProperty(&quot;part&quot;, count + &quot;&quot;);
+    prop.setProperty(&quot;filename&quot;, file.getName());
+    prop.store(fos, &quot;save&quot;);
+    fos.close();
+    fis.close();
+}
+</code></pre><p>合并</p>
+<pre><code>//合并文件
+public static void mergeFile(File dir) throws IOException{
+    //获取配置信息
+    File[] file=dir.listFiles(new SuffixFilter(&quot;.properties&quot;));
+    if(file.length!=1){
+        throw new RuntimeException(&quot;.properties does not exists or is spoiled&quot;);
+    }
+    File configFile=file[0];
+    Properties prop=new Properties();
+    String filename=prop.getProperty(&quot;filename&quot;);
+    int count=Integer.parseInt(prop.getProperty(&quot;count&quot;));
+    prop.load(new FileInputStream(configFile));
+
+    File[] partFiles=dir.listFiles(new SuffixFilter(&quot;.part&quot;));
+    if(partFiles.length!=count-1){
+        throw new RuntimeException(&quot;the file is not complete or is spoiled&quot;);
+    }
+
+    ArrayList&lt;FileInputStream&gt; al=new ArrayList&lt;&gt;();
+    for(int x=1;x&lt;=count;x++){
+        al.add(new FileInputStream(dir+&quot;&quot;+x+&quot;_&quot;+&quot;.part&quot;));
+    }
+    Enumeration&lt;FileInputStream&gt; e=Collections.enumeration(al);
+    SequenceInputStream sis=new SequenceInputStream(e);
+    FileOutputStream fos=new FileOutputStream(new File(dir,filename));
+    byte[] buf=new byte[size];
+    int len=0;
+    while((len=sis.read(buf))!=-1){
+        fos.write(buf,0,len);
+        fos.close();
+    }
+    sis.close();
+}
+</code></pre>
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

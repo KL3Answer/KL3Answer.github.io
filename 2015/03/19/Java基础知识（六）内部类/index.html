@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（六） 内部类 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="内部类是定义在类中的类，其特征有两点： 1、内部类的方法可以访问该类作用域中的数据，包括私有的数据。 2、内部类可以对同一个包中的其他类隐藏。 当想定义一个回调函数且不想编写大量代码时，可以使用匿名（anonymous）内部类。 一、简单示例： 在main中 public static void main(String[] args) {      Outer.Inner1 inner1 = ne">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（六） 内部类 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/03/19/Java基础知识（六）内部类/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="内部类是定义在类中的类，其特征有两点： 1、内部类的方法可以访问该类作用域中的数据，包括私有的数据。 2、内部类可以对同一个包中的其他类隐藏。 当想定义一个回调函数且不想编写大量代码时，可以使用匿名（anonymous）内部类。 一、简单示例： 在main中 public static void main(String[] args) {      Outer.Inner1 inner1 = ne">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:42.098Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（六） 内部类 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="内部类是定义在类中的类，其特征有两点： 1、内部类的方法可以访问该类作用域中的数据，包括私有的数据。 2、内部类可以对同一个包中的其他类隐藏。 当想定义一个回调函数且不想编写大量代码时，可以使用匿名（anonymous）内部类。 一、简单示例： 在main中 public static void main(String[] args) {      Outer.Inner1 inner1 = ne">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（六） 内部类</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-03-19" class="post-meta__date date">2015-03-19</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>内部类是定义在类中的类，其特征有两点：</p>
+<p>1、内部类的方法可以访问该类作用域中的数据，包括私有的数据。</p>
+<p>2、内部类可以对同一个包中的其他类隐藏。</p>
+<p>当想定义一个回调函数且不想编写大量代码时，可以使用匿名（anonymous）内部类。</p>
+<h3 id="一、简单示例："><a href="#一、简单示例：" class="headerlink" title="一、简单示例："></a>一、简单示例：</h3><ul>
+<li><p>在main中</p>
+<pre><code>public static void main(String[] args) {
+
+    Outer.Inner1 inner1 = new Outer().new Inner1();
+    Outer.Inner2 inner2 = new Outer.Inner2();//static的内部类相当于外部类，可直接创建对象
+    Outer aOuter = new Outer();
+    Object object = aOuter.getInner();//得到一个private的Inner对象
+    aOuter.innerMethod();//调用内部类的方法
+    aOuter.show();
+    Outer.Inner2.method();
+    aOuter.anonymousPrint(new anonymous(){
+        void print(){
+            System.out.println(&quot;afk&quot;);//只是为了继承抽象类anonymous
+        }
+    });
+    Outer.oop().print();//链式编程
+}
+</code></pre></li>
+<li><p>这些类的声明</p>
+<pre><code> /*内部类
+ * 特点：
+ *     a、内部类可以直接访问外部类的所有成员(因为内部类持有外部类的引用  外部类名.this)
+ *     b、外部类访问内部类成员必须要创建对象
+ * 
+ * 格式：
+ *         Outer.Inner inner=new Outer().new Inner();//Inner 不是private时
+        inner.method();
+ */
+class Outer {
+    private int num = 10;
+
+    private class Inner {//定义内部类在外部类的成员位置,可被成员修饰符修饰
+        private int num = 11;
+
+        public void method() {
+            System.out.println(&quot;Inner run&quot;);
+        }
+
+        public void show() {
+            System.out.println(Outer.this.num);//对外部类的引用Outer.this
+            System.out.println(Inner.this.num);//类名.this调用该类的当前对象
+        }
+    }
+
+    static class Inner2 {
+        public static void method() {
+            System.out.println(&quot;Inner2 run&quot;);
+        }
+    }
+
+    public Inner getInner() {//返回一个Outer.Inner类型的对象
+        return new Outer().new Inner();
+    }
+
+    public void innerMethod() {
+        Inner inner = new Inner();
+        inner.method();
+        inner.show();
+    }
+
+    public void show() {
+        class Inner3 {//局部内部类，在方法中定义的类,只能在所在的方法内访问
+            //局部内部类中使用的变量必须被声明为常量，以防止对象引用已经被弹出栈的变量，
+            //在jdk1.8中默认加上
+            //常量被存储在方法区中的常量池
+            final int num = 0;
+
+        }
+        System.out.println();
+    }
+
+    /*匿名内部类(局部内部类的一种)
+     * 
+     * new 类名或接口名{
+     *     重写方法；
+     * }
+     * 
+     * */
+    class Inner1 implements Inter{
+        public void print(){
+            System.out.println(&quot;Inner1 print&quot;);
+        }
+    }
+
+    public void print_2() {
+        new Inter() {//实现Inter接口，实际上new的是实现了Inter的一个子类
+            public void print() {
+                System.out.println(&quot;print&quot;);
+            }
+        }.print();
+
+        Inter inter=new Inter() {//多态实现，匿名内部类不能向下转型，因为没有子类
+            public void print() {
+                System.out.println(&quot;print&quot;);
+            }
+        };
+        inter.print();
+    }
+    public void anonymousPrint(anonymous n){
+        System.out.println(&quot;anonymous&quot;);
+    }
+    public static Inter oop(){//返回一个Inter类型的对象
+        return new Inter(){
+            public void print(){
+                System.out.println(&quot;apm&quot;);
+            }
+        };
+    } 
+}
+</code></pre></li>
+<li><p>inter接口和anonymous抽象类</p>
+<pre><code>interface Inter {
+    public abstract void print();
+}
+abstract class anonymous{//抽象类anonymous
+    abstract void print();
+}
+</code></pre></li>
+</ul>
+<h3 id="二、关于这些修饰符的权限"><a href="#二、关于这些修饰符的权限" class="headerlink" title="二、关于这些修饰符的权限"></a>二、关于这些修饰符的权限</h3><pre><code>//修饰符                       不能用于类                不能用于外部类
+/* 访问            public     protected       默认        private    
+ * 本类            可以            可以        可以         可以
+ * 同一包子类      可以            可以         可以
+ * 不同包子类       可以            可以
+ * 不同包无关类     可以
+ * */
+</code></pre><h3 id="三、关于包"><a href="#三、关于包" class="headerlink" title="三、关于包"></a>三、关于包</h3><p>这段代码在Java源文件的开头</p>
+<pre><code>package Outer_Inner;
+/*package:将字节码文件分开存放
+ * 包就是文件夹（多层目录）
+ * 包名一般使用域名倒过来  
+ *     e.g. 
+ *         package com.hq.bean;//此时bean.java就会在com\goole中
+ *         package com.hq.tools;
+ * 
+ * a、package语句必须是第一条可执行的语句
+ * b、在一个.java文件中只能有一个
+ * c、如果没有package，默认无包名
+ * */
+/*带包名如何编译运行
+ *     写全名 :java  packA.Test
+ * */
+import java.util.Scanner;//导入不同包中的类
+
+....code.....
+</code></pre><p>注意：一个Java源文件只能有一个public类（JVM为了提高查找类的速度，使用import语句导入时，只会导入对应空间的文件名对应的class文件，<br>    而public是公共的，因此直接导入这个类对应的class文件即可）</p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

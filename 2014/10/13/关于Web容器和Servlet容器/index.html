@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      关于Web容器和Servlet容器 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、关于ServletServlet是一些遵从Java Servlet API的Java类，这些Java类可以响应请求。尽管Servlet可以响应任意类型的请求(对应GenericServlet)，但是它们使用最广泛的是响应web方面的请求(对应HttpServlet)。  Servlet的运行，需要容器的支撑（用于提供一些底层的功能），而我们常使用的Tomcat与Jetty等web容器就可以提供">
+<meta name="keywords" content="笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Web容器和Servlet容器 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2014/10/13/关于Web容器和Servlet容器/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、关于ServletServlet是一些遵从Java Servlet API的Java类，这些Java类可以响应请求。尽管Servlet可以响应任意类型的请求(对应GenericServlet)，但是它们使用最广泛的是响应web方面的请求(对应HttpServlet)。  Servlet的运行，需要容器的支撑（用于提供一些底层的功能），而我们常使用的Tomcat与Jetty等web容器就可以提供">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.928Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于Web容器和Servlet容器 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、关于ServletServlet是一些遵从Java Servlet API的Java类，这些Java类可以响应请求。尽管Servlet可以响应任意类型的请求(对应GenericServlet)，但是它们使用最广泛的是响应web方面的请求(对应HttpServlet)。  Servlet的运行，需要容器的支撑（用于提供一些底层的功能），而我们常使用的Tomcat与Jetty等web容器就可以提供">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">关于Web容器和Servlet容器</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2014-10-13" class="post-meta__date date">2014-10-13</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/笔记/">笔记</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、关于Servlet"><a href="#一、关于Servlet" class="headerlink" title="一、关于Servlet"></a>一、关于Servlet</h3><p>Servlet是一些遵从Java Servlet API的Java类，这些Java类可以响应请求。尽管Servlet可以响应任意类型的请求(对应GenericServlet)，但是它们使用最广泛的是响应web方面的请求(对应HttpServlet)。 </p>
+<p>Servlet的运行，需要容器的支撑（用于提供一些底层的功能），而我们常使用的Tomcat与Jetty等web容器就可以提供这样的环境，在tomcat中Container下面的context就是我们的servlet容器。</p>
+<h3 id="二、Servlet初始化的过程"><a href="#二、Servlet初始化的过程" class="headerlink" title="二、Servlet初始化的过程"></a>二、Servlet初始化的过程</h3><p>那么，servlet的初始化的过程是怎么样呢，以Tomcat为例，我们来简单捋一下：</p>
+<ol>
+<li><p>首先，来看一下Tomcat的目录结构：</p>
+<pre><code>tomcat
+   |--bin        可执行文件的存放目录
+                     e.g.    
+                       startup.bat 启动
+                         启动时候会加载bootstrap.jar
+                       shutdown.bat    关闭
+   |--conf        存放服务器自身配置的目录
+                     e.g.
+                       Web.xml  项目部署描述配置文件, 描述项目的
+                       server.xml  服务器端口配置、部署项目的维护都在此文件修改
+                       其他配置文件
+   |--lib         存放服务器运行依赖的jar
+                     e.g.    
+                       servlet-api.jar
+   |--logs        日志
+   |--webapps    存放所有项目的目录
+   |--work        jsp的工作目录
+   |--temp        一些临时文件    
+</code></pre><p> 可以知道，我们的写的项目运行是都是放在webapps里面的，那么一个标准的项目结构又是怎么样的呢：</p>
+<pre><code>工程名 
+  |----静态的web资源            html、jsp、css、js文件等
+  |----WEB-INF                 该目录下的文件外界无法直接访问，由web服务器负责调用(可以存放一些需要权限的资源)（只能使用转发的方式访问）
+       |-----classes     存放工程的class文件(整个包) 
+       |-----lib         该工程使用的jar包
+       |-----web.xml           项目的描述文件
+       |-----其他资源文件等
+</code></pre></li>
+<li>当我们启动tomcat的时候，都发生了什么？<br>如果要说清楚tomcat的运行原理，可能要另起一篇文章了，所以这里只讲在tomcat context启动之后的东西。<br>当启动web容器加载web应用：</li>
+</ol>
+<ul>
+<li><p>容器读取web.xml，加载两个节点: <code>&lt;listener&gt;&lt;/listener&gt;</code> 和 <code>&lt;context-param&gt;&lt;/context-param&gt;</code>；</p>
+</li>
+<li><p>容器创建一个ServletContext,该实例有许多可以让servlet从servlet容器获取信息的方法；</p>
+</li>
+<li><p>容器将<code>&lt;context-param&gt;&lt;/context-param&gt;</code>转化为键值对,并交给ServletContext；</p>
+</li>
+<li><p>容器创建<code>&lt;listener&gt;&lt;/listener&gt;</code>中的类实例,即创建监听，在监听中会有contextInitialized(ServletContextEvent args)初始化方法；</p>
+</li>
+<li><p>得到这个context-param的值之后,你就可以做一些操作了.注意,这个时候你的WEB项目还没有完全启动完成.这个动作  会比所有的Servlet都要早。换句话说,这个时候,你对<code>&lt;context-param&gt;</code>中的键值做的操作,将在你的WEB项目完全启动之前被执行；</p>
+</li>
+</ul>
+<p>总结一下，web.xml中各个节点的加载顺序为（同个类型之间的顺序是根据对应的 mapping 的顺序进行调用）:</p>
+<pre><code>ServletContext &gt; context-param &gt; Listener &gt; Filter &gt; Servlet
+</code></pre><h3 id="三、web-xml中的一些配置"><a href="#三、web-xml中的一些配置" class="headerlink" title="三、web.xml中的一些配置"></a>三、web.xml中的一些配置</h3><pre><code>&lt;display-name&gt;    
+    WEB应用的名字
+
+&lt;description&gt;    
+    WEB应用的描述信息
+
+&lt;context-param&gt;    
+    应用范围内的初始化参数
+
+&lt;filter&gt;    
+    过滤器元素将一个名字与一个实现javax.servlet.Filter接口的类相关联
+
+&lt;filter-mapping&gt;    
+    一旦命名了一个过滤器，就要利用filter-mapping元素把它与一个或多个servlet或JSP页面相关联
+
+&lt;listener&gt;    
+    监听器
+
+&lt;servlet&gt;        
+    在向servlet或JSP页面制定初始化参数或定制URL时，必须首先命名servlet或JSP页面。Servlet元素就是用来完成此项任务的
+
+&lt;servlet-mapping&gt; 
+    缺省时对应的servlet的访问URL：http://host/webAppPrefix/servlet/ServletName
+    注意：在一个项目中一定不能使用缺省路径，一旦使用，整个项目的静态资源会无法访问
+    原因：请求静态资源的时候，并不是直接请求静态资源，tomcat服务器会创建一个DefaultHandlerservlet对象，
+    然后再使用该Servlet对象进行资源的跳转，而这个对象就使用了default路径
+
+&lt;session-config&gt; 
+    设置session过期时间  
+
+&lt;welcome-file-list&gt; 
+    欢迎页
+
+&lt;error-page&gt;    
+    返回特定HTTP状态代码时，或者特定类型的异常被抛出时，能够制定将要显示的页面。 
+
+&lt;resource-ref&gt;    
+    声明一个资源工厂使用的外部资源
+</code></pre>
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

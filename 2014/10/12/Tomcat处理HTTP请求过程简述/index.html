@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Tomcat处理HTTP请求过程简述 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="Tomcat是一个JSP/Servlet容器(JSP本质上也是基于Servlet的)。其作为Servlet容器，有三种工作模式：独立的Servlet容器、进程内的Servlet容器和进程外的Servlet容器。 一、Tomcat组件结构Tomcat是一个基于组件的服务器，它的构成组件都是可配置的，其中最外层的是Catalina servlet容器，其他组件按照一定的格式要求配置在这个顶层容器中。T">
+<meta name="keywords" content="笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tomcat处理HTTP请求过程简述 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2014/10/12/Tomcat处理HTTP请求过程简述/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="Tomcat是一个JSP/Servlet容器(JSP本质上也是基于Servlet的)。其作为Servlet容器，有三种工作模式：独立的Servlet容器、进程内的Servlet容器和进程外的Servlet容器。 一、Tomcat组件结构Tomcat是一个基于组件的服务器，它的构成组件都是可配置的，其中最外层的是Catalina servlet容器，其他组件按照一定的格式要求配置在这个顶层容器中。T">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://ou5y7q62a.bkt.clouddn.com/20160315185952700.jpg">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.679Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tomcat处理HTTP请求过程简述 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="Tomcat是一个JSP/Servlet容器(JSP本质上也是基于Servlet的)。其作为Servlet容器，有三种工作模式：独立的Servlet容器、进程内的Servlet容器和进程外的Servlet容器。 一、Tomcat组件结构Tomcat是一个基于组件的服务器，它的构成组件都是可配置的，其中最外层的是Catalina servlet容器，其他组件按照一定的格式要求配置在这个顶层容器中。T">
+<meta name="twitter:image" content="http://ou5y7q62a.bkt.clouddn.com/20160315185952700.jpg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Tomcat处理HTTP请求过程简述</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2014-10-12" class="post-meta__date date">2014-10-12</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/笔记/">笔记</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>Tomcat是一个JSP/Servlet容器(JSP本质上也是基于Servlet的)。其作为Servlet容器，有三种工作模式：独立的Servlet容器、进程内的Servlet容器和进程外的Servlet容器。</p>
+<h3 id="一、Tomcat组件结构"><a href="#一、Tomcat组件结构" class="headerlink" title="一、Tomcat组件结构"></a>一、Tomcat组件结构</h3><p>Tomcat是一个基于组件的服务器，它的构成组件都是可配置的，其中最外层的是Catalina servlet容器，其他组件按照一定的格式要求配置在这个顶层容器中。<br>Tomcat的各种组件都是在Tomcat安装目录下的/conf/server.xml文件中配置的。<br>一个典型的server.xml内容如下：</p>
+<pre><code>&lt;?xml version=&apos;1.0&apos; encoding=&apos;utf-8&apos;?&gt;
+&lt;Server port=&quot;8005&quot; shutdown=&quot;SHUTDOWN&quot;&gt;
+    &lt;Listener className=&quot;org.apache.catalina.startup.VersionLoggerListener&quot; /&gt;
+    &lt;!-- Security listener. Documentation at /docs/config/listeners.html
+    &lt;Listener className=&quot;org.apache.catalina.security.SecurityListener&quot; /&gt;
+    --&gt;
+    &lt;!--APR library loader. Documentation at /docs/apr.html --&gt;
+    &lt;Listener className=&quot;org.apache.catalina.core.AprLifecycleListener&quot; SSLEngine=&quot;on&quot; /&gt;
+    &lt;!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html --&gt;
+    &lt;Listener className=&quot;org.apache.catalina.core.JasperListener&quot; /&gt;
+    &lt;!-- Prevent memory leaks due to use of particular java/javax APIs--&gt;
+    &lt;Listener className=&quot;org.apache.catalina.core.JreMemoryLeakPreventionListener&quot; /&gt;
+    &lt;Listener className=&quot;org.apache.catalina.mbeans.GlobalResourcesLifecycleListener&quot; /&gt;
+    &lt;Listener className=&quot;org.apache.catalina.core.ThreadLocalLeakPreventionListener&quot; /&gt;
+    &lt;!-- Global JNDI resources
+        Documentation at /docs/jndi-resources-howto.html
+    --&gt;
+    &lt;GlobalNamingResources&gt;
+        &lt;!-- Editable user database that can also be used by
+            UserDatabaseRealm to authenticate users
+        --&gt;
+        &lt;Resource name=&quot;UserDatabase&quot; auth=&quot;Container&quot;
+                type=&quot;org.apache.catalina.UserDatabase&quot;
+                description=&quot;User database that can be updated and saved&quot;
+                factory=&quot;org.apache.catalina.users.MemoryUserDatabaseFactory&quot;
+                pathname=&quot;conf/tomcat-users.xml&quot; /&gt;
+    &lt;/GlobalNamingResources&gt;
+    &lt;!-- A &quot;Service&quot; is a collection of one or more &quot;Connectors&quot; that share
+        a single &quot;Container&quot; Note:  A &quot;Service&quot; is not itself a &quot;Container&quot;,
+        so you may not define subcomponents such as &quot;Valves&quot; at this level.
+        Documentation at /docs/config/service.html
+    --&gt;
+    &lt;Service name=&quot;Catalina&quot;&gt;
+        &lt;!--The connectors can use a shared executor, you can define one or more named thread pools--&gt;
+        &lt;!--
+        &lt;Executor name=&quot;tomcatThreadPool&quot; namePrefix=&quot;catalina-exec-&quot;
+            maxThreads=&quot;150&quot; minSpareThreads=&quot;4&quot;/&gt;
+        --&gt;
+        &lt;!-- A &quot;Connector&quot; represents an endpoint by which requests are received
+            and responses are returned. Documentation at :
+            Java HTTP Connector: /docs/config/http.html (blocking &amp; non-blocking)
+            Java AJP  Connector: /docs/config/ajp.html
+            APR (HTTP/AJP) Connector: /docs/apr.html
+            Define a non-SSL HTTP/1.1 Connector on port 8080
+        --&gt;
+        &lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;
+                connectionTimeout=&quot;20000&quot;
+                redirectPort=&quot;8443&quot; /&gt;
+        &lt;!-- A &quot;Connector&quot; using the shared thread pool--&gt;
+        &lt;!--
+        &lt;Connector executor=&quot;tomcatThreadPool&quot;
+                port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;
+                connectionTimeout=&quot;20000&quot;
+                redirectPort=&quot;8443&quot; /&gt;
+        --&gt;
+        &lt;!-- Define a SSL HTTP/1.1 Connector on port 8443
+            This connector uses the BIO implementation that requires the JSSE
+            style configuration. When using the APR/native implementation, the
+            OpenSSL style configuration is required as described in the APR/native
+            documentation --&gt;
+        &lt;!--
+        &lt;Connector port=&quot;8443&quot; protocol=&quot;org.apache.coyote.http11.Http11Protocol&quot;
+                maxThreads=&quot;150&quot; SSLEnabled=&quot;true&quot; scheme=&quot;https&quot; secure=&quot;true&quot;
+                clientAuth=&quot;false&quot; sslProtocol=&quot;TLS&quot; /&gt;
+        --&gt;
+        &lt;!-- Define an AJP 1.3 Connector on port 8009 --&gt;
+        &lt;Connector port=&quot;8009&quot; protocol=&quot;AJP/1.3&quot; redirectPort=&quot;8443&quot; /&gt;
+        &lt;!-- An Engine represents the entry point (within Catalina) that processes
+            every request.  The Engine implementation for Tomcat stand alone
+            analyzes the HTTP headers included with the request, and passes them
+            on to the appropriate Host (virtual host).
+            Documentation at /docs/config/engine.html --&gt;
+        &lt;!-- You should set jvmRoute to support load-balancing via AJP ie :
+        &lt;Engine name=&quot;Catalina&quot; defaultHost=&quot;localhost&quot; jvmRoute=&quot;jvm1&quot;&gt;
+        --&gt;
+        &lt;Engine name=&quot;Catalina&quot; defaultHost=&quot;localhost&quot;&gt;
+        &lt;!--For clustering, please take a look at documentation at:
+            /docs/cluster-howto.html  (simple how to)
+            /docs/config/cluster.html (reference documentation) --&gt;
+        &lt;!--
+        &lt;Cluster className=&quot;org.apache.catalina.ha.tcp.SimpleTcpCluster&quot;/&gt;
+        --&gt;
+        &lt;!-- Use the LockOutRealm to prevent attempts to guess user passwords
+            via a brute-force attack --&gt;
+        &lt;Realm className=&quot;org.apache.catalina.realm.LockOutRealm&quot;&gt;
+            &lt;!-- This Realm uses the UserDatabase configured in the global JNDI
+                resources under the key &quot;UserDatabase&quot;.  Any edits
+                that are performed against this UserDatabase are immediately
+                available for use by the Realm.  --&gt;
+            &lt;Realm className=&quot;org.apache.catalina.realm.UserDatabaseRealm&quot;
+                resourceName=&quot;UserDatabase&quot;/&gt;
+        &lt;/Realm&gt;
+        &lt;Host name=&quot;localhost&quot;  appBase=&quot;webapps&quot;
+                unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;&gt;
+            &lt;!-- SingleSignOn valve, share authentication between web applications
+                Documentation at: /docs/config/valve.html --&gt;
+            &lt;!--
+            &lt;Valve className=&quot;org.apache.catalina.authenticator.SingleSignOn&quot; /&gt;
+            --&gt;
+            &lt;!-- Access log processes all example.
+                Documentation at: /docs/config/valve.html
+                Note: The pattern used is equivalent to using pattern=&quot;common&quot; --&gt;
+            &lt;Valve className=&quot;org.apache.catalina.valves.AccessLogValve&quot; directory=&quot;logs&quot;
+                prefix=&quot;localhost_access_log.&quot; suffix=&quot;.txt&quot;
+                pattern=&quot;%h %l %u %t &quot;%r&quot; %s %b&quot; /&gt;
+        &lt;/Host&gt;
+        &lt;/Engine&gt;
+    &lt;/Service&gt;
+&lt;/Server&gt;
+</code></pre><p>其中的主要结构为：</p>
+<pre><code>&lt;Server&gt;
+    &lt;Service&gt;
+        &lt;Connector&gt;
+                &lt;Engine&gt;
+                        &lt;Host&gt;
+                                &lt;Context&gt;
+                                &lt;/Context&gt;
+                        &lt;/Host&gt;
+                &lt;/Engine&gt;
+        &lt;/Connector&gt;
+    &lt;/Service&gt;
+&lt;/Server&gt;
+</code></pre><h3 id="二、Tomcat启动和初始化简述"><a href="#二、Tomcat启动和初始化简述" class="headerlink" title="二、Tomcat启动和初始化简述"></a>二、Tomcat启动和初始化简述</h3><p>借用一张图来说明：<br><img src="http://ou5y7q62a.bkt.clouddn.com/20160315185952700.jpg" alt=""></p>
+<h3 id="三、HTTP请求处理流程"><a href="#三、HTTP请求处理流程" class="headerlink" title="三、HTTP请求处理流程"></a>三、HTTP请求处理流程</h3><p>关于上面所提到的Container:</p>
+<blockquote>
+<p>Container是容器的父接口，该容器的设计用的是典型的责任链的设计模式，它由四个自容器组件构成，分别是Engine、Host、Context、Wrapper。这四个组件是负责关系，存在包含关系。通常一个Servlet class对应一个Wrapper，如果有多个Servlet定义多个Wrapper，如果有多个Wrapper就要定义一个更高的Container，如Context。 Context 还可以定义在父容器 Host 中，Host 不是必须的，但是要运行 war 程序，就必须要 Host，因为 war 中必有 web.xml 文件，这个文件的解析就需要 Host 了，如果要有多个 Host 就要定义一个 top 容器 Engine 了。而 Engine 没有父容器了，一个 Engine 代表一个完整的 Servlet 引擎。</p>
+</blockquote>
+<p>请求处理的过程简述：</p>
+<ol>
+<li><p>用户发起请求，请求被发送到本机端口8080，被在那里监听的Coyote HTTP/1.1 Connector获得。 </p>
+</li>
+<li><p>Connector把该请求交给它所在的Service的Engine来处理，并等待Engine的回应。 </p>
+</li>
+<li><p>Engine获得请求localhost/test/index.jsp，匹配所有的虚拟主机Host。 </p>
+</li>
+<li><p>Engine匹配到名为localhost的Host（即使匹配不到也把请求交给该Host处理，因为该Host被定义为该Engine的默认主机），名为localhost的Host获得请求/test/index.jsp，匹配它所拥有的所有的Context。Host匹配到路径为/test的Context（如果匹配不到就把该请求交给路径名为“ ”的Context去处理）。 </p>
+</li>
+<li><p>path=“/test”的Context获得请求/index.jsp，在它的mapping table中寻找出对应的Servlet。Context匹配到URL PATTERN为*.jsp的Servlet,对应于JspServlet类。 </p>
+</li>
+<li><p>构造HttpServletRequest对象和HttpServletResponse对象，作为参数调用JspServlet的doGet（）或doPost（）.执行业务逻辑、数据存储等程序。 </p>
+</li>
+<li><p>Context把执行完之后的HttpServletResponse对象返回给Host。 </p>
+</li>
+<li><p>Host把HttpServletResponse对象返回给Engine。 </p>
+</li>
+<li><p>Engine把HttpServletResponse对象返回Connector。 </p>
+</li>
+<li><p>Connector把HttpServletResponse对象返回给客户Browser。    </p>
+</li>
+</ol>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

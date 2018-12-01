@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      使用 JWT 和 session 进行权限校验 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="好久没遇到问题了，一遇到就和一堆大问题，这几天被项目里面的遗留代码坑的焦头烂额的（比如hibernate auto-ddl改变表结构和数据的坑和大量数据导致trasaction 获取锁超时的坑，还有mysql connector 版本问题的坑），趁这个周末的有一点空闲时间，在这里记录一下关于使用JWT和Session进行用户权限校验的方式。 一、为什么要使用JWT使用JWT(JSON Web To">
+<meta name="keywords" content="错误记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 JWT 和 session 进行权限校验 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2017/10/21/使用 JWT 和 session 进行权限校验/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="好久没遇到问题了，一遇到就和一堆大问题，这几天被项目里面的遗留代码坑的焦头烂额的（比如hibernate auto-ddl改变表结构和数据的坑和大量数据导致trasaction 获取锁超时的坑，还有mysql connector 版本问题的坑），趁这个周末的有一点空闲时间，在这里记录一下关于使用JWT和Session进行用户权限校验的方式。 一、为什么要使用JWT使用JWT(JSON Web To">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.741Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 JWT 和 session 进行权限校验 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="好久没遇到问题了，一遇到就和一堆大问题，这几天被项目里面的遗留代码坑的焦头烂额的（比如hibernate auto-ddl改变表结构和数据的坑和大量数据导致trasaction 获取锁超时的坑，还有mysql connector 版本问题的坑），趁这个周末的有一点空闲时间，在这里记录一下关于使用JWT和Session进行用户权限校验的方式。 一、为什么要使用JWT使用JWT(JSON Web To">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">使用 JWT 和 session 进行权限校验</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-10-21" class="post-meta__date date">2017-10-21</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/错误记录/">错误记录</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>好久没遇到问题了，一遇到就和一堆大问题，这几天被项目里面的遗留代码坑的焦头烂额的（比如hibernate auto-ddl改变表结构和数据的坑和大量数据导致trasaction 获取锁超时的坑，还有mysql connector 版本问题的坑），趁这个周末的有一点空闲时间，在这里记录一下关于使用JWT和Session进行用户权限校验的方式。</p>
+<h3 id="一、为什么要使用JWT"><a href="#一、为什么要使用JWT" class="headerlink" title="一、为什么要使用JWT"></a>一、为什么要使用JWT</h3><p>使用JWT(JSON Web Tokens)来进行权限验证的基本原理就是将验证信息以 JSON 的方式存储、编码并添加数字签名，放在 requst 的 Header 中，然后server在收到request之后就可以通过JWT中的信息来进行校验了，更多关于JWT的知识可以在JWT官网的<a href="https://jwt.io/introduction/" target="_blank" rel="noopener">intruduction</a>浏览。</p>
+<p>之所这个项目中使用JWT主要是因为这个项目是前后端分离的，stateless 的 JWT 可以更方便地解决CORS问题，而且使用session的话，随着用户的增加，server端就需要更多的内存空间来存储session了，至于JWT的安全性方面的问题，这个到不是最大的影响因素，因为JWT比session在安全性方面的优势在于可以通过expiration来作废掉之前发布的JWT，让client重新申请JWT，但是同样的效果似乎也可以通过设置session的过期时间来达到吧。</p>
+<h3 id="二、JWT的短板"><a href="#二、JWT的短板" class="headerlink" title="二、JWT的短板"></a>二、JWT的短板</h3><p>既然JWT的好处那么多，那它有没有什么短板呢？。</p>
+<p>一个很尴尬的地方就是没办法直接废除掉已经发布的 JWT，因为 JWT 存储在 client 那边，而 server 这边似乎没有什么办法让 client 端直接删掉自己的 JWT，所以只能在 server 端通过其他手段来废除掉已发布的JWT（例如在数据库存储用户关联的 JWT 的 audience 来针对性的废除掉用户的 JWT）。这种情况下，使用 session 的话可能会方便一点。</p>
+<h3 id="三、为什么还使用-session"><a href="#三、为什么还使用-session" class="headerlink" title="三、为什么还使用 session"></a>三、为什么还使用 session</h3><p>session 作为一个域对象，可以方便地存取对象，配合 Interceptor 或者 Filter 使用可以让代码更加简洁。当然，使用request或者直接使用ThreadLocal也可以，这里只是为了兼容 session 验证的模式。</p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

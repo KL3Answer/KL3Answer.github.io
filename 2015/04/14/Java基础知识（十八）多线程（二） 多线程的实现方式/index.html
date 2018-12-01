@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（十八）多线程（二）多线程的实现方式 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="Java多线程实现方式主要有四种：继承Thread类、实现Runnable接口、实现Callable接口通过FutureTask包装器来创建Thread线程、使用ExecutorService、Callable、Future实现有返回结果的多线程。 其中前两种方式线程执行完后都没有返回值，后两种是带返回值的。 1、继承Thread类创建线程Thread类本质上是实现了Runnable接口的一个实例">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（十八）多线程（二）多线程的实现方式 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/04/14/Java基础知识（十八）多线程（二） 多线程的实现方式/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="Java多线程实现方式主要有四种：继承Thread类、实现Runnable接口、实现Callable接口通过FutureTask包装器来创建Thread线程、使用ExecutorService、Callable、Future实现有返回结果的多线程。 其中前两种方式线程执行完后都没有返回值，后两种是带返回值的。 1、继承Thread类创建线程Thread类本质上是实现了Runnable接口的一个实例">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.460Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（十八）多线程（二）多线程的实现方式 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="Java多线程实现方式主要有四种：继承Thread类、实现Runnable接口、实现Callable接口通过FutureTask包装器来创建Thread线程、使用ExecutorService、Callable、Future实现有返回结果的多线程。 其中前两种方式线程执行完后都没有返回值，后两种是带返回值的。 1、继承Thread类创建线程Thread类本质上是实现了Runnable接口的一个实例">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（十八）多线程（二）多线程的实现方式</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-04-14" class="post-meta__date date">2015-04-14</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>Java多线程实现方式主要有四种：继承Thread类、实现Runnable接口、实现Callable接口通过FutureTask包装器来创建Thread线程、使用ExecutorService、Callable、Future实现有返回结果的多线程。</p>
+<p>其中前两种方式线程执行完后都没有返回值，后两种是带返回值的。</p>
+<h3 id="1、继承Thread类创建线程"><a href="#1、继承Thread类创建线程" class="headerlink" title="1、继承Thread类创建线程"></a>1、继承Thread类创建线程</h3><p>Thread类本质上是实现了Runnable接口的一个实例，代表一个线程的实例。启动线程的唯一方法就是通过Thread类的start()实例方法。start()方法是一个native方法，它将启动一个新线程，并执行run()方法。这种方式实现多线程很简单，通过自己的类直接extend Thread，并复写run()方法，就可以启动新线程并执行自己定义的run()方法。例如：</p>
+<pre><code>public class MyThread extends Thread {  
+　　public void run() {  
+　　 System.out.println(&quot;MyThread.run()&quot;);  
+　　}  
+}  
+
+MyThread myThread1 = new MyThread();  
+MyThread myThread2 = new MyThread();  
+myThread1.start();  
+myThread2.start();  
+</code></pre><h3 id="2、实现Runnable接口创建线程"><a href="#2、实现Runnable接口创建线程" class="headerlink" title="2、实现Runnable接口创建线程"></a>2、实现Runnable接口创建线程</h3><p>如果自己的类已经extends另一个类，就无法直接extends Thread（java类的单继承，接口可以多继承），此时，必须实现一个Runnable接口，如下：</p>
+<pre><code>public class MyThread extends OtherClass implements Runnable {  
+　　public void run() {  
+　　 System.out.println(&quot;MyThread.run()&quot;);  
+　　}  
+}  
+</code></pre><p>为了启动MyThread，需要首先实例化一个Thread，并传入自己的MyThread实例：</p>
+<pre><code>MyThread myThread = new MyThread();  
+Thread thread = new Thread(myThread);  
+thread.start();  
+</code></pre><p>事实上，当传入一个Runnable target参数给Thread后，Thread的run()方法就会调用target.run()，参考JDK源代码（Thread的run方法的实现）：</p>
+<pre><code>public void run() {  
+　　if (target != null) {  
+　　 target.run();  
+　　}  
+}  
+</code></pre><h3 id="3、实现Callable接口通过FutureTask包装器来创建Thread线程"><a href="#3、实现Callable接口通过FutureTask包装器来创建Thread线程" class="headerlink" title="3、实现Callable接口通过FutureTask包装器来创建Thread线程"></a>3、实现Callable接口通过FutureTask包装器来创建Thread线程</h3><p>Callable接口（也只有一个方法）定义如下：   </p>
+<pre><code>public interface Callable&lt;V&gt; { 
+      V call（） throws Exception;   
+} 
+</code></pre><p>示例：</p>
+<pre><code>public class CallableAndFuture {
+    public static void main(String[] args) {
+        Callable&lt;Integer&gt; callable = new Callable&lt;Integer&gt;() {
+            public Integer call() throws Exception {
+                return new Random().nextInt(100);
+            }
+        };
+        FutureTask&lt;Integer&gt; future = new FutureTask&lt;Integer&gt;(callable);
+        new Thread(future).start();
+        try {
+            Thread.sleep(5000);// 可能做一些事情
+            System.out.println(future.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+}    
+</code></pre><h3 id="4、使用ExecutorService、Callable、Future实现有返回结果的线程"><a href="#4、使用ExecutorService、Callable、Future实现有返回结果的线程" class="headerlink" title="4、使用ExecutorService、Callable、Future实现有返回结果的线程"></a>4、使用ExecutorService、Callable、Future实现有返回结果的线程</h3><p>ExecutorService、Callable、Future三个接口实际上都是属于Executor框架。返回结果的线程是在JDK1.5中引入的新特征，有了这种特征就不需要再为了得到返回值而大费周折了。而且自己实现了也可能漏洞百出。</p>
+<p>可返回值的任务必须实现Callable接口。类似的，无返回值的任务必须实现Runnable接口。</p>
+<p>执行Callable任务后，可以获取一个Future的对象，在该对象上调用get就可以获取到Callable任务返回的Object了。</p>
+<p>注意：get方法是阻塞的，即：线程无返回结果，get方法会一直等待。</p>
+<p>再结合线程池接口ExecutorService就可以实现传说中有返回结果的多线程了。</p>
+<p>下面提供了一个完整的有返回结果的多线程测试例子，在JDK1.5下验证过没问题可以直接使用。代码如下：</p>
+<pre><code>import java.util.concurrent.*;  
+import java.util.Date;  
+import java.util.List;  
+import java.util.ArrayList;  
+
+/** 
+* 有返回值的线程 
+*/  
+@SuppressWarnings(&quot;unchecked&quot;)  
+public class Test {  
+    public static void main(String[] args) throws ExecutionException,  
+        InterruptedException {  
+       System.out.println(&quot;----程序开始运行----&quot;);  
+       Date date1 = new Date();  
+
+       int taskSize = 5;  
+       // 创建一个线程池  
+       ExecutorService pool = Executors.newFixedThreadPool(taskSize);  
+       // 创建多个有返回值的任务  
+       List&lt;Future&gt; list = new ArrayList&lt;Future&gt;();  
+       for (int i = 0; i &lt; taskSize; i++) {  
+         Callable c = new MyCallable(i + &quot; &quot;);  
+         // 执行任务并获取Future对象  
+         Future f = pool.submit(c);  
+         // System.out.println(&quot;&gt;&gt;&gt;&quot; + f.get().toString());  
+         list.add(f);  
+       }  
+       // 关闭线程池  
+       pool.shutdown();  
+
+       // 获取所有并发任务的运行结果  
+       for (Future f : list) {  
+        // 从Future对象上获取任务的返回值，并输出到控制台  
+        System.out.println(&quot;&gt;&gt;&gt;&quot; + f.get().toString());  
+       }  
+
+       Date date2 = new Date();  
+       System.out.println(&quot;----程序结束运行----，程序运行时间【&quot;  
+         + (date2.getTime() - date1.getTime()) + &quot;毫秒】&quot;);  
+    }  
+}  
+</code></pre><p>MyCallable类的实现：</p>
+<pre><code>class MyCallable implements Callable&lt;Object&gt; {  
+    private String taskNum;  
+
+    MyCallable(String taskNum) {  
+       this.taskNum = taskNum;  
+    }  
+
+    public Object call() throws Exception {  
+       System.out.println(&quot;&gt;&gt;&gt;&quot; + taskNum + &quot;任务启动&quot;);  
+       Date dateTmp1 = new Date();  
+       Thread.sleep(1000);  
+       Date dateTmp2 = new Date();  
+       long time = dateTmp2.getTime() - dateTmp1.getTime();  
+       System.out.println(&quot;&gt;&gt;&gt;&quot; + taskNum + &quot;任务终止&quot;);  
+       return taskNum + &quot;任务返回运行结果,当前任务时间【&quot; + time + &quot;毫秒】&quot;;  
+    }  
+}  
+</code></pre><p>代码说明：<br>上述代码中Executors类，提供了一系列工厂方法用于创建线程池，返回的线程池都实现了ExecutorService接口。<br>public static ExecutorService newFixedThreadPool(int nThreads)<br>创建固定数目线程的线程池。<br>public static ExecutorService newCachedThreadPool()<br>创建一个可缓存的线程池，调用execute 将重用以前构造的线程（如果线程可用）。如果现有线程没有可用的，则创建一个新线程并添加到池中。终止并从缓存中移除那些已有 60 秒钟未被使用的线程。<br>public static ExecutorService newSingleThreadExecutor()<br>创建一个单线程化的Executor。<br>public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize)<br>创建一个支持定时及周期性的任务执行的线程池，多数情况下可用来替代Timer类。</p>
+<p>ExecutoreService提供了submit()方法，传递一个Callable，或Runnable，返回Future。如果Executor后台线程池还没有完成Callable的计算，这调用返回Future对象的get()方法，会阻塞直到计算完成。</p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

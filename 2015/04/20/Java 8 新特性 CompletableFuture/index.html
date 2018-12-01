@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java 8新特性 CompletableFuture | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="JDK1.5中的Future给我们提供了一个可以返回结果的多线程编程的接口，而在JDK1.8中的CompletableFuture则更加强大。 一、关于CompletableFutureCompletableFuture继承于Future，但是其中又增加了五十多种方法，而且其中内置的lambda表达式使的这个类的使用更加强大和轻便。首先你可以很简单的创建CompletableFuture Comp">
+<meta name="keywords" content="Java 8 新特性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 8新特性 CompletableFuture | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/04/20/Java 8 新特性 CompletableFuture/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="JDK1.5中的Future给我们提供了一个可以返回结果的多线程编程的接口，而在JDK1.8中的CompletableFuture则更加强大。 一、关于CompletableFutureCompletableFuture继承于Future，但是其中又增加了五十多种方法，而且其中内置的lambda表达式使的这个类的使用更加强大和轻便。首先你可以很简单的创建CompletableFuture Comp">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:25.976Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 8新特性 CompletableFuture | HQ&#39;s Cabin">
+<meta name="twitter:description" content="JDK1.5中的Future给我们提供了一个可以返回结果的多线程编程的接口，而在JDK1.8中的CompletableFuture则更加强大。 一、关于CompletableFutureCompletableFuture继承于Future，但是其中又增加了五十多种方法，而且其中内置的lambda表达式使的这个类的使用更加强大和轻便。首先你可以很简单的创建CompletableFuture Comp">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java 8新特性 CompletableFuture</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-04-20" class="post-meta__date date">2015-04-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java-8-新特性/">Java 8 新特性</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>JDK1.5中的Future给我们提供了一个可以返回结果的多线程编程的接口，而在JDK1.8中的CompletableFuture则更加强大。</p>
+<h3 id="一、关于CompletableFuture"><a href="#一、关于CompletableFuture" class="headerlink" title="一、关于CompletableFuture"></a>一、关于CompletableFuture</h3><p>CompletableFuture继承于Future，但是其中又增加了五十多种方法，而且其中内置的lambda表达式使的这个类的使用更加强大和轻便。<br>首先你可以很简单的创建CompletableFuture</p>
+<pre><code>CompletableFuture&lt;String&gt; cf = new CompletableFuture&lt;&gt;();
+</code></pre><p>不过现在对象cf和Callable并没有关系，也没有线程池也不是异步的，如果现在调用cf.get()将阻塞。所以一般在调用之前需要调用complete方法传入get()方法的以及相关方法的返回值。</p>
+<p>当你想代表Future的任务时是非常方便的，而且没有必要去计算一些执行线程的任务上。CompletableFuture.complete()只能调用一次，后续调用将被忽略。但也有一个后门叫做CompletableFuture.obtrudeValue(…)覆盖一个新Future之前的价值，请小心使用。</p>
+<p>有时你想要看到信号发生故障的情况，如你所知Future对象可以处理它所包含的结果或异常。如果你想进一步传递一些异常，可以用CompletableFuture.completeExceptionally(ex) (或者用obtrudeException(ex)这样更强大的方法覆盖前面的异常)。 completeExceptionally()也能解锁所有等待的客户端，但这一次从get()抛出异常。说到get()，也有CompletableFuture.join()方法在错误处理方面有着细微的变动。但总体上，它们都是一样的。最后也有CompletableFuture.getNow(valueIfAbsent)方法没有阻塞但是如果Future还没完成将返回默认值，这使得当构建那种我们不想等太久的健壮系统时非常有用。<br>最后static的方法是用completedFuture(value)来返回已经完成Future的对象，当测试或者写一些适配器层时可能非常有用。</p>
+<h3 id="二、获取CompletableFuture"><a href="#二、获取CompletableFuture" class="headerlink" title="二、获取CompletableFuture"></a>二、获取CompletableFuture</h3><p>手动地创建CompletableFuture是我们唯一的选择吗？不一定。就像一般的Futures，我们可以关联存在的任务，同时CompletableFuture使用工厂方法：</p>
+<pre><code>static &lt;U&gt; CompletableFuture&lt;U&gt; supplyAsync(Supplier&lt;U&gt; supplier);
+static &lt;U&gt; CompletableFuture&lt;U&gt; supplyAsync(Supplier&lt;U&gt; supplier, Executor executor);
+static CompletableFuture&lt;Void&gt; runAsync(Runnable runnable);
+static CompletableFuture&lt;Void&gt; runAsync(Runnable runnable, Executor executor);
+</code></pre><p>无参方法Executor是以…Async结尾同时将会使用ForkJoinPool.commonPool()(全局的，在JDK8中介绍的通用池），这适用于CompletableFuture类中的大多数的方法。runAsync()易于理解，注意它需要Runnable，因此它返回CompletableFuture<void>作为Runnable不返回任何值。如果你需要处理异步操作并返回结果，使用Supplier&lt;&gt;</void></p>
+<pre><code>final CompletableFuture&lt;String&gt; future = CompletableFuture.supplyAsync(new Supplier&lt;String&gt;() {
+    @Override
+    public String get() {
+        //...long running...
+        return &quot;42&quot;;
+    }
+}, executor);
+</code></pre><p>使用lambda表达式简写：</p>
+<pre><code>finalCompletableFuture&lt;String&gt; future = CompletableFuture.supplyAsync(() -&gt; {
+    //...long running...
+    return &quot;42&quot;;
+}, executor);
+</code></pre><p>或者：</p>
+<pre><code>final CompletableFuture&lt;String&gt; future =
+    CompletableFuture.supplyAsync(() -&gt; longRunningTask(params), executor);
+</code></pre><h3 id="三、转换和作用于CompletableFuture-thenApply"><a href="#三、转换和作用于CompletableFuture-thenApply" class="headerlink" title="三、转换和作用于CompletableFuture(thenApply)"></a>三、转换和作用于CompletableFuture(thenApply)</h3><p>Scala和JavaScript都允许future完成时允许注册异步回调，直到它准备好我们才要等待和阻止它。我们可以简单地说：运行这个函数时就出现了结果。此外，我们可以叠加这些功能，把多个future组合在一起等。例如如果我们从String转为Integer，我们可以转为在不关联的前提下从CompletableFuture到 CompletableFuture&lt;Integer。这是通过thenApply()的方法：</p>
+<pre><code>CompletableFuture&lt;U&gt; thenApply(Function&lt;? super T,? extends U&gt; fn);
+CompletableFuture&lt;U&gt; thenApplyAsync(Function&lt;? super T,? extends U&gt; fn);
+CompletableFuture&lt;U&gt; thenApplyAsync(Function&lt;? super T,? extends U&gt; fn, Executor executor);
+</code></pre><p>如前所述…Async版本提供对CompletableFuture的大多数操作，因此我将在后面的部分中跳过它们。记住，第一个方法将在future完成的相同线程中调用该方法，而剩下的两个将在不同的线程池中异步地调用它。<br>让我们来看看thenApply()的工作流程：</p>
+<pre><code>CompletableFuture&lt;String&gt; f1 = //...
+CompletableFuture&lt;Integer&gt; f2 = f1.thenApply(Integer::parseInt);
+CompletableFuture&lt;Double&gt; f3 = f2.thenApply(r -&gt; r * r * Math.PI);
+</code></pre><p>或在一个声明中：</p>
+<pre><code>CompletableFuture&lt;Double&gt; f3 =
+    f1.thenApply(Integer::parseInt).thenApply(r -&gt; r * r * Math.PI);
+</code></pre><p>这里，你会看到一个序列的转换，从String到Integer再到Double。但最重要的是，这些转换既不立即执行也不停止。这些转换既不立即执行也不停止。他们只是记得，当原始f1完成他们所执行的程序。如果某些转换非常耗时，你可以提供你自己的Executor来异步地运行他们。注意,此操作相当于Scala中的一元map。</p>
+<h3 id="四、运行完成的代码（thenAccept-thenRun）"><a href="#四、运行完成的代码（thenAccept-thenRun）" class="headerlink" title="四、运行完成的代码（thenAccept/thenRun）"></a>四、运行完成的代码（thenAccept/thenRun）</h3><pre><code>CompletableFuture&lt;Void&gt; thenAccept(Consumer&lt;? super T&gt; block);
+CompletableFuture&lt;Void&gt; thenRun(Runnable action);
+</code></pre><p>在future的管道里有两种典型的“最终”阶段方法。他们在你使用future的值的时候做好准备，当 thenAccept()提供最终的值时，thenRun执行 Runnable，这甚至没有方法去计算值。例如：</p>
+<pre><code>future.thenAcceptAsync(dbl -&gt; log.debug(&quot;Result: {}&quot;, dbl), executor);
+log.debug(&quot;Continuing&quot;);
+</code></pre><p>…Async变量也可用两种方法，隐式和显式执行器，我不会过多强调这个方法。<br>thenAccept()/thenRun()方法并没有发生阻塞（即使没有明确的executor)。它们像一个事件侦听器/处理程序，你连接到一个future时，这将执行一段时间。”Continuing”消息将立即出现，尽管future甚至没有完成。</p>
+<h3 id="五、单个CompletableFuture的错误处理"><a href="#五、单个CompletableFuture的错误处理" class="headerlink" title="五、单个CompletableFuture的错误处理"></a>五、单个CompletableFuture的错误处理</h3><p>到目前为止，我们只讨论计算的结果。那么异常呢？我们可以异步地处理它们吗？当然！</p>
+<pre><code>CompletableFuture&lt;String&gt; safe =
+future.exceptionally(ex -&gt; &quot;We have a problem: &quot; + ex.getMessage());
+</code></pre><p>exceptionally()接受一个函数时，将调用原始future来抛出一个异常。我们会有机会将此异常转换为和Future类型的兼容的一些值来进行恢复。safe进一步的转换将不再产生一个异常而是从提供功能的函数返回一个String值。<br>一个更加灵活的方法是handle()接受一个函数，它接收正确的结果或异常：</p>
+<pre><code>CompletableFuture&lt;Integer&gt; safe = future.handle((ok, ex) -&gt; {
+    if (ok != null) {
+        return Integer.parseInt(ok);
+    } else {
+        log.warn(&quot;Problem&quot;, ex);
+        return -1;
+    }
+});
+</code></pre><p>handle()总是被调用，结果和异常都非空，这是个一站式全方位的策略。</p>
+<h3 id="六、结合（链接）这两个futures（thenCompose-）"><a href="#六、结合（链接）这两个futures（thenCompose-）" class="headerlink" title="六、结合（链接）这两个futures（thenCompose()）"></a>六、结合（链接）这两个futures（thenCompose()）</h3><p>有时你想运行一些future的值（当它准备好了），但这个函数也返回了future。CompletableFuture足够灵活地明白我们的函数结果现在应该作为顶级的future，对比CompletableFuture<completablefuture>。方法 thenCompose()相当于Scala的flatMap：</completablefuture></p>
+<pre><code>CompletableFuture&lt;U&gt; thenCompose(Function&lt;? super T,CompletableFuture&lt;U&gt;&gt; fn);
+</code></pre><p>…Async变化也是可用的，在下面的事例中，仔细观察thenApply()(map)和thenCompose()（flatMap）的类型和差异，当应用calculateRelevance()方法返回CompletableFuture：</p>
+<pre><code>CompletableFuture&lt;Document&gt; docFuture = //...
+
+CompletableFuture&lt;CompletableFuture&lt;Double&gt;&gt; f =
+    docFuture.thenApply(this::calculateRelevance);
+
+CompletableFuture&lt;Double&gt; relevanceFuture =
+    docFuture.thenCompose(this::calculateRelevance);
+
+//...
+
+private CompletableFuture&lt;Double&gt; calculateRelevance(Document doc)  //...
+</code></pre><p>thenCompose()允许构建健壮的和异步的管道，没有阻塞和等待的中间步骤。</p>
+<h3 id="七、两个futures的转换值-thenCombine"><a href="#七、两个futures的转换值-thenCombine" class="headerlink" title="七、两个futures的转换值(thenCombine())"></a>七、两个futures的转换值(thenCombine())</h3><p>当thenCompose()用于链接一个future时依赖于thenCombine，当他们都完成之后就结合两个独立的futures：</p>
+<pre><code>&lt;U,V&gt; CompletableFuture&lt;V&gt; thenCombine(CompletableFuture&lt;? extends U&gt; other, BiFunction&lt;? super T,? super U,? extends V&gt; fn)
+</code></pre><p>…Async变量也是可用的，假设你有两个CompletableFuture，一个加载Customer另一个加载最近的Shop。他们彼此完全独立，但是当他们完成时，想要使用它们的值来计算Route。</p>
+<pre><code>CompletableFuture&lt;Customer&gt; customerFuture = loadCustomerDetails(123);
+CompletableFuture&lt;Shop&gt; shopFuture = closestShop();
+CompletableFuture&lt;Route&gt; routeFuture =
+customerFuture.thenCombine(shopFuture, (cust, shop) -&gt; findRoute(cust, shop));
+
+//...
+
+private Route findRoute(Customer customer, Shop shop) //...
+</code></pre><p>请注意，在Java 8中可以用(cust, shop) -&gt; findRoute(cust, shop)简单地代替this::findRoute方法的引用：</p>
+<pre><code>customerFuture.thenCombine(shopFuture, this::findRoute);
+</code></pre><p>你也知道，我们有customerFuture 和 shopFuture。那么routeFuture包装它们然后“等待”它们完成。当他们准备好了，它会运行我们提供的函数来结合所有的结果(findRoute())。当两个基本的futures完成并且 findRoute()也完成时，这样routeFuture将会完成。</p>
+<h3 id="八、等待所有的-CompletableFutures-完成"><a href="#八、等待所有的-CompletableFutures-完成" class="headerlink" title="八、等待所有的 CompletableFutures 完成"></a>八、等待所有的 CompletableFutures 完成</h3><p>如果不是产生新的CompletableFuture连接这两个结果，我们只是希望当完成时得到通知，我们可以使用thenAcceptBoth()/runAfterBoth()系列的方法，（…Async 变量也是可用的）。它们的工作方式与thenAccept() 和 thenRun()类似，但是是等待两个futures而不是一个：</p>
+<pre><code>CompletableFuture&lt;Void&gt; thenAcceptBoth(CompletableFuture&lt;? extends U&gt; other, BiConsumer&lt;? super T,? super U&gt; block)
+</code></pre><p>CompletableFuture<void> runAfterBoth(CompletableFuture&lt;?&gt; other, Runnable action)<br>想象一下上面的例子，这不是产生新的 CompletableFuture，你只是想要立刻发送一些事件或刷新GUI。这可以很容易地实现：thenAcceptBoth():</void></p>
+<pre><code>customerFuture.thenAcceptBoth(shopFuture, (cust, shop) -&gt; {
+    final Route route = findRoute(cust, shop);
+//refresh GUI with route
+</code></pre><p>});<br>也许有些人会问自己一个问题：为什么我不能简单地阻塞这两个futures呢？ 就像：</p>
+<pre><code>Future&lt;Customer&gt; customerFuture = loadCustomerDetails(123);
+Future&lt;Shop&gt; shopFuture = closestShop();
+findRoute(customerFuture.get(), shopFuture.get());
+</code></pre><p>你当然可以这么做。但是最关键的一点是CompletableFuture是允许异步的，它是事件驱动的编程模型而不是阻塞并急切地等待着结果。所以在功能上，上面两部分代码是等价的，但后者没有必要占用一个线程来执行。</p>
+<h3 id="九、等待第一个-CompletableFuture-来完成任务"><a href="#九、等待第一个-CompletableFuture-来完成任务" class="headerlink" title="九、等待第一个 CompletableFuture 来完成任务"></a>九、等待第一个 CompletableFuture 来完成任务</h3><p>另一个有趣的事是CompletableFutureAPI可以等待第一个（与所有相反）完成的future。当你有两个相同类型任务的结果时就显得非常方便，你只要关心响应时间就行了，没有哪个任务是优先的。API方法(…Async变量也是可用的）：</p>
+<pre><code>CompletableFuture&lt;Void&gt; acceptEither(CompletableFuture&lt;? extends T&gt; other, Consumer&lt;? super T&gt; block)
+CompletableFuture&lt;Void&gt; runAfterEither(CompletableFuture&lt;?&gt; other, Runnable action)
+</code></pre><p>作为一个例子，你有两个系统可以集成。一个具有较小的平均响应时间但是拥有高的标准差，另一个一般情况下较慢，但是更加容易预测。为了两全其美（性能和可预测性）你可以在同一时间调用两个系统并等着谁先完成。通常这会是第一个系统，但是在进度变得缓慢时，第二个系统就可以在可接受的时间内完成：<br>复制代码 代码如下:</p>
+<pre><code>CompletableFuture&lt;String&gt; fast = fetchFast();
+CompletableFuture&lt;String&gt; predictable = fetchPredictably();
+fast.acceptEither(predictable, s -&gt; {
+    System.out.println(&quot;Result: &quot; + s);
+});
+</code></pre><p>s代表了从fetchFast()或是fetchPredictably()得到的String。我们不必知道也无需关心。</p>
+<h3 id="十、完整地转换第一个系统"><a href="#十、完整地转换第一个系统" class="headerlink" title="十、完整地转换第一个系统"></a>十、完整地转换第一个系统</h3><p>applyToEither()算是 acceptEither()的前辈了。当两个futures快要完成时，后者只是简单地调用一些代码片段，applyToEither()将会返回一个新的future。当这两个最初的futures完成时，新的future也会完成。API有点类似于(…Async 变量也是可用的)：</p>
+<pre><code>CompletableFuture&lt;U&gt; applyToEither(CompletableFuture&lt;? extends T&gt; other, Function&lt;? super T,U&gt; fn)
+</code></pre><p>这个额外的fn功能在第一个future被调用时能完成。我不确定这个专业化方法的目的是什么，毕竟一个人可以简单地使用：fast.applyToEither(predictable).thenApply(fn)。</p>
+<pre><code>CompletableFuture&lt;String&gt; fast = fetchFast();
+CompletableFuture&lt;String&gt; predictable = fetchPredictably();
+CompletableFuture&lt;String&gt; firstDone =
+fast.applyToEither(predictable, Function.&lt;String&gt;identity());
+</code></pre><p>第一个完成的future可以通过运行。请注意，从客户的角度来看，两个futures实际上是在firstDone的后面而隐藏的。客户端只是等待着future来完成并且通过applyToEither()使得当最先的两个任务完成时通知客户端。</p>
+<h3 id="十一、多种结合的CompletableFuture"><a href="#十一、多种结合的CompletableFuture" class="headerlink" title="十一、多种结合的CompletableFuture"></a>十一、多种结合的CompletableFuture</h3><p>我们现在知道如何等待两个future来完成（使用thenCombine()）并第一个完成(applyToEither())。但它可以扩展到任意数量的futures吗？的确，使用static辅助方法：</p>
+<pre><code>static CompletableFuture&lt;Void&gt; allOf(CompletableFuture&lt;?&gt;... cfs)
+static CompletableFuture&lt;Object&gt; anyOf(CompletableFuture&lt;?&gt;... cfs)
+</code></pre><p>allOf()当所有的潜在futures完成时，使用了一个futures数组并且返回一个future（等待所有的障碍）。另一方面anyOf()将会等待最快的潜在futures。</p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

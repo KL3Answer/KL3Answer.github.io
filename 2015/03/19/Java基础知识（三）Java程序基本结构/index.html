@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（三） Java程序基本结构 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、一个简单的示例下面是一个简单的Java程序 pubic class Demo{     public static void main(String[] args){         System.out.println(&amp;quot;Hello, World!&amp;quot;);     } } 这个程序的执行结果是在控制台上打印出”Hello,World!”，从这个简单的程序，我们可以分析一下J">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（三） Java程序基本结构 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/03/19/Java基础知识（三）Java程序基本结构/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、一个简单的示例下面是一个简单的Java程序 pubic class Demo{     public static void main(String[] args){         System.out.println(&amp;quot;Hello, World!&amp;quot;);     } } 这个程序的执行结果是在控制台上打印出”Hello,World!”，从这个简单的程序，我们可以分析一下J">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:41.942Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（三） Java程序基本结构 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、一个简单的示例下面是一个简单的Java程序 pubic class Demo{     public static void main(String[] args){         System.out.println(&amp;quot;Hello, World!&amp;quot;);     } } 这个程序的执行结果是在控制台上打印出”Hello,World!”，从这个简单的程序，我们可以分析一下J">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（三） Java程序基本结构</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-03-19" class="post-meta__date date">2015-03-19</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、一个简单的示例"><a href="#一、一个简单的示例" class="headerlink" title="一、一个简单的示例"></a>一、一个简单的示例</h3><p>下面是一个简单的Java程序</p>
+<pre><code>pubic class Demo{
+    public static void main(String[] args){
+        System.out.println(&quot;Hello, World!&quot;);
+    }
+}
+</code></pre><p>这个程序的执行结果是在控制台上打印出”Hello,World!”，从这个简单的程序，我们可以分析一下Java程序的基本结构</p>
+<ol>
+<li>关键字public被称为修饰符（access modifier），它用于控制程序的其他部分对这段代码（从public后面跟着的第一个’{‘到第一个’}’）的访问级别</li>
+<li>关键字class这段程序的所有内容都包含在类中</li>
+<li>class后面跟着的’Demo’是类名。Java中的类名的命名规则为：首字母以字母开头（一般是大写），后面可以跟字母和任意数字与’_’组合，长度不限，但是不能使用Java的保留字，建议在类命名时使用<a href="http://baike.baidu.com/link?url=-G-U75DWzQJhQHLNBoBjoI7kzm-7Z3gfamkiEK4lut4y0N6NXJ3HsOD8mAmHy1TYfA_W5SgwBxhBhfkMb4K-9jrf3hfpMr2BldBGK4HjeQdpsAQrDtirKi1gYib68k_aUJ_K-QDdHz5LfmnWyL8KhVZyTRdfpNCjze_vhuruvCwhduWTPbME8Wox0ADlaf9ZJ7eersSZMVyDVdwus4Ia_ErwQLuRUx1XXFiMQjEnsZu" target="_blank" rel="noopener">驼峰命名</a>。</li>
+<li>源代码的文件名强烈建议与类名相同（基本所有的IDE都是这样做的）。</li>
+<li>static是静态修饰符，被标识的方法是静态的方法（更多细节后面再讲）。</li>
+<li>main方法（或称为函数）是程序的入口函数，根据Java语言规范，main方法必须声明为public（虽然在Java虚拟机规范中并没有要求main方法一定是public，但是并不是所有的Java解释器都可以执行非public的main方法），此外main方法必须是静态的。</li>
+<li>void用于表示该方法不需要返回值。</li>
+<li>‘{‘和’}’分别用于标记代码的开始和结束。</li>
+</ol>
+<p>当运行编译改程序时，Java虚拟机将从这个类的main方法开始执行，而Demo中main方法使用了System.out对象并调用了println方法，可以看出Java调用方法的语法：object.method(parameters),当然方法也可以没有参数，这依据方法的声明而定。<br>在这个方法调用中，传入的参数是一个字符串’Hello,World!’。</p>
+<h3 id="二、注释"><a href="#二、注释" class="headerlink" title="二、注释"></a>二、注释</h3><p>注释的主要用于阐述代码的意图和执行逻辑、执行结构以及一些其他的信息。Java的注释不会出现在.class文件中，只存在与.java文件中，因此我们可以根据自己的需要添加注释，不必担心代码膨胀问题。注释的格式有三种：</p>
+<ul>
+<li>//text：这是最常用的一种，被其注释的内容从”//“后到行末尾，也称为单行注释。</li>
+<li>/<em>   text  </em>/：多行注释，text即为被注释的内容。</li>
+<li>/*<em>  text </em>/：<a href="http://java.sun.com/javadoc/index.html" target="_blank" rel="noopener">文档注释</a>，这种注释可以用于自动生成文档（使用javadoc命令）。</li>
+</ul>
+<h3 id="三、数据类型"><a href="#三、数据类型" class="headerlink" title="三、数据类型"></a>三、数据类型</h3><p>之前我们提到过Java是强类型语言，也就是说我们必须为每一个变量声明一种类型。Java的数据类型可分为两种：基本数据类型和引用数据类型。在Java中有8中基本数据类型（primitive type）：</p>
+<pre><code>a、整数型：
+byte                占 1个字节（8个bit）   范围-128——127
+short               占 2个字节（16bit）    范围-2^15——2^15-1
+int（默认）                     占 4个字节（32bit）    范围-2^31——2^31-1
+long                 占 8个字节（64bit）    范围-2^63——2^63-1(超int范围時在後面加l,最好寫大L，小l与1太像容易混淆)
+
+b、浮点型：（小数）
+float单精度                 占 4个字节（32bit）     3.4E-38——3.4E+38（书写时在后面加f，如1.2f）
+           最多精确表示7位小数
+           float的数据范围比long大，两者底层存储结构不同
+         IEEE 754 规定  
+               float：从左往右
+                       第1位代表符号位，
+                        第2-9位代表指数位，0-255，0代表0，255代表无穷大，1-254都減去127， 变为 -126——127
+                           第9-32位代表尾数位    
+                  SEEE EEEE EMMM MMMM MMMM MMMM MMMM MMMM(signl是符号位，f是23bit的小数部分，exponent是指数部分)
+                  最后結果：(-1)^(sign)*1.f*2^(exponent)
+
+double双精度（默认）  占 8个字节（64bit）     范围        最多精确表示15位小数
+long double        占16个字节(128bit)        
+
+c、字符型：
+char                     占 2个字节（16bit）     范围
+
+d、布尔型：
+boolean                 沒有明确指定的大小(理论上占八分之一个字节)，因为一個开关就可以決定true和false（书写時也可在后面加，但一般不加）
+</code></pre><p>我们都知道计算机的比特位（bit）是以二进制的方式存储的，所以上面的各个数据类型的范围你可以动手算一个，是不是和上面的一样呢？</p>
+<h3 id="四、变量"><a href="#四、变量" class="headerlink" title="四、变量"></a>四、变量</h3><p>在Java中，每一个变量属于一种类型（type。在声明变量时要指定类型），示例：</p>
+<pre><code>byte a = 12;
+short b = 12;
+int x=(int)(9.99L);//强制类型转换
+int c, w, r = 12;//一条语句可以定义多个变量
+long d = 2123453553345345445l;
+float e = -9.0f;
+double f = 12.2;
+char g = &apos;w&apos;;
+boolean h = true;
+</code></pre><ul>
+<li><p>注意，在声明一个变量之后必须使用赋值对变量进行显式初始化，不能使用未初始化的变量（无法通过类型校验）</p>
+<pre><code>int var;
+var=1;//初始化
+</code></pre></li>
+</ul>
+<h3 id="五、常量"><a href="#五、常量" class="headerlink" title="五、常量"></a>五、常量</h3><p>Java中常量可分为两种：字面值常量和自定义常量</p>
+<ul>
+<li><p>字面值常量：</p>
+<pre><code>字符串常量      用&quot;&quot;括起来的内容
+整数常量       所有整数
+小数常量       所有小数,操作小数有一定的弊端,小数位不够精确（float和double的特殊数据存储结构）
+字符常量       用单引号括起来的内容，只能放单个数字，字母或符号（单个汉字也可以）
+布尔常量       只有true和flase
+枚举常量       enum  枚举类型名{常量1，常量2，常量3，.......}；
+空常量            null
+
+枚举类型的使用：
+enum Size{SMALL,MEDIUM,LARGE};
+Size s=Size.MEDIUM;
+</code></pre></li>
+<li>自定义常量：被final关键字修饰的变量</li>
+<li><pre><code>final int A=1;    
+</code></pre>final表示这个变量只能被赋值一次，且被赋值之后就不能更改了，一般来说常量名使用大写(注意const是Java的保留字，但是目前并没有被使用)</li>
+</ul>
+<h3 id="六、运算符"><a href="#六、运算符" class="headerlink" title="六、运算符"></a>六、运算符</h3><p>运算符：对常量和变量进行操作的符号。Java的运算符与C基本一致(运算符的优先级别也和C一致，在此不再赘述)：</p>
+<pre><code>运算符：对常量和变量进行操作的符号
+
+a、算术运算符：一元运算符、二元运算符
+  + ,- ,*,/,%,++, --
+  ++、--：都是单独使用 
+ 整数相除只能得到整数，如果想得到小数，可以把数据（至少其中一个）变成浮点型
+ %：任何正整数%2结果不是0就是1，可以用来切换条件
+
+b、 赋值运算符
+  基本赋值运算符：=
+  扩展的赋=值运算符：+=,-=,/=,%=（自动类型转换）
+
+c、关系运算符  
+  ==,&lt;=,&lt;,&gt;,&gt;=,!=（结果为布尔类型）
+
+d、逻辑运算符
+    &amp;,|,^,!
+  &amp;&amp;、||具备短路的效果（左边为false右边就不执行了；左边为true右边就不执行了）
+
+e、位运算符
+    &amp;、|、^、~（按位取反）、&gt;&gt;&gt;(左补齐0)、&gt;&gt;(保留符号位)、&lt;&lt;(右补齐0)
+  a^b^b =a;
+f、三元运算符
+    （关系表达式）？表达式1：表达式2
+</code></pre><p>运算符示例，你可以运行一下：</p>
+<pre><code>System.out.println(-13%5);//结果-3
+System.out.println(b1++);//结果2
+System.out.println(++b2);//结果4
+int x=5,y=6,z=8;
+x=x++ + ++x + x+12;// ++、--：放在操作数前面时，先自增自减再参与运算；在操作数后面时，先运算再自增或自减
+System.out.println(x);
+System.out.println(!true);
+System.out.println(x&gt;2&amp;x&lt;32);
+System.out.println(x&gt;2|x&lt;12);
+System.out.println(x&gt;2^x&lt;30);//异或，相异为真
+System.out.println(2&gt;3?1:2);
+
+//不使用第三方变量交换变量值
+x=x+y;
+y=x-y;
+x=x-y;//有可能会超出数据范围，损失精度
+
+x=x^y;
+y=x^y;
+x=x^y;//
+//其实还是使用第三个变量的最好。。。
+</code></pre><h3 id="七、数学函数"><a href="#七、数学函数" class="headerlink" title="七、数学函数"></a>七、数学函数</h3><p>Math类包含了各种各样的数学函数，例如：</p>
+<pre><code>double x=Math.sqrt(4);//4^2
+</code></pre><p>如果你需要在程序中频繁使用Math这个类，可能会对在方法前加上Math感到厌烦，此时你可以这样做：</p>
+<pre><code>import static java.lang.Math.*;
+此时在程序中，你可以直接调用:
+System.out.println(&quot;4^2&quot;+sqrt(4));    
+</code></pre><p>更多细节可以了解一下静态导入。<br>（上面只是简单的举了一个例子，实际上Math类有许多的方法，具体可以查阅Java的官方API）</p>
+<h3 id="八、-一些补充"><a href="#八、-一些补充" class="headerlink" title="八、 一些补充"></a>八、 一些补充</h3><ul>
+<li><p>关于进制</p>
+<pre><code>进制也就是进位制，是人们规定的一种进位方法。 对于任何一种进制---X进制，就表示某一位置上的数运算时是逢X进一位。 
+十进制是逢十进一，十六进制是逢十六进一，二进制就是逢二进一，以此类推，x进制就是逢x进位。
+
+进制的表示：
+十位制                                    e.g.
+    由0-9组成，以1-9开头                   123
+二位制
+    由0和1组成，以0b（大小写）开头            0b0101
+八位制
+    由0-7组成，以0开头                        0762
+十六位制
+    由0-9加a-f（大小写）组成，开头为0x        0xcf3
+
+注意：这些“前缀”也可以省略
+</code></pre></li>
+</ul>
+<ul>
+<li><p>原码、反码、补码</p>
+<pre><code>计算机中的符号数有三种表示方法，即原码、反码和补码。三种表示方法均有符号位和数值位两部分，符号位都是用0表示“正”，用1表示“负”，
+而数值位，三种表示方法各不相同。
+在计算机系统中，数值一律用补码来表示和存储。原因在于，使用补码，可以将符号位和数值域统一处理；同时，
+加法和减法也可以统一处理。此外，补码与原码相互转换，其运算过程是相同的，不需要额外的硬件电路。    
+
+原码：二进制定点表示法，最高位为符号位，“0”正“1”负，其余为表示数值大小
+反码：正數的反碼與原碼相同，负数的反码是其原码除符号位外其余各位取反
+补码：正数的补码等于原码，负数为反码加1
+</code></pre></li>
+</ul>
+<p><br><br><br><br><br><br><br><br><br></p>
+<h3 id="以上只是对一些基础的概念进行简单的归纳，更详细的内容请仔细阅读《计算机硬件原理》与《Java核心技术卷一》。"><a href="#以上只是对一些基础的概念进行简单的归纳，更详细的内容请仔细阅读《计算机硬件原理》与《Java核心技术卷一》。" class="headerlink" title="以上只是对一些基础的概念进行简单的归纳，更详细的内容请仔细阅读《计算机硬件原理》与《Java核心技术卷一》。"></a>以上只是对一些基础的概念进行简单的归纳，更详细的内容请仔细阅读《计算机硬件原理》与《Java核心技术卷一》。</h3><p><br><br><br><br><br><br><br><br><br><br>参考书目：<br><br><em>Core.Java.Volume.I.Fundamentals.10th.Edition.2016.1</em></p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

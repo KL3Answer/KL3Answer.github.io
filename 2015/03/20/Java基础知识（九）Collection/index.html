@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（九）Collection | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、Collection接口简介早期的Java中为数据结构只提供很少的类：Vector、Stack、Hashtable、BitSet和Enumeration接口，但是现在已经大不相同了。Java关于数据结构的类基本能够满足一些常用的需求。 这个是    Collection接口及其子类与子接口 Collection ├List │├LinkedList │├ArrayList │└Vector │">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（九）Collection | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/03/20/Java基础知识（九）Collection/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、Collection接口简介早期的Java中为数据结构只提供很少的类：Vector、Stack、Hashtable、BitSet和Enumeration接口，但是现在已经大不相同了。Java关于数据结构的类基本能够满足一些常用的需求。 这个是    Collection接口及其子类与子接口 Collection ├List │├LinkedList │├ArrayList │└Vector │">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:41.973Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（九）Collection | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、Collection接口简介早期的Java中为数据结构只提供很少的类：Vector、Stack、Hashtable、BitSet和Enumeration接口，但是现在已经大不相同了。Java关于数据结构的类基本能够满足一些常用的需求。 这个是    Collection接口及其子类与子接口 Collection ├List │├LinkedList │├ArrayList │└Vector │">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（九）Collection</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-03-20" class="post-meta__date date">2015-03-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、Collection接口简介"><a href="#一、Collection接口简介" class="headerlink" title="一、Collection接口简介"></a>一、Collection接口简介</h3><p>早期的Java中为数据结构只提供很少的类：Vector、Stack、Hashtable、BitSet和Enumeration接口，但是现在已经大不相同了。Java关于数据结构的类基本能够满足一些常用的需求。</p>
+<p>这个是    Collection接口及其子类与子接口</p>
+<pre><code>Collection
+├List
+│├LinkedList
+│├ArrayList
+│└Vector
+│　└Stack
+└Set
+</code></pre><ol>
+<li><p>Collection接口</p>
+<p> Collection是集合的顶层接口，Java SDK提供的类都是继承自Collection的子接口如List和Set。
+　</p>
+<p> 所有实现Collection接口的类都必须提供两个标准的构造函数：无参数的构造函数用于创建一个空的Collection，有一个Collection参数的构造函数用于创建一个新的Collection，这个新的Collection与传入的Collection有相同的元素。后一个构造函数允许用户复制一个Collection。</p>
+<pre><code>//遍历Collection可以使用iterator
+Iterator it = collection.iterator(); // 获得一个迭代子
+while(it.hasNext()) {
+　　　Object obj = it.next(); // 得到下一个元素
+}
+</code></pre></li>
+</ol>
+<ul>
+<li><p>List接口</p>
+<p> List是有序的Collection，使用此接口能够精确的控制每个元素插入的位置。用户能够使用索引（元素在List中的位置，类似于数组下标）来访问List中的元素，这类似于Java的数组。<br> 和下面要提到的Set不同，List允许有相同的元素。<br>　　除了具有Collection接口必备的iterator()方法外，List还提供一个listIterator()方法，返回一个ListIterator接口，和标准的Iterator接口相比，ListIterator多了一些add()之类的方法，允许添加，删除，设定元素，还能向前或向后遍历。<br>　　实现List接口的常用类有LinkedList，ArrayList，Vector和Stack。</p>
+</li>
+<li><p>LinkedList类</p>
+<p>  LinkedList实现了List接口，允许null元素。此外LinkedList提供额外的get，remove，insert方法在LinkedList的首部或尾部。这些操作使LinkedList可被用作堆栈（stack），队列（queue）或双向队列（deque）。</p>
+<p>  注意LinkedList没有同步方法。如果多个线程同时访问一个List，则必须自己实现访问同步。一种解决方法是在创建List时构造一个同步的List：
+　　　</p>
+<pre><code>List list = Collections.synchronizedList(new LinkedList(...));
+</code></pre></li>
+<li><p>ArrayList类</p>
+<p>  ArrayList实现了可变大小的数组(其增长策略是newCapacity = (oldCapacity * 3)/2 + 1，和C++通常的Vector是翻倍的策略不同)。它允许所有元素，包括null。ArrayList没有同步。<br>  size，isEmpty，get，set方法运行时间为常数。但是add方法开销为分摊的常数，添加n个元素需要O(n)的时间。其他的方法运行时间为线性。<br>  每个ArrayList实例都有一个容量（Capacity），即用于存储元素的数组的大小。这个容量可随着不断添加新元素而自动增加，但是增长算法并没有定义。当需要插入大量元素时，在插入前可以调用ensureCapacity方法来增加ArrayList的容量以提高插入效率。<br>  和LinkedList一样，ArrayList也是非同步的（unsynchronized）。</p>
+</li>
+<li><p>Vector类
+　    </p>
+<p>  Vector非常类似ArrayList，但是Vector是同步的。由Vector创建的Iterator，虽然和ArrayList创建的Iterator是同一接口，但是，因为Vector是同步的，当一个Iterator被创建而且正在被使用，另一个线程改变了Vector的状态（例如，添加或删除了一些元素），这时调用Iterator的方法时将抛出ConcurrentModificationException，因此必须捕获该异常。</p>
+</li>
+<li><p>Stack 类<br>　　Stack继承自Vector，实现一个后进先出的堆栈。Stack提供5个额外的方法使得Vector得以被当作堆栈使用。基本的push和pop方法，还有peek方法得到栈顶的元素，empty方法测试堆栈是否为空，search方法检测一个元素在堆栈中的位置。Stack刚创建后是空栈。</p>
+</li>
+<li><p>Set接口</p>
+<p>  Set是一种不包含重复的元素的Collection（相当于单列的Map），即任意的两个元素e1和e2都有e1.equals(e2)=false，Set最多有一个null元素。<br>  很明显，Set的构造函数有一个约束条件，传入的Collection参数不能包含重复的元素。<br>  注意：必须小心操作可变对象（Mutable Object）。如果一个Set中的可变元素改变了自身状态导致Object.equals(Object)=true将导致一些问题。</p>
+<p>  HashSet实现排序：</p>
+<pre><code>/*HashSet
+ *     使用哈希算法，对元素进行运算并获取其位置（不需要遍历，性能稳定）
+ *     当哈希值相同时，使用equals方法判断元素是否为同一个
+ *  因此一般实现自己的排序时会重写要排序对象的hashcode和equals方法
+ * */
+</code></pre><p>  TreeSet实现排序：</p>
+<pre><code>/* a、自然排序（Comparable）    
+ *  被排序的对象实现Comparable接口并覆盖compareTo方法
+ *     使用compareTo()方法进行排序（被称为自然比较方法）
+ *         当compareTo返回的正数时，都存在根元素右边
+ *         当compareTo返回的负数时，都存在根左边
+ *         当compareTo返回0时，不存储，集合中只有一个元素
+ * 顺序从小到大
+ * 
+ * b、比较器排序（Comparator）
+ *     创建TreeSet对象时使用匿名内部类Comparator传入
+ *  调用的对象是compare方法的第一个参数，比较的对象时compare方法的笫二个参数
+ * */
+</code></pre></li>
+</ul>
+<p>###二、总结</p>
+<p>如果涉及到堆栈，队列等操作，应该考虑用List，对于需要快速插入，删除元素，应该使用LinkedList，如果需要快速随机访问元素，应该使用ArrayList。<br>　　<br>如果程序在单线程环境中，或者访问仅仅在一个线程中进行，考虑非同步的类，其效率较高，如果多个线程可能同时操作一个类，应该使用同步的类。</p>
+<p>要特别注意对哈希表的操作，作为key的对象要正确复写equals和hashCode方法。<br>尽量返回接口而非实际的类型，如返回List而非ArrayList，这样如果以后需要将ArrayList换成LinkedList时，客户端代码不用改变。这就是针对抽象编程。</p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

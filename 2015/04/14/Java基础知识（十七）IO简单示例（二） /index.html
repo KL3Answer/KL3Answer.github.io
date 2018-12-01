@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（十七）IO流简单示例（二） | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="六、ByteArrayOutputStream、ByteArrayInputStream内存输出流，数据被写入一个可增长的byte数组，初始容量为32。 private static void test06() throws IOException, FileNotFoundException {     File f=new File(&amp;quot;D:/a.txt&amp;quot;);     Fil">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（十七）IO流简单示例（二） | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/04/14/Java基础知识（十七）IO简单示例（二） /index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="六、ByteArrayOutputStream、ByteArrayInputStream内存输出流，数据被写入一个可增长的byte数组，初始容量为32。 private static void test06() throws IOException, FileNotFoundException {     File f=new File(&amp;quot;D:/a.txt&amp;quot;);     Fil">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.272Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（十七）IO流简单示例（二） | HQ&#39;s Cabin">
+<meta name="twitter:description" content="六、ByteArrayOutputStream、ByteArrayInputStream内存输出流，数据被写入一个可增长的byte数组，初始容量为32。 private static void test06() throws IOException, FileNotFoundException {     File f=new File(&amp;quot;D:/a.txt&amp;quot;);     Fil">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（十七）IO流简单示例（二）</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-04-14" class="post-meta__date date">2015-04-14</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="六、ByteArrayOutputStream、ByteArrayInputStream"><a href="#六、ByteArrayOutputStream、ByteArrayInputStream" class="headerlink" title="六、ByteArrayOutputStream、ByteArrayInputStream"></a>六、ByteArrayOutputStream、ByteArrayInputStream</h3><p>内存输出流，数据被写入一个可增长的byte数组，初始容量为32。</p>
+<pre><code>private static void test06() throws IOException, FileNotFoundException {
+    File f=new File(&quot;D:/a.txt&quot;);
+    FileInputStream fis=new FileInputStream(f);
+    ByteArrayOutputStream baos=new ByteArrayOutputStream();//write into EMS memory
+    byte[] b=new byte[5];
+    int len;
+    while((len=fis.read(b))!=-1){
+        baos.write(b, 0, len);
+    }
+    fis.close();
+    //byte[] newArr = baos.toByteArray();    //将内存缓冲区中所有的字节存储在newArr中
+    //System.out.println(new String(newArr))
+    System.out.println(baos);
+}
+</code></pre><h3 id="七、ObjectInputStream、ObjectOutpurStream"><a href="#七、ObjectInputStream、ObjectOutpurStream" class="headerlink" title="七、ObjectInputStream、ObjectOutpurStream"></a>七、ObjectInputStream、ObjectOutpurStream</h3><p>对象操作流：流可以将对象写出，或者读取一个对象到程序中，也就是执行了序列化和反序列化的操作可以实现对象的持久化，如果流是网络套接字流，则可以在另一台主机上重构对象。<br>被操作的对象要实现Serializable接口（可以添加序列号属性，是一个标识接口，没有待实现方法）</p>
+<p>示例7.1<br>    public static void test_07() throws IOException, FileNotFoundException, ClassNotFoundException {<br>        new File(“D:\d2.txt”).createNewFile();<br>        //序列化<br>        ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(“D:\d2.txt”));<br>        Person p1=new Person(“alice”,20);<br>        oos.writeObject(p1);//一次读写一个对象<br>        oos.close();</p>
+<pre><code>    //反序列化
+    ObjectInputStream ois=new ObjectInputStream(new FileInputStream(&quot;D:\\d2.txt&quot;));
+    //可以将对象封装在集合，对集合进行序列化和反序列化中以加快速度
+    Person p=(Person)ois.readObject();
+    ois.close();
+    System.out.println(p);
+} 
+</code></pre><p>Person类</p>
+<pre><code>//实现Seriablizable
+class Person implements Serializable/*标记接口*/{
+/* 序列号用于验证序列化对象的发送者和接收者是否对该对象加载了与序列化兼容的类，
+ * 如果接收者加载的该对象的类的serialVersionUID的字段与对应的发送者的类的版本号不相同，则反序列化会导致一个InvalidClassException
+ * 序列号根据类的特征以及类的签名算出
+ * */
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private transient String created;//静态和瞬态的数据不被写入
+    private int age;
+    public Person(String name, int age) {
+        super();
+        this.name = name;
+        this.age = age;
+    }
+    public Person() {
+        super();
+
+    }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + age;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Person other = (Person) obj;
+        if (age != other.age)
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
+    @Override
+    public String toString() {
+        return &quot;Person [name=&quot; + name + &quot;, age=&quot; + age + &quot;]&quot;;
+    }
+    public String getName() {
+        return name;
+    }
+    public int getAge() {
+        return age;
+    }
+}
+</code></pre><p>当然，也可以将对象放入集合中批量写入。</p>
+<h3 id="八、DataInputStream、DataOutputStream"><a href="#八、DataInputStream、DataOutputStream" class="headerlink" title="八、DataInputStream、DataOutputStream"></a>八、DataInputStream、DataOutputStream</h3><p>用操作基本数据类型值，其他的类似，没什么好说的</p>
+<p>示例8.1</p>
+<pre><code>DataInputStream dis=new DataInputStream(new FileInputStream(&quot;D:\\demo.txt&quot;));
+dis.readInt();
+//dis.readByte();
+//dis.readShort();
+//dis.readInt();
+//dis.readLong();
+//dis.readBoolean();
+//dis.readFloat();
+//dis.readDouble();
+//dis.readChar();
+//dis.read();
+</code></pre><h3 id="九、PipedInputStream、PipedOutputStream"><a href="#九、PipedInputStream、PipedOutputStream" class="headerlink" title="九、PipedInputStream、PipedOutputStream"></a>九、PipedInputStream、PipedOutputStream</h3><p>管道流，输出输入流可以进行连接，通过结合线程使用，不建议单线程使用，易死锁。<br>其构造方法：</p>
+<pre><code>public PipedInputStream(PipedOutputStream src)
+public PipedInputStream(PipedOutputStream src, int pipeSize)
+public PipedOutputStream(PipedInputStream snk)
+public PipedOutputStream()
+</code></pre><p>示例9.1 </p>
+<pre><code>PipedInputStream pis = new PipedInputStream();
+PipedOutputStream pos = new PipedOutputStream();
+pis.connect(pos);//连接管道流
+new Thread(new Input(pis)).start();
+new Thread(new Output(pos)).start();
+</code></pre><p>Input：</p>
+<pre><code>class Input implements Runnable {
+    private PipedInputStream in;
+
+    Input(PipedInputStream in) {
+        this.in = in;
+    }
+
+    public void run() {
+        try {
+            byte[] buf = new byte[8192];
+            int len;
+            String s = null;
+            len = in.read(buf);
+            s = new String(buf, 0, len);
+            in.close();
+            System.out.println(&quot;s=&quot; + s);
+        } catch (Exception e) {
+
+        }
+    }
+}
+</code></pre><p>Output:</p>
+<pre><code>class Output implements Runnable {
+    private PipedOutputStream out;
+
+    Output(PipedOutputStream out) {
+        this.out = out;
+    }
+
+    public void run() {
+        try {
+            out.write(&quot;piped &quot;.getBytes());
+        } catch (Exception e) {
+
+        }
+    }
+}
+</code></pre><h3 id="十、RandomAccessFile"><a href="#十、RandomAccessFile" class="headerlink" title="十、RandomAccessFile"></a>十、RandomAccessFile</h3><p>RandomAccessFile不属于InputStream和OutputStream类系的。实际上，除了实现DataInput和DataOutput接口之外(DataInputStream和DataOutputStream也实现了这两个接口)，它和这两个类系毫不相干，甚至不使用InputStream和OutputStream类中已经存在的任何功能；它是一个完全独立的类，所有方法(绝大多数都只属于它自己)都是从零开始写的。这可能是因为RandomAccessFile能在文件里面前后移动，所以它的行为与其它的I/O类有些根本性的不同。总而言之，它是一个直接继承Object的、独立的类。</p>
+<p>随机访问流，主要是结合线程使用。</p>
+<pre><code>/*
+ * RandomAccessFile    extends Object
+ * 不是IO体系中的子类
+ * 
+ * A:随机访问流概述
+ *     RandomAccessFile类不属于流，是Object类的子类。但它融合了InputStream和OutputStream的功能。
+ *     支持对随机访问文件的读取和写入。
+ * B：该对象内部维护一个大型的byte数组，并通过指针可以操作数组中的元素
+ * C：可以通过getFilePointer获取指针的位置，并通过seek()方法设置
+ * D：其实就是对输入输出流进行了封装
+ * 
+ * 该对象的源和目的只能是文件
+ * 
+ * :read()：读取,write()：写入,seek()：将指针设定到指定位置
+ * 
+ * 可以用于多线程下载，因为可以指定位置写入与读取
+ * 
+ * 
+ * 构造方法：
+ * RandomAccessFile(File file,String mode)
+ * RandomAccessFile(String name, String mode)
+ * 
+ * String mode:
+ *         r
+ *         rw        读&amp;写
+ *         rwd        
+ *         rws
+ * 
+ * */
+</code></pre><p>示例10.1</p>
+<pre><code>public static void main(String[] args) throws Exception {  
+    // 预分配文件所占的磁盘空间，磁盘中会创建一个指定大小的文件  
+    RandomAccessFile raf = new RandomAccessFile(&quot;D://abc.txt&quot;, &quot;rw&quot;);  
+    raf.setLength(1024*1024); // 预分配 1M 的文件空间  
+    raf.close();  
+
+    // 所要写入的文件内容  
+    String s1 = &quot;s1&quot;;  
+    String s2 = &quot;s2&quot;;  
+    String s3 = &quot;s3&quot;;  
+    String s4 = &quot;s4&quot;;  
+    String s5 = &quot;s5&quot;;  
+
+    // 利用多线程同时写入一个文件  
+    new FileWriteThread(1024*1,s1.getBytes()).start(); // 从文件的1024字节之后开始写入数据  
+    new FileWriteThread(1024*2,s2.getBytes()).start(); // 从文件的2048字节之后开始写入数据  
+    new FileWriteThread(1024*3,s3.getBytes()).start(); // 从文件的3072字节之后开始写入数据  
+    new FileWriteThread(1024*4,s4.getBytes()).start(); // 从文件的4096字节之后开始写入数据  
+    new FileWriteThread(1024*5,s5.getBytes()).start(); // 从文件的5120字节之后开始写入数据  
+}  
+
+// 利用线程在文件的指定位置写入指定数据  
+static class FileWriteThread extends Thread{  
+    private int skip;  
+    private byte[] content;  
+
+    public FileWriteThread(int skip,byte[] content){  
+        this.skip = skip;  
+        this.content = content;  
+    }  
+
+    public void run(){  
+        RandomAccessFile raf = null;  
+        try {  
+            raf = new RandomAccessFile(&quot;D://abc.txt&quot;, &quot;rw&quot;);  
+            raf.seek(skip);  
+            raf.write(content);  
+        } catch (FileNotFoundException e) {  
+            e.printStackTrace();  
+        } catch (IOException e) {  
+            // TODO Auto-generated catch block  
+            e.printStackTrace();  
+        } finally {  
+            try {  
+                raf.close();  
+            } catch (Exception e) {  
+            }  
+        }  
+    }  
+}  
+</code></pre><p>据说，RandomAccessFile的绝大多数功能，已经被JDK 1.4的nio的”内存映射文件(memory-mapped files)”取代了。</p>
+<p>示例10.2 使用内存映射文件读取大文件</p>
+<pre><code>public void test10(){
+    int length = 0x8000000; // 128 Mb 
+    // 为了以可读可写的方式打开文件，这里使用RandomAccessFile来创建文件。  
+    FileChannel fc = new RandomAccessFile(&quot;test.dat&quot;, &quot;rw&quot;).getChannel();  
+    //注意，文件通道的可读可写要建立在文件流本身可读写的基础之上  
+    MappedByteBuffer out = fc.map(FileChannel.MapMode.READ_WRITE, 0, length);  
+    //写128M的内容  
+    for (int i = 0; i &lt; length; i++) {  
+        out.put((byte) &apos;x&apos;);  
+    }  
+    System.out.println(&quot;Finished writing&quot;);  
+    //读取文件中间6个字节内容  
+    for (int i = length / 2; i &lt; length / 2 + 6; i++) {  
+        System.out.print((char) out.get(i));  
+    }  
+    fc.close();
+} 
+</code></pre><p>MappedByteBuffer是ByteBuffer的子类，并增加了force()将缓冲区的内容强制刷新到存储设备中去、load()将存储设备中的数据加载到内存中、isLoaded()位置内存中的数据是否与存储设置上同步。这里只简单地演示了一下put()和get()方法，除此之外，你还可以使用asCharBuffer( )之类的方法得到相应基本类型数据的缓冲视图后，可以方便的读写基本类型数据。</p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（七） String类 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、String 从概念上讲，Java字符串即使Unicode字符序列/例如，串“Java\u2122”由5个Unicode字符组成。Java没有内置的字符串类型，而是在标准的Java类库中提供了一个预定义类，很自然地叫做String。每一个用双引号括起来的字符串都是String1类的一个实例。  从上面这段话中，我们知道Java中字符串是由字符序列组成（Character sequence），此">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（七） String类 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/03/20/Java基础知识（七）String类/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、String 从概念上讲，Java字符串即使Unicode字符序列/例如，串“Java\u2122”由5个Unicode字符组成。Java没有内置的字符串类型，而是在标准的Java类库中提供了一个预定义类，很自然地叫做String。每一个用双引号括起来的字符串都是String1类的一个实例。  从上面这段话中，我们知道Java中字符串是由字符序列组成（Character sequence），此">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:41.911Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（七） String类 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、String 从概念上讲，Java字符串即使Unicode字符序列/例如，串“Java\u2122”由5个Unicode字符组成。Java没有内置的字符串类型，而是在标准的Java类库中提供了一个预定义类，很自然地叫做String。每一个用双引号括起来的字符串都是String1类的一个实例。  从上面这段话中，我们知道Java中字符串是由字符序列组成（Character sequence），此">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（七） String类</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-03-20" class="post-meta__date date">2015-03-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、String"><a href="#一、String" class="headerlink" title="一、String"></a>一、String</h3><blockquote>
+<p>从概念上讲，Java字符串即使Unicode字符序列/例如，串“Java\u2122”由5个Unicode字符组成。Java没有内置的字符串类型，而是在标准的Java类库中提供了一个预定义类，很自然地叫做String。每一个用双引号括起来的字符串都是String1类的一个实例。</p>
+</blockquote>
+<p>从上面这段话中，我们知道Java中字符串是由字符序列组成（Character sequence），此外String类中并没有提供修改字符串的方法（不可变字符串）。实际上，Java的字符串是作为常量存储在常量池中，这样使得字符串可以共享。所以当使用初始化String类时，实际上他引用了一个常量。</p>
+<pre><code>String str=&quot;abc&quot;;//在常量池中创建该常量并引用
+</code></pre><p>String中一些常用的方法</p>
+<pre><code>/* 返回值类型        方法名                         说明
+ * int         length()                        获取字符串的长度
+ * char        charAt(int index)                获取指定索引位置的字符
+ * public     String(byte[] bytes)             将字节数组转成字符串
+ * booolean equalsIgnoreCase(String str)      判断字符串，不区分大小写
+ * boolean     contains(String str)            判断字符串是否包含小字符串
+ * boolean    startsWith(String str)            判断字符串是否以小字符串开头
+ * boolean    endWith(String str)                判断字符串是否以小字符串结尾
+ * boolean    isEmpty(String str)                判断字符串是否为空
+ * int         indexOf(int ch)                    返回指定字符在此字符串中第一次出现的索引(传递char类型的会自动提升)
+ * int         indexOf(int ch,int index)        返回指定字符在此字符串中在指定位置后第一次出现的索引(传递char类型的会自动提升)
+ * int        indexOf(String str)    
+ * int        indexOf(String str,from index)    
+ *             lastIndexOf                        从后向前找第一次出现的字符,参数列表同上
+ * String     substring(int start )            从指定位置开始截取字符串，默认到末尾
+ * String     substring(int start ,int end)    end位不接收    
+ * 
+ * String类转化
+ * String    toUpperCase()                    把字符串转化成大写    
+ * String    toLowerCase()                    把字符串转换成小写
+ * byte[]    getBytes()                        把字符串转换成字节数组（gbk码表中一个汉字两个字节）
+ * char[]   toCharArray()                    把字符串转换成字符数组
+ * String    concat(String str)                拼接字符串
+ * String    valueOf(params)                    使用String的构造方法，转换成字符
+ * String     replace(char old,char new)        替换字符
+ * String     replace(String old,String new)    替换字符串
+ * String     trim()                            去除字符串两端的空白
+ * int       compareTo(String str)            按照字典顺序比较            
+ * int        compareToInoreCase(String str)                        
+ * */
+</code></pre><h3 id="二、StringBuilder"><a href="#二、StringBuilder" class="headerlink" title="二、StringBuilder"></a>二、StringBuilder</h3><p>StringBuilder是在JDK1.5中提供的线程不安全的用于操作String的API。如果需要使用多线程的方式操作字符，可以使用StringBuilder的前身StringBuffer，两者的API是一样的，但是后者的效率稍低。</p>
+<pre><code>/*
+ * String和StringBuffer：
+ *     String是不可变的字符序列
+ *     StringBuffer初始化长度为16
+ * */
+StringBuffer sb=new StringBuffer();
+System.out.println(sb.length());//获取缓冲区的字符串实际长度
+System.out.println(sb.capacity());//缓冲区的初始容量
+StringBuffer sb1=new StringBuffer(&quot;hello&quot;);
+System.out.println(sb1.length());//
+System.out.println(sb1.capacity());//字符串长度+length()
+
+/*    public         StringBuffer     append(String str) 
+ * 在StringBuffer后面添加元素，并返回本身
+ * StringBuffer是字符缓冲区，new的时候在堆内存中创建了一个对象，
+ * 底层是一个长度为16的字符数组，当调用方法时，不会重新创建对象，
+ * 而是在原缓冲区添加新的字符
+ *     public        StringBuffer     insert(int offset,String str)
+ * */
+StringBuffer sb2=sb1.append(true);
+StringBuffer sb3=sb1.append(1000);
+sb2.insert(2, &quot;haha&quot;);//将元素添加到第几个索引
+sb3.append(&quot;world&quot;);
+System.out.println(sb3);
+/*    public         StringBuffer     deleteChatAt(int index)
+ * 删除index索引的字符，并返回本身
+ *    public         StringBuffer     deleteChatAt(int start,int end)
+ * 删除时包头不包尾    
+ *    public         StringBuffer     replace(int start,int end,String str)
+ * 使用str替换从start开始到end结束，
+ * 
+ * public         StringBuffer     reverse();
+ * 反转
+ * public         String            subString(int start)    
+ * public         String             subString(int start ,int end)
+ *         注意返回值是String不是StringBuffer
+ * 
+ * */
+/*String----StringBuffer
+ * a:通过StringBuffer构造方法
+ * b:通过append()
+ * 
+ *StringBuffer--String 
+ * a:通过String构造方法
+ * b:通过toString()
+ * c:通过subString(0,length())
+ * 
+ * */
+System.out.println(sb3.toString());
+System.out.println(sb3);
+System.out.println(sb3.append(&quot;&quot;));
+System.out.println(sb3.capacity());
+System.out.println(sb3.length());
+System.out.println(sb3.substring(0, sb3.length()));
+</code></pre><p>注意，对String使用’+’实际上重载了append()方法，所以当你需要频繁拼接字符串是，应该考虑使用StringBuilder（StringBuffer）。</p>
+<p>更多方法请参照<a href="http://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">Java API文档</a></p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

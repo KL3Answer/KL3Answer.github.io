@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（十四）File、Filter | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、File类File是从JDk1.0开始就已经存在的文件操作相关的类 /*File类（路径）  * 路径：绝对路径和相对路径  *   *构造方法：  *     File(String pathname)                        根据路径得到File对象(注意不是创建是得到)  *     File(String parent,String child)">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（十四）File、Filter | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/04/13/Java基础知识（十四）File类、Filte接口/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、File类File是从JDk1.0开始就已经存在的文件操作相关的类 /*File类（路径）  * 路径：绝对路径和相对路径  *   *构造方法：  *     File(String pathname)                        根据路径得到File对象(注意不是创建是得到)  *     File(String parent,String child)">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.554Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（十四）File、Filter | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、File类File是从JDk1.0开始就已经存在的文件操作相关的类 /*File类（路径）  * 路径：绝对路径和相对路径  *   *构造方法：  *     File(String pathname)                        根据路径得到File对象(注意不是创建是得到)  *     File(String parent,String child)">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（十四）File、Filter</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-04-13" class="post-meta__date date">2015-04-13</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、File类"><a href="#一、File类" class="headerlink" title="一、File类"></a>一、File类</h3><p>File是从JDk1.0开始就已经存在的文件操作相关的类</p>
+<pre><code>/*File类（路径）
+ * 路径：绝对路径和相对路径
+ * 
+ *构造方法：
+ *     File(String pathname)                        根据路径得到File对象(注意不是创建是得到)
+ *     File(String parent,String child)            根据一个目录和一个子文件/目录得到对象
+ *     File(File parent,String child)                根据一个父File对象和一个子文件/目录得到File对象
+ * 
+ * */
+</code></pre><p>示例1</p>
+<pre><code>System.out.println(&quot;-----------------&quot;);
+File f = new File(&quot;D:\\demo\\test.bmp&quot;);
+System.out.println(f.exists());
+String parent = &quot;D:\\demo&quot;;
+String child = &quot;test.bmp&quot;;
+File f1 = new File(parent, child);
+System.out.println(f1.exists());
+</code></pre><p>常用方法</p>
+<pre><code>/*    创建：
+ * public     boolean        createNewFile()            创建新文件，如果存在就不创建了         
+ * public     boolean        mkdir()                    创建新文件夹，如果存在就不创建了（文件夹也可以有后缀，但是不推荐）         
+ * public     boolean        mkdirs()                创建新文件夹，如如果父文件夹不存在，会帮你创建出来     
+ * 
+ *     重命名：
+ * public     boolean     renameTo(File dest)        把文件重命名为指定的文件路径(如果路径相同)
+ *                                                 如果路径不同就是改名并剪切
+ *     删除：                                    
+ * public    boolean        delete()                删除文件或文件夹，不走回收站
+ *                                                 注意要删除的文件夹中不能包含文件或文件夹
+ * public    boolean        deleteOnExit()            在退出时删除文件或文件夹
+ * 
+ *     判断：
+ * public    boolean        setReadable(boolean b)    windows中都是可读的，设置为false也是可读的    
+ * public    boolean        setwritable(boolean b)    设置为false不可写    
+ * public    boolean        canRead()
+ * public    boolean        canWrite()
+ * public    boolean        isHidden()
+ * public    boolean        isFile()        
+ * public    boolean        isDirectory()
+ * public     boolean     exists()
+ * 
+ *     获取：
+ * public    String        getAbsolutePath()        获取绝对路径
+ * public     String        getPath()                获取相对路径    
+ * public     String        getName()                获取名称
+ * public     long        length()                获取长度，字节数
+ * public     long        lastModified()            获取最后一次修改时间，毫秒
+ * public     String[]    list()                    获取指定目录下的所有文件或者文件夹的名称数组
+ * public     File[]        listFiles()                获取指定目录下的所有文件或者文件夹的File数组,如果目录存在但是没有内容，会返回一个长度为0的数组
+ * static     File[]        listRoots()                列出可用的文件系统根（C:\\,D:\\   .etc）
+ * static    long        getFreeSpace()            返回此抽象路径名指定的分区空闲的空间
+ *                         getTotalSpace()            返回此抽象路径名指定的分区大小
+ *                         getUsableSpace()        返回此抽象路径名指定的分区上可用于虚拟机的字节数
+ *     
+ * */
+</code></pre><p>示例2</p>
+<pre><code>File f2 = new File(&quot;asd&quot;);
+System.out.println(f2.mkdirs());
+System.out.println(&quot;---------&quot;);
+File dir = new File(&quot;D:\\Backups\\Apps&quot;);//获取目录下的所有文件或文件夹对象
+File[] subFiles = dir.listFiles();
+for (File subFile : subFiles) {
+    if (subFile.isFile() &amp;&amp; subFile.getName().endsWith(&quot;.jpg&quot;)) {
+        System.out.print(subFile);
+    }
+}
+</code></pre><p>常用的静态域</p>
+<pre><code>/*File类：
+ * static char         separatorChar      路径分隔符
+ * static String    separator        目录分隔符
+ * */
+</code></pre><h3 id="二、Filter接口"><a href="#二、Filter接口" class="headerlink" title="二、Filter接口"></a>二、Filter接口</h3><p>使用FileNameFilter和FileFilter对文件搜索进行过滤</p>
+<pre><code>public class Demo_02 {
+    public static void main(String[] args) throws IOException{
+        /*
+         * Interface FileNameFilter
+         *    过滤器    
+         *    只有一个accept()方法 
+         * 
+         *     boolean        accept(File dir ,String name)        当且仅当该名称应该包含在文件列表中时返回true
+         * 
+         * */
+        String[] subFiles=new File(&quot;D:\\HQ_JAVA\\demo\\src\\test12&quot;).list(new FilterByJava());
+        for (String string : subFiles) {
+                System.out.println(string);
+        }
+        /*
+         * Interface FileFilter 
+         *     文件过滤器
+         *    只有一个accept(File pathName)方法 
+         *
+         *    用法和FilenameFilter一样 
+         *
+         * */
+
+        Files.delete(Paths.get(&quot;a&quot;));
+
+    }
+    public static void getFiles(File dir,FilenameFilter filter,List&lt;File&gt; list){
+
+        File[] files = dir.listFiles();
+
+        for(File file : files){
+            if(file.isDirectory()){
+                getFiles(file,filter,list);
+            }else{
+                //对遍历到的文件进行过滤器的过滤。将符合条件File对象，存储到List集合中。 
+                if(filter.accept(dir, file.getName())){
+                    list.add(file);
+                }
+            }
+        }
+
+    }
+
+}
+</code></pre><p>上面Filter的实现</p>
+<pre><code>class FilterByJava implements FilenameFilter{
+    public boolean accept(File dir,String name){
+        return name.endsWith(&quot;.java&quot;);
+    }
+}
+class FilterBySuffix implements FilenameFilter{
+    private String suffix;
+
+    public FilterBySuffix(String suffix){
+        super();
+        this.suffix=suffix;
+    }
+    public boolean accept(File dir,String name){
+
+        return name.endsWith(suffix);
+    }
+}
+</code></pre><p>注意：FileNameFilter的性能一般比FileFilter好，但是FileFilter的通用性更强一些。</p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

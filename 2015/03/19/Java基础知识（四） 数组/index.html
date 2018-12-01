@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（四） 数组 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="写在前面在把之前的几篇随笔迁移过来后，发现其中的许多内容都过于基础和零碎，还不如自己看书效果好，所以我决定之后的随笔不再涉及这些基础知识，而是直接上示例代码或者伪代码的方式来讲述这些知识点。 一、一维数组数组是一种用于存储同一数据类型的集合（概念上的集合，不是Collections类）。通过整形下标可以访问数组中的每一个值（数组的小标值范围是从0到数组长度-1）。 1、 数组的初始化  默认初始化">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（四） 数组 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/03/19/Java基础知识（四） 数组/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="写在前面在把之前的几篇随笔迁移过来后，发现其中的许多内容都过于基础和零碎，还不如自己看书效果好，所以我决定之后的随笔不再涉及这些基础知识，而是直接上示例代码或者伪代码的方式来讲述这些知识点。 一、一维数组数组是一种用于存储同一数据类型的集合（概念上的集合，不是Collections类）。通过整形下标可以访问数组中的每一个值（数组的小标值范围是从0到数组长度-1）。 1、 数组的初始化  默认初始化">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:42.226Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（四） 数组 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="写在前面在把之前的几篇随笔迁移过来后，发现其中的许多内容都过于基础和零碎，还不如自己看书效果好，所以我决定之后的随笔不再涉及这些基础知识，而是直接上示例代码或者伪代码的方式来讲述这些知识点。 一、一维数组数组是一种用于存储同一数据类型的集合（概念上的集合，不是Collections类）。通过整形下标可以访问数组中的每一个值（数组的小标值范围是从0到数组长度-1）。 1、 数组的初始化  默认初始化">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（四） 数组</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-03-19" class="post-meta__date date">2015-03-19</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>在把之前的几篇随笔迁移过来后，发现其中的许多内容都过于基础和零碎，还不如自己看书效果好，所以我决定之后的随笔不再涉及这些基础知识，而是直接上示例代码或者伪代码的方式来讲述这些知识点。</p>
+<h3 id="一、一维数组"><a href="#一、一维数组" class="headerlink" title="一、一维数组"></a>一、一维数组</h3><p>数组是一种用于存储同一数据类型的集合（概念上的集合，不是Collections类）。通过整形下标可以访问数组中的每一个值（数组的小标值范围是从0到数组长度-1）。</p>
+<p>1、 数组的初始化</p>
+<pre><code> 默认初始化：
+ 创建完数组后系统自动赋值，数字数组初始化为0，boolean为false，Stirng和对象数组为null
+
+动态初始化：//只指定数组长度，系统给出初始化值
+ 数据类型[] 数组名= new 数据类型[数组长度];//声明和赋值在同一行
+ 初始化值：整数类型为0,浮点型为0.0,布尔类型false,
+ 字符型\u0000（char为16bit，\u0000为16进制，0000代表16个二进制位）,
+
+ e.g. 
+         int[] arr=new int[3];///int[0],int[1],int[2]
+         int arr[]=new int[3];//&quot;[]&quot;放在类型后面或者变量名后均可，但建议使用更规范的前者
+
+    左边： 
+        int:数据类型
+        []:代表数组，几个[] 代表几维数组（只有一维和二维数组）
+         arr:合法的标识符
+     右边：
+         new：创建
+         []:代表数组
+         3：数组长度
+
+静态初始化：给出初始化值，由系统决定长度
+ e.g. 
+         int[] arr=new int[]{1,2,3,4};
+       int[] arr={1,2,3,4};
+
+
+如果你直接打印数组，会看到数组的地址如[I@19bb25a   
+ 其中含义：
+ [:数组，几个代表几维
+ I：数组的数据类型，I表示int
+ @固定字符
+ 后面的16进制数：hashcode
+</code></pre><h3 id="二、二维数组（也称为矩阵）"><a href="#二、二维数组（也称为矩阵）" class="headerlink" title="二、二维数组（也称为矩阵）"></a>二、二维数组（也称为矩阵）</h3><p>先看示例    </p>
+<pre><code>int[][] arr=new int[3][2];//定义了一个包含三个有两个元素一维数组的二维数组
+int[] arr,arr_1[];
+int arr [][]=new int[3][2];
+int[][] arr={{1212,12344,33},{22,1,44,33},{0,0,0,0,0}};
+int[][] arr={
+                {1212,12344,33},
+                {22,1,44,33},
+             {0,0,0,0,0}
+                           };
+</code></pre><p>从上面很容易看出二维数组和一维数组的使用大同小异，实际上，Java中的二维数组是“数组的数组”，如上面的arr数组，它实际上每一个下标的元素都引用了一个一维数组的地址，而这个一维数组就存在JVM堆中。</p>
+<h3 id="三、-数组的使用示例"><a href="#三、-数组的使用示例" class="headerlink" title="三、 数组的使用示例"></a>三、 数组的使用示例</h3><p>简单的一维数组示例：</p>
+<pre><code>int[] arr = new int[3];//动态初始化
+arr[0] = 12;
+System.out.println(arr);
+System.out.println(arr[1] + &quot; &quot; + arr[0]);
+arr=new int[]{1,2,44,5};//匿名数组
+int[] arr_a={1,2,3,4,5,666,666,44};
+arr=arr_a;//现在arr和arr_a指向同一个数组了        
+</code></pre><p>简单的二维数组示例：</p>
+<pre><code>int[][] arr_1 = new int[3][2];
+System.out.println(arr_1);//二维数组的地址
+System.out.println(arr_1[0]);//二维数组中的一维数组的地址
+int[][] arr_2 = new int[3][];//定义一个含有3个一维数组的二维数组
+arr_2[0] = new int[3];
+arr_2[1] = new int[5];//二维数组中的一维数组之间元素数可以不一样
+int[][] arr_3 = { { 12, 334, 345, 2, 4 }, { 2, 4, 456, 6, 456 }, { 1, 3, 3, 3, 3, 3 },
+        { 0, 0, 0, 33, 45 } };
+int sum = 0;
+for (int i = 0; i &lt; arr_3.length; i++) {//打印二维数组所有元素的和
+    for (int j = 0; j &lt; arr_3[i].length; j++) {
+        sum += arr_3[i][j];
+    }
+}
+System.out.println(sum);
+</code></pre><h3 id="四、数组的一些常用的API"><a href="#四、数组的一些常用的API" class="headerlink" title="四、数组的一些常用的API"></a>四、数组的一些常用的API</h3><p>关于Java中数组的常用API，可以参考<a href="http://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">Java 8API文档</a>，此处不再赘述。</p>
+<p><br><br><br><br><br><br><br><br><br><br>附：上面提到了堆，那在此简单描述一下JVM的内存分区。</p>
+<p>JVM内存有五大分区：</p>
+<pre><code> A:虚拟机栈
+ 先进后出（栈帧）
+ 存储局部变量
+  局部变量（定义在方法、构造方法或者语句块中的变量）
+
+B：堆（堆一般比栈大）
+   存储new出来的对象和数组
+
+C:方法区（和常量池）
+   运行的时候将字节码文件加载进来（存储常量）
+
+D:本地方法栈
+   和系统相关（本地方法）
+
+E：程序计数器
+   指示寄存器运行到哪个指令，你也可以简单理解为指示程序运行到了那一行
+
+其中，方法区和堆是共享的，本地方法栈、虚拟机栈个程序计数器是线程私有的
+</code></pre><p>上面只是一个简单的概述，更多的细节可以查看与JVM相关书籍（后面的随笔可能会稍作总结）。</p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

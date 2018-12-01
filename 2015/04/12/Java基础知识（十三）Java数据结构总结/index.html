@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（十三）Java数据结构总结 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、Collection接口 子接口： BlockingDeque&amp;lt;E&amp;gt;, BlockingQueue&amp;lt;E&amp;gt;, Deque&amp;lt;E&amp;gt;, List&amp;lt;E&amp;gt;, NavigableSet&amp;lt;E&amp;gt;, Queue&amp;lt;E&amp;gt;, Set&amp;lt;E&amp;gt;, SortedSet&amp;lt;E&amp;gt;   实现类： ArrayBlockingQueue, Ar">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（十三）Java数据结构总结 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/04/12/Java基础知识（十三）Java数据结构总结/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、Collection接口 子接口： BlockingDeque&amp;lt;E&amp;gt;, BlockingQueue&amp;lt;E&amp;gt;, Deque&amp;lt;E&amp;gt;, List&amp;lt;E&amp;gt;, NavigableSet&amp;lt;E&amp;gt;, Queue&amp;lt;E&amp;gt;, Set&amp;lt;E&amp;gt;, SortedSet&amp;lt;E&amp;gt;   实现类： ArrayBlockingQueue, Ar">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.304Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（十三）Java数据结构总结 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、Collection接口 子接口： BlockingDeque&amp;lt;E&amp;gt;, BlockingQueue&amp;lt;E&amp;gt;, Deque&amp;lt;E&amp;gt;, List&amp;lt;E&amp;gt;, NavigableSet&amp;lt;E&amp;gt;, Queue&amp;lt;E&amp;gt;, Set&amp;lt;E&amp;gt;, SortedSet&amp;lt;E&amp;gt;   实现类： ArrayBlockingQueue, Ar">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（十三）Java数据结构总结</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-04-12" class="post-meta__date date">2015-04-12</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、Collection接口"><a href="#一、Collection接口" class="headerlink" title="一、Collection接口"></a>一、Collection<e>接口</e></h3><ul>
+<li><p>子接口：</p>
+<pre><code>BlockingDeque&lt;E&gt;, BlockingQueue&lt;E&gt;, Deque&lt;E&gt;, List&lt;E&gt;, NavigableSet&lt;E&gt;, Queue&lt;E&gt;, Set&lt;E&gt;, SortedSet&lt;E&gt; 
+</code></pre></li>
+<li><p>实现类：</p>
+<pre><code>ArrayBlockingQueue, ArrayDeque, ArrayList,  ConcurrentLinkedQueue, ConcurrentSkipListSet, 
+CopyOnWriteArrayList, CopyOnWriteArraySet, DelayQueue, EnumSet, HashSet, LinkedBlockingDeque, 
+LinkedBlockingQueue, LinkedHashSet, LinkedList, PriorityBlockingQueue, PriorityQueue, 
+Stack, SynchronousQueue, TreeSet, Vector 
+</code></pre></li>
+</ul>
+<p>1、  List<e></e></p>
+<p>子接口：</p>
+<pre><code>无
+</code></pre><p>实现类：</p>
+<pre><code>ArrayList, CopyOnWriteArrayList, LinkedList,Stack, Vector 
+</code></pre><p>2、Queue<e></e></p>
+<p>子接口：</p>
+<pre><code>BlockingDeque&lt;E&gt;, BlockingQueue&lt;E&gt;, Deque&lt;E&gt; 
+</code></pre><p>实现类：</p>
+<pre><code>ArrayBlockingQueue, ArrayDeque, ConcurrentLinkedQueue, DelayQueue, 
+LinkedBlockingDeque, LinkedBlockingQueue, LinkedList, PriorityBlockingQueue,
+PriorityQueue, SynchronousQueue 
+</code></pre><p>3、Set<e></e></p>
+<p>子接口：</p>
+<pre><code>NavigableSet&lt;E&gt;, SortedSet&lt;E&gt; 
+</code></pre><p>实现类：</p>
+<pre><code>ConcurrentSkipListSet, CopyOnWriteArraySet, EnumSet, HashSet, LinkedHashSet, TreeSet 
+</code></pre><p>4、Map&lt;K,V&gt;</p>
+<p>子接口：</p>
+<pre><code>ConcurrentMap&lt;K,V&gt;, ConcurrentNavigableMap&lt;K,V&gt;,  SortedMap&lt;K,V&gt; 
+</code></pre><p>实现类：</p>
+<pre><code>ConcurrentHashMap, ConcurrentSkipListMap, EnumMap, HashMap, Hashtable, IdentityHashMap, LinkedHashMap, TreeMap, WeakHashMap 
+</code></pre><p>并发与线程安全等</p>
+<p>通常含有Concurrent，CopyOnWrite，Blocking的是线程安全的，但是这些线程安全通常是有条件的，所以在使用前一定要仔细阅读文档。</p>
+<h3 id="二、具体实现"><a href="#二、具体实现" class="headerlink" title="二、具体实现"></a>二、具体实现</h3><p>1、 List<e>系列：</e></p>
+<pre><code>ArrayList&lt;E&gt;，如其名，但是其容量增长计划是newCapacity = (oldCapacity * 3)/2 + 1，和C++通常的Vector是翻倍的策略不同。
+
+CopyOnWriteArrayList&lt;E&gt;，里面有一个ReentrantLock，每当add时，都锁住，把所有的元素都复制到一个新的数组上。
+
+只保证历遍操作是线程安全的，get操作并不保证，也就是说如果先得到size，再调用get(size-1)，有可能会失效
+
+那么CopyOnWriteArrayList是如何实现线程安全的迭代操作？
+
+在迭代器中保存原数组。
+</code></pre><ul>
+<li><p>LinkedList<e>，标准双向链表</e></p>
+</li>
+<li><p>Vector<e>，过时，多数方法上加上了synchronized</e></p>
+</li>
+<li><p>Stack<e>，继承自Vector，过时，优先应使用 Deque<integer> stack = new ArrayDeque<integer>();</integer></integer></e></p>
+</li>
+</ul>
+<p>2、Queue<e>系列：</e></p>
+<pre><code>LinkedList&lt;E&gt;，见List&lt;E&gt;系列
+
+ArrayDeque&lt;E&gt;，内部用一个数组保存元素，有int类型head和tail的。
+
+PriorityQueue&lt;E&gt;，内部用一个数组来保存元素，但数组是以堆的形式来组织的，因此是有序的。
+
+PriorityBlockingQueue&lt;E&gt;，包装了一个PriorityQueue&lt;E&gt;，一个ReentrantLock，一个Condition，TODO
+
+ArrayBlockingQueue&lt;E&gt;，TODO
+
+ConcurrentLinkedQueue&lt;E&gt;，TODO
+
+DelayQueue&lt;E&gt;，TODO
+
+LinkedBlockingDeque&lt;E&gt;，TODO
+
+LinkedBlockingQueue&lt;E&gt;，TODO
+
+SynchronousQueue&lt;E&gt;，TODO
+</code></pre><p>3、Deque<e>（双端队列）系列：</e></p>
+<pre><code>ArrayDeque&lt;E&gt;，见Queue系列
+
+LinkedList&lt;E&gt;，见List系列
+
+LinkedBlockingDeque&lt;E&gt;，TODO
+</code></pre><p>4、Set系列：</p>
+<pre><code>HashSet，包装了一个HashMap：
+
+    public HashSet() {
+
+        map = new HashMap&lt;E,Object&gt;();
+
+    }
+
+TreeSet，包装了一个TreeMap，参考HashSet
+
+LinkedHashSet，包装了LinkedHashMap，参考HashSet
+
+EnumSet，TODO
+
+CopyOnWriteArraySet，简单包装了CopyOnWriteArrayList，注意这个Set的get的时间复杂度。
+
+ConcurrentSkipListSet，包装了一个ConcurrentSkipListMap，参考HashSet。
+</code></pre><p>5、Map系列：</p>
+<pre><code>HashMap&lt;K,V&gt;，标准链地址法实现（全域哈希）
+
+TreeMap&lt;K,V&gt;，红黑二叉树
+
+LinkedHashMap&lt;K,V&gt;，在Entry中增加before和after指针把HashMap中的元素串联起来，这样在迭代时，就可以按插入顺序历遍。
+
+EnumMap，TODO
+
+ConcurrentHashMap，参考之前的文章
+
+ConcurrentSkipListMap，TODO，log(n)的时间复杂度，有点像多级链表保存的，貌似有点像Redis中的SortedSet的实现
+
+Hashtable，过时
+
+IdentityHashMap，正常的HashMap中比较是用equals方法，这个用的是“==”比较符
+
+WeakHashMap&lt;K,V&gt;，弱引用的HashMap，正常的HashMap是强引用，即里面的value不会被GC回收，在WeakHashMap&lt;K,V&gt;中，
+V中最好是WeakReference类型的，用像这样的代码：m.put(key, new WeakReference(value))
+</code></pre>
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

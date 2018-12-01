@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      灰色模型的简单Java实现 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="前几天在以前的遗留代码中发现一个问题，就是我生成的一个数据的走势曲线的预测值(用于灰色时间序列预测)总是和老代码里的不一致，具体来说就是：遗留代码里面的预测值的斜率总是为零，相比之下我生成的就比较合理了，和原有数据的走势相比基本一致。后来发现这个不知道谁写的代码里面又全是坑，连灰色模型都是错的，输入的数据也是错的。。。 所以，趁着这个周末有空，抽出一点陪女朋友的时间（不会花太长时间的，还是女">
+<meta name="keywords" content="笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="灰色模型的简单Java实现 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2017/08/19/灰色模型的简单Java实现/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="前几天在以前的遗留代码中发现一个问题，就是我生成的一个数据的走势曲线的预测值(用于灰色时间序列预测)总是和老代码里的不一致，具体来说就是：遗留代码里面的预测值的斜率总是为零，相比之下我生成的就比较合理了，和原有数据的走势相比基本一致。后来发现这个不知道谁写的代码里面又全是坑，连灰色模型都是错的，输入的数据也是错的。。。 所以，趁着这个周末有空，抽出一点陪女朋友的时间（不会花太长时间的，还是女">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.960Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="灰色模型的简单Java实现 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="前几天在以前的遗留代码中发现一个问题，就是我生成的一个数据的走势曲线的预测值(用于灰色时间序列预测)总是和老代码里的不一致，具体来说就是：遗留代码里面的预测值的斜率总是为零，相比之下我生成的就比较合理了，和原有数据的走势相比基本一致。后来发现这个不知道谁写的代码里面又全是坑，连灰色模型都是错的，输入的数据也是错的。。。 所以，趁着这个周末有空，抽出一点陪女朋友的时间（不会花太长时间的，还是女">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">灰色模型的简单Java实现</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-08-19" class="post-meta__date date">2017-08-19</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/笔记/">笔记</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<p>前几天在以前的遗留代码中发现一个问题，就是我生成的一个数据的走势曲线的预测值(用于灰色时间序列预测)总是和老代码里的不一致，具体来说就是：遗留代码里面的预测值的斜率总是为零，相比之下我生成的就比较合理了，和原有数据的走势相比基本一致。后来发现这个不知道谁写的代码里面又全是坑，连灰色模型都是错的，输入的数据也是错的。。。</p>
+<p>所以，趁着这个周末有空，抽出一点陪女朋友的时间（不会花太长时间的，还是女朋友重要！），来写一些关于灰色模型的Java的简单实现。</p>
+<h3 id="一、对灰色模型的建模分析"><a href="#一、对灰色模型的建模分析" class="headerlink" title="一、对灰色模型的建模分析"></a>一、对灰色模型的建模分析</h3><p>首先，关于灰色模型（后面简称为GM），简单讲就是介于黑色模型和白色模型之间，利用已知的数据来推测未知数据的一种模型（更具体的描述可以看<a href="http://wiki.mbalib.com/wiki/%E7%81%B0%E8%89%B2%E9%A2%84%E6%B5%8B%E6%B3%95" target="_blank" rel="noopener">灰色模型的简单介绍</a>）。</p>
+<p>好的，从上面我们可以知道，运用GM，有这么几个步骤：</p>
+<ol>
+<li><p>处理数据，使其可以运用于GM中</p>
+<p> 设原始数据列为$$X^{(0)}=x^{(0)}(1)+x^{(0)}(2)+x^{(0)}(3)+…+x^{(0)}(n)$$那么其级数比则是：$$λ(k)=\frac{x^{(0)}(k-1)}{x^{(0)}(k)},k=2,3,4…n$$<br> 当所有级数比都在区间:$$(e^{\frac{-2}{n+1}},e^{\frac{2}{n+1}})(注:这个区间和正态分布的概率密度有关)$$<br> 此时的数据列就可以建立GM，否则，对原始数据列进行变换（比如平移），使其满足上面的条件。</p>
+</li>
+<li><p>建立GM模型</p>
+<p> 假设数据列:$$X^{(0)}=x^{(0)}(1)+x^{(0)}(2)+.。。+x^{(0)}(n)$$满足条件，我们再通过累加生成数据列(也可以使用其他方式，比如累减、均值等):$$X^{(1}=x^{(1)}(1)+x^{(1)}(2)+.。。+x^{(1)}(n)$$<br> 其中:$$x^{(1)}(k)=\sum_{i=0}^{k}x(i)$$<br> 定义\(x^{(1)}\)的灰导数为：<br> $$dx^{(1)}(k)=x^{(0)}(k)=x^{(1)}(k)+x^{(1)}(k-1)$$<br> 令:$$z^{(1)}(k)=\frac{1}{2}(x^{(1)}(k)+x^{(1)}(k-1)),(k=2,3,…,n)$$<br> 定义GM(1,1)的灰微分方程模型为:<br> $$x^{(0)}(k)+az^{(1)}(k)=b$$<br> \(其中x^{(0)}(k)称为灰导数，a称为发展系数，z^{(1)}(k)称为白化背景值，b称为灰作用量\)。</p>
+<p> \(将x^{(0)}(k)+az^{(1)}(k)=b\) 展开成如下形式：</p>
+<p> $$\left[\matrix{x^{(0)}(2)\\x^{(0)}(3)\\x^{(0)}(4)\\ …\\x^{(0)}(n)}\right]=\left[\matrix{-\frac{1}{2}(x^{(1)}(1)+x^{(1)}(2))&amp;1\\ -\frac{1}{2}(x^{(1)}(2)+x^{(1)}(3))&amp;1\\ -\frac{1}{2}(x^{(1)}(3)+x^{(1)}(4))&amp;1\\ …&amp; …\\ -\frac{1}{2}(x^{(1)}(n-1)+x^{(1)}(n))&amp;1}\right]$$<br> \(令Y=\left[\matrix{x^{(0)}(2)\\x^{(0)}(3)\\x^{(0)}(4)\\ …\\x^{(0)}(n)}\right],B=\left[\matrix{-\frac{1}{2}(x^{(1)}(1)+x^{(1)}(2))&amp;1\\ -\frac{1}{2}(x^{(1)}(2)+x^{(1)}(3))&amp;1\\ -\frac{1}{2}(x^{(1)}(3)+x^{(1)}(4))&amp;1\\ …&amp; …\\ -\frac{1}{2}(x^{(1)}(n-1)+x^{(1)}(n))&amp;1}\right],\phi=\left[\matrix{a &amp;b}\right]^{\mit T},则上式可以写成Y=B\phi\)</p>
+<p> 由最小平方法可以求出:$$\hat{\phi}=\left[\matrix{\hat{a} &amp; \hat{b}}\right]^{\mit T}=(B^{\mit T}B)^{-1}B^{T}Y$$<br> 将其代入,求出离散解为:$$\hat{x^{(1)}}(k+1)=(x^{(0)}(1)-\frac{\hat{b}}{\hat{a}})e^{-\hat{a}K}+\frac{\hat{b}}{\hat{a}} \ \ \ \  \ \ \ \ \ \ (1)$$<br> 对于原始数据,有：$$\hat{x}^{(0)}(k+1)=\hat{x}^{(1)}(k+1)-\hat{x}^{(1)}(k)=(1-e^{\hat{a}})(x^{(0)}(1)-\frac{\hat{b}}{\hat{a}})e^{-\hat{a}k} \ \ \ \ \ \ \ \ (2)$$<br> (1)、(2)式称为GM(1,1)模型的时间响应函数模型，是我们计算预测值的基本公式。</p>
+<p> 对于灰微分方程，若将\(x^{(0)}(k)\)的时间k视为连续变量t，则数列\(x^{(1)}\)可视为时间的函数，记为\(x^{(1)}=x^{(1)}(t)\),并让灰导数对应于导数\(\frac{dx^{(1)}}{dt}\),背景值\(z^{(1)}(k)\)对应于\(x^{(1)}(k)\),则得到的GM(1,1)对应的白微分方程：$$\frac{dx^{(1)}}{dt}+ax^{(1)}=b$$称之为GM(1,1)的白化型。</p>
+</li>
+<li><p>精度检验</p>
+<p> 对于得到的预测值，通常有三种方法进行检验：相对误差大小检验法、后验差检验法、关联度检验法。</p>
+</li>
+</ol>
+<ul>
+<li><p>相对误差大小检验法</p>
+<p> 按GM(1,1)建模法求出\(\hat{x}^{(1)}\),并将\(\hat{X}^{(1)}\)做一次累减转化为\(\hat{X}^{(0)}\),即：$$\hat{X}^{(0)}=[\hat{x}^{(0)}(1),\hat{x}^{(0)}(2),…,\hat{x}^{(0)}(n)]$$<br> 计算残差：$$E=[e(1),e(2),…,e(n)]=X^{(0)}-\hat{X}^{(0)}$$其中，\(e(k)=x^{(0)}(k)-\hat{x}^{(0)}(k),k=1,2,…,n\)<br> 相对误差：<br> $$\cal{rel(k)}=\frac{e(k)}{x^{(0)}(k)}\times100\%,k=1,2,..,n$$<br> 平均相对误差：<br> $$\cal{rel}=\frac{1}{n}\sum_{k=1}^{n}|\cal{rel(k)}|$$<br> 如果对于所有\(\cal{|rel(k)|}&lt;0.1\),则认为达到较高要求；若对于所有\(\cal{|rel(k)|}&lt;0.2\),则认为达到一般要求。</p>
+<p> （这里只介绍相对误差大小检验法，我要去陪女朋友了，后面的那些懒得写了，还有，示例代码中使用的是后验差校验法。）</p>
+</li>
+</ul>
+<h3 id="二、代码示例"><a href="#二、代码示例" class="headerlink" title="二、代码示例"></a>二、代码示例</h3><p> 根据上面几步，GM的简单Java实现如下：</p>
+<pre><code>/**
+* 灰度模型在Java上的简单实现
+*/
+public class GrayModel {
+    //na -&gt; -a ,c0 -&gt; b/na ; c1 -&gt; x0_1 - b/na
+    private double na, c0, c1;
+    //原始数据的大小
+    private int size;
+    //X0的方差
+    private double error;
+
+    public GrayModel(double[] x0) {
+        size = x0.length;
+        //计算生成数据列 X1
+        double[] x1 = new double[size];
+        x1[0] = x0[0];
+        // avg_x0 x0 的平均值
+        int avg_x0=0;
+        for (int i = 1; i &lt; size; i++) {
+            x1[i] = x0[i] + x1[i - 1];
+            avg_x0+=x0[i];
+        }
+        avg_x0/=size;
+
+        //计算B、BT、Y
+        double[][] B = new double[size - 1][2];
+        double[][] BT = new double[2][size - 1];
+        double[][] Y = new double[size - 1][1];
+        for (int i = 0; i &lt; B.length; i++) {
+            B[i][0] = -(x1[i] + x1[i + 1]) / 2;
+            B[i][1] = 1;
+            BT[0][i] = B[i][0];
+            BT[1][i] = 1;
+            Y[i][0] = x0[i + 1];
+        }
+
+        //计算phi
+        double[][] phi;
+        //这么写只是为了更清晰
+        double[][] temp;
+        temp= multiply(BT, B);
+        temp = multiply(inverse(temp), BT);
+        phi = multiply(temp, Y);
+
+        na = -phi[0][0];
+        c0 = phi[1][0] / phi[0][0];
+        c1 = x0[0] - c0;
+
+        //后验差校验法
+        error = 0;
+        for (double v : x0) {
+            error += Math.sqrt(v - avg_x0);
+        }
+        error /= size;
+    }
+
+    /**
+    * 后验差校验法 获取方差
+    */
+    public double getError() {
+        return error;
+    }
+
+    /**
+    *  获取第k个生成数据
+    */
+    private double getX1(int k) {
+        return c1 * Math.exp(na * k) + c0;
+    }
+
+    /**
+    * 获取第k个原始数据
+    */
+    private double getX0(int k) {
+        if (k == 0) {
+            return c1 * Math.exp(na * k) + c0;
+        } else {
+            return c1 * (Math.exp(na * k) - Math.exp(na * (k - 1)));
+        }
+    }
+
+    /**
+    * 预测未来的第t个时间点的值
+    */
+    public double next(int t) {
+        assert t &gt; 0 : &quot;输入的index值不能小于0！&quot;;
+        return getX0(size + t);
+    }
+
+    /**
+    * 2x2 矩阵求逆
+    */
+    private static double[][] inverse(double[][] t) {
+        double[][] a = new double[2][2];
+        double det = t[0][0] * t[1][1] - t[0][1] * t[1][0];
+        a[0][0] = t[1][1] / det;
+        a[0][1] = -t[1][0] / det;
+        a[1][0] = -t[0][1] / det;
+        a[1][1] = t[0][0] / det;
+        return a;
+    }
+
+    /**
+    * 简单的矩阵乘法 别问我为什么用两个循环做...
+    */
+        private static double[][] multiply(double[][] left, double[][] right) {
+        int line_left = left.length;
+        int row_left = left[0].length;
+        int row_right = right[0].length;
+
+        double[][] dest = new double[left.length][right[0].length];
+        for (int k = 0; k &lt; line_left; k++) {
+            for (int s = 0; s &lt; row_right; s++) {
+                dest[k][s] = 0;
+                for (int i = 0; i &lt; row_left; i++) {
+                    dest[k][s] += left[k][i] * right[i][s];
+                }
+            }
+        }
+        return dest;
+    }
+}
+</code></pre><p>简单测试一下：</p>
+<pre><code>public static void main(String[] args) {
+    double step = 0.001;
+    double t = step;
+    double[] x0 = new double[10];
+    //使用sin+cos 模拟原始数据
+    for (int i = 0; i &lt; x0.length; i++) {
+        x0[i] = Math.sin(t) + Math.cos(t);
+        t += step;
+    }
+    GrayModel gm = new GrayModel(x0);
+    for (int i = 0; i &lt; 10; i++) {
+        // 真实值与预测值的差值
+        System.out.println(Math.sin(t) + Math.cos(t) - gm.next(i));
+        t += step;
+    }
+    //获取方差
+    System.out.println(Math.sqrt(gm.getError()));
+}
+</code></pre><h3 id="三、关于使用GM的一点小建议"><a href="#三、关于使用GM的一点小建议" class="headerlink" title="三、关于使用GM的一点小建议"></a>三、关于使用GM的一点小建议</h3><p>从GM的计算方式可以看出，GM使用指数曲线来拟合原始数据，所以GM对单调函数具有较为准确的预测，但是对于周期函数，预测的误差则较大。<br>具体到我接触的代码所设计的业务，几乎没有任何指导意义（简直在扯淡好吗。。。生活中有多少数据的单调递增的），完全是xjb套公式。。。</p>
+<p>所以在使用GM的时候，要了解清楚所要分析的数据是否适合使用GM,不要脱离实际,搞花架子忽悠人。</p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

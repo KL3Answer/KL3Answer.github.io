@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（十八）多线程（四）多线程同步 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、使用synchronizedpublic class Demo_01_synch {     static int i=0;     public static void main(String[] args) {         /*          * 同步方法（同步代码块的简写形式）          *   使用 synchronized关键字修饰方法          * e.g.">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（十八）多线程（四）多线程同步 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/04/14/Java基础知识（十八）多线程（四） 多线程同步/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、使用synchronizedpublic class Demo_01_synch {     static int i=0;     public static void main(String[] args) {         /*          * 同步方法（同步代码块的简写形式）          *   使用 synchronized关键字修饰方法          * e.g.">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.491Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（十八）多线程（四）多线程同步 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、使用synchronizedpublic class Demo_01_synch {     static int i=0;     public static void main(String[] args) {         /*          * 同步方法（同步代码块的简写形式）          *   使用 synchronized关键字修饰方法          * e.g.">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（十八）多线程（四）多线程同步</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-04-14" class="post-meta__date date">2015-04-14</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、使用synchronized"><a href="#一、使用synchronized" class="headerlink" title="一、使用synchronized"></a>一、使用synchronized</h3><pre><code>public class Demo_01_synch {
+    static int i=0;
+    public static void main(String[] args) {
+        /*
+         * 同步方法（同步代码块的简写形式）
+         *   使用 synchronized关键字修饰方法
+         * e.g.  public synchronized void show（）{}
+         *     
+         * */
+        /*同步代码块
+         * 使用同步锁（保护数据）
+         *         锁对象可以使任意的对象（不能使用匿名对象，因为无法保证锁的唯一性）
+         * synchronized(Object obj){
+         *         code;
+         * }
+         * 
+         * */
+        /*同步方法和同步代码块的区别：
+         *     非静态同步方法的锁是固定的this，同步代码块是任意的对象
+         *     静态同步方法的锁是当前所属的class文件所属的对象（该类的字节码对象）
+         * 
+         * 建议使用同步代码块
+         * */
+        //demo_01();
+        demo_02();
+        //Collections.synchronizedxxx() 将xxx集合变为同步的
+    }
+
+    /**
+     * 
+     */
+    public static void demo_02() {
+        Printer p1=new Printer();
+        Thread t0=new Thread(){
+            public void run(){
+                while(true){
+                    p1.print1();
+                }
+            }
+        };
+        Thread t1=new Thread(){
+            public void run(){
+                while(true){
+                    p1.print2();
+                }
+            }
+        };
+        t0.start();
+        t1.start();
+    }
+
+    public static void demo_01() {
+        final Object obj = new Object();
+        Thread t1 = new Thread() {
+            Thread t = Thread.currentThread();
+            public void run() {
+                while (true) {
+                synchronized (obj) {
+                    t.setName(&quot;01&quot;);
+                        System.out.println(t.getName() + &quot;------&quot; + i++);
+                    }
+                }
+            }
+        };
+        Thread t2 = new Thread() {
+            Thread t = Thread.currentThread();
+            public void run() {
+                while (true) {
+                synchronized (obj) {
+                    t.setName(&quot;02&quot;);
+                        System.out.println(t.getName() + &quot;------&quot; + i++);
+                    }
+                }
+            }
+        };
+        t1.start();
+        t2.start();
+    }
+}
+</code></pre><p>Printer类</p>
+<pre><code>class Printer{
+    public synchronized void print1(){
+        System.out.print(&quot;1&quot;);
+        System.out.print(&quot;2&quot;);
+        System.out.print(&quot;3&quot;);
+        System.out.print(&quot;4&quot;);
+        System.out.println(&quot;5&quot;);
+
+    }
+    Object obj=new Object();
+    public void print2(){
+        synchronized(obj){
+            System.out.print(&quot;a&quot;);
+            System.out.print(&quot;b&quot;);
+            System.out.print(&quot;c&quot;);
+            System.out.print(&quot;d&quot;);
+            System.out.println(&quot;e&quot;);
+        }
+    }
+}
+</code></pre><h3 id="二、多线程卖票示例"><a href="#二、多线程卖票示例" class="headerlink" title="二、多线程卖票示例"></a>二、多线程卖票示例</h3><p>Ticket类示例：</p>
+<pre><code>class Ticket implements Runnable {//使用接口创建多线程
+    private int num = 100;
+    private Object object = new Object();
+
+    public void sale() {
+        /*线程安全问题的原因：
+         * 1、多个线程操作共享的数据
+         * 2、操作共享数据的线程代码有多条
+         * 
+         * 当一个线程在执行共享数据的多条代码的过程中，其他线程参与了运算，
+         * 就会导致线程安全问题的产生
+         */
+        while (true) {
+            /*解决思路：将多条操作共享数据的线程代码封装起来，当有线程在执行这些代码的时候，
+             * 其他线程是不可以参与运算的，必须要当前线程把这些代码都执行完毕后，其他代码才可以参与运算
+             * 
+             * 在java中使用同步代码块
+             *     关键字synchronized(对象)  
+             *         这里的对象是同步锁，标识当前参与运算的线程
+             * 
+             *    同步的好处：解决了线程的安全问题
+             *    同步的弊端:相对降低效率，因为同步外的线程都会判断同步锁
+             * 
+             *     同步的前提：必须有多个线程并使用同一个锁 
+             * */
+            //同步代码块,带有特性的封装，对锁的操作是隐式的
+            synchronized (object) {
+                if (num &gt; 0) {//可能的线程安全问题
+
+                    System.out.println(Thread.currentThread().getName() + &quot;..t3..&quot; + num--);
+                } else {
+                    break;
+                }
+            }
+        }
+    }
+
+    public void run() {
+        sale();
+    }
+
+}
+</code></pre><p>运行示例</p>
+<pre><code>public class Demo_02_Tickets {
+
+    public static void main(String[] args) {
+        Ticket t = new Ticket();
+        Thread t0 = new Thread(t);
+        Thread t1 = new Thread(t);
+        Thread t2 = new Thread(t);
+        Thread t3 = new Thread(t);
+        t0.start();
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+
+}
+</code></pre><p>上面示例中的Ticket类</p>
+<pre><code>class Ticket implements Runnable {
+    private int tickets = 10000;
+    Object object = new Object();
+
+    @Override
+    public void run() {
+        sale();
+    }
+
+    /**
+     * 
+     */
+    public void sale() {
+        while (true) {
+            synchronized (object) {
+                if (tickets &gt; 0) {
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                    }
+
+                    System.out.println(Thread.currentThread().getName() + &quot;.....sale....&quot; + tickets--);
+                }
+            }
+        }
+    }
+
+}    
+</code></pre><h3 id="三、死锁示例"><a href="#三、死锁示例" class="headerlink" title="三、死锁示例"></a>三、死锁示例</h3><p>常见情景之一:同步的嵌套</p>
+<pre><code>class DeadLock implements Runnable {
+    private int num = 100;
+    Object object = new Object();
+
+    public void sale() {
+        while (num &gt; 0) {
+            synchronized (object) {
+                run();
+            }
+        }
+    }
+
+    public synchronized void run() {
+        synchronized (object) {
+            if (num &gt; 0) {
+                System.out.println(Thread.currentThread().getName() + &quot;..tt..&quot; + num--);
+            }
+        }
+    }
+}
+</code></pre><p>示例</p>
+<pre><code>public class Demo_03_DeadLock {
+    public static void main(String[] args) {
+        Dead d1 = new Dead(true);
+        Dead d2 = new Dead(false);
+        Thread t1 = new Thread(d1);
+        Thread t2 = new Thread(d2);
+        t1.start();
+        t2.start();
+
+    }
+}
+</code></pre><p>Dead 实现了Runnable</p>
+<pre><code>class Dead implements Runnable {//死锁
+    private boolean flag;
+
+    Dead(boolean flag) {
+        this.flag = flag;
+    }
+
+    public void run() {
+        if (flag) {
+            synchronized (Lock.lockA) {
+                System.out.println(&quot;if-----lock a&quot;);
+                synchronized (Lock.lockB) {
+                    System.out.println(&quot;if-----lock b&quot;);
+                }
+            }
+        } else {
+            synchronized (Lock.lockB) {
+                System.out.println(&quot;else-----lock b&quot;);
+                synchronized (Lock.lockA) {
+                    System.out.println(&quot;else-----lock a&quot;);
+                }
+            }
+        }
+    }
+}
+</code></pre><p>锁</p>
+<pre><code>class Lock {
+    public static final Object lockA = new Object();
+    public static final Object lockB = new Object();
+}
+</code></pre><h3 id="四、等待唤醒机制示例"><a href="#四、等待唤醒机制示例" class="headerlink" title="四、等待唤醒机制示例"></a>四、等待唤醒机制示例</h3><pre><code>public class Demo_03_Wait_Nofity {
+    public static void main(String[] args) {
+        /*线程间通信：多个线程在处理同一资源，但是任务却不同 
+         * 
+         * */
+        /*等待/唤醒机制
+         * 
+         * 涉及的方法：（这些都是Object中的方法）
+         *     1、wait()        让线程处于冻结状态，被wait的状态会被存储在线程池中（释放锁）
+         *        wait(long timeout)        到时间后停止冻结
+         *     2、notify()        唤醒线程池中的一个线程（任意的）
+         *     3、notityAll()    唤醒线程池中的所有线程//低效
+         *      
+         * 
+         * 这些方法必须定义在同步中
+         * 因为这些方法是用于操作线程状态的方法
+         * 必须要明确到底操作的是哪个锁上的线程
+         *  * */
+        demo_01();
+    }
+
+    /**
+     * 
+     */
+    public static void demo_01() {
+        Printer p = new Printer();
+        Thread t1 = new Thread() {
+            public void run() {
+                p.print1();
+            }
+        };
+        Thread t2 = new Thread() {
+            public void run() {
+                p.print2();
+            }
+        };
+        Thread t3 = new Thread() {
+            public void run() {
+                p.print3();
+            }
+        };
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
+</code></pre><p>Printer类    </p>
+<pre><code>class Printer {
+    private int flag = 1;
+
+    public void print1() {
+        while (true) {
+            //
+            synchronized (this) {
+                while(flag != 1) {
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+                System.out.print(&quot;*-----Emily--------&quot;);
+                System.out.println(&quot;female&quot;);
+                flag = 2;
+                //唤醒所有线程
+                this.notifyAll();//锁对象调用notifyAll方法（native），对线程进行操作
+            }
+        }
+    }
+
+    public void print2() {
+        while (true) {
+            synchronized (this) {
+                while(flag != 2) {
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+                System.out.print(&quot;**-----小明--------&quot;);
+                System.out.println(&quot;男&quot;);
+                flag = 3;
+                this.notifyAll();
+            }
+        }
+    }
+    public void print3() {
+        while (true) {
+            synchronized (this) {
+                while (flag != 3) {
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+
+                        e.printStackTrace();
+                    }
+                }
+                System.out.print(&quot;***-----????--------&quot;);
+                System.out.println(&quot;Alien&quot;);
+                flag = 1;
+                this.notifyAll();
+            }
+        }
+    }
+}
+</code></pre><h3 id="五、使用ReentrantLock"><a href="#五、使用ReentrantLock" class="headerlink" title="五、使用ReentrantLock"></a>五、使用ReentrantLock</h3><pre><code>public class Demo_04_Lock {
+    public static void main(String[] args) {
+        /*interface Lock
+         * 一个可以重入的互斥锁Lock，具有和synchronized相同的功能，但是更强大
+         * jdk1.5以后将同步和锁封装成了对象，并将操作锁的隐式动作变成了对象
+         * 
+         * Lock lock=new ReentrantLock()
+         * void show(){
+         *     lock.lock();//获取锁
+         *     try{
+         *         代码....        //如果发生异常，就会出问题，所以释放锁的动作一般放在finally中
+         *     }
+         *     finally{
+         *         lock.unlock();//释放锁
+         *     }
+         * }
+         * 
+         * */
+        /*
+         * Lock接口：
+         *         替代同步代码块或同步方法，将同步的隐式锁操作变成了显示锁操作
+         *         同时更灵活，可以一个锁上加多个监视器
+         *     lock(): 获取锁
+         *     unlock():释放锁，通常需要定义在finally代码块中
+         * Condition接口：
+         *         替代了Object中的wait notify notifyAll,将这些监视器单独封装，变成了condition监视器对象
+         *         可以任意锁组合
+         *     await()
+         *     signal()
+         *  singalAll()
+         *  
+         * */
+
+
+        demo_01();
+
+    }
+
+
+    /**
+     * 
+     */
+    public static void demo_01() {
+        MyPrinter p = new MyPrinter();
+        Thread t1 = new Thread() {
+            public void run() {
+                p.print1();
+            }
+        };
+        Thread t2 = new Thread() {
+            public void run() {
+                p.print2();
+            }
+        };
+        Thread t3 = new Thread() {
+            public void run() {
+                p.print3();
+            }
+        };
+        Thread t4 = new Thread() {
+            public void run() {
+                p.print4();
+            }
+        };
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+    }
+}
+</code></pre><p>MyPrinter类</p>
+<pre><code>class MyPrinter implements Runnable{
+    private int flag = 1;
+    private Lock lock = new ReentrantLock();
+    private Condition c1 = lock.newCondition();
+    private Condition c2 = lock.newCondition();
+    private Condition c3 = lock.newCondition();
+    private Condition c4 = lock.newCondition();
+
+    public void print1() {
+        while (true) {
+            lock.lock();
+            if (flag != 1) {
+                try {
+                    c1.await();
+                } catch (InterruptedException e) {
+
+                    e.printStackTrace();
+                }
+            }
+            System.out.print(&quot;*&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.println(&quot;-&quot;);
+            flag = 2;
+            c2.signal();
+            lock.unlock();
+        }
+    }
+
+    public void print2() {
+        while (true) {
+            lock.lock();
+            if (flag != 2) {
+                try {
+                    c2.await();
+                } catch (InterruptedException e) {
+
+                    e.printStackTrace();
+                }
+            }
+            System.out.print(&quot;*&quot;);
+            System.out.print(&quot;*&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.println(&quot;-&quot;);
+            flag = 3;
+            c3.signal();
+            lock.unlock();
+        }
+    }
+
+    public void print3() {
+        while (true) {
+            lock.lock();
+            if (flag != 3) {
+                try {
+                    c3.await();
+                } catch (InterruptedException e) {
+
+                    e.printStackTrace();
+                }
+            }
+            System.out.print(&quot;*&quot;);
+            System.out.print(&quot;*&quot;);
+            System.out.print(&quot;*&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.println(&quot;-&quot;);
+            flag = 4;
+            c4.signal();
+            lock.unlock();
+        }
+    }
+
+    public void print4() {
+        while (true) {
+            lock.lock();
+            if (flag != 4) {
+                try {
+                    c4.await();
+                } catch (InterruptedException e) {
+
+                    e.printStackTrace();
+                }
+            }
+            System.out.print(&quot;*&quot;);
+            System.out.print(&quot;*&quot;);
+            System.out.print(&quot;*&quot;);
+            System.out.print(&quot;*&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.print(&quot;-&quot;);
+            System.out.println(&quot;-&quot;);
+            flag = 1;
+            c1.signal();
+            lock.unlock();
+        }
+    }
+
+    @Override
+    public void run() {
+        int count=0;
+        while(count&lt;400){
+            System.out.println(Thread.currentThread().getName()+&quot;:&quot;+Thread.getAllStackTraces());
+            count++;
+        }
+    }
+}
+</code></pre><h3 id="六、多个生产者消费者问题示例"><a href="#六、多个生产者消费者问题示例" class="headerlink" title="六、多个生产者消费者问题示例"></a>六、多个生产者消费者问题示例</h3><pre><code>public class LockDemo {
+    public static void main(String[] args) {
+        NewResource nr = new NewResource();
+
+        NewProducer p = new NewProducer(nr);
+
+        NewConsumer c = new NewConsumer(nr);
+
+        Thread t0 = new Thread(p);
+        Thread t1 = new Thread(p);
+        Thread t2 = new Thread(c);
+        Thread t3 = new Thread(c);
+        t0.start();
+        t2.start();
+        t1.start();
+        t3.start();
+    }
+}
+</code></pre><p>NewResource类</p>
+<pre><code>class NewResource {
+    private String name;
+    private int count = 1;
+    private boolean flag = false;
+    //创建锁对象
+    Lock lock = new ReentrantLock();//ReentrantLock可重入锁
+    //通过已有的锁获取该锁上的监视器对象
+    //    Condition con=lock.newCondition();
+    //通过锁获取两组监视器，一组监视生产者，一组监视消费者
+    Condition pro_con = lock.newCondition();
+    Condition con_con = lock.newCondition();
+
+
+    public void set(String name) {
+        lock.lock();
+        try {
+            while (flag) { //while判断标记解决了线程获取执行权后是否要执行
+                try {
+                    pro_con.await();
+                } catch (InterruptedException e) {
+                }
+            }
+            this.name = name + count;
+            count++;
+            System.out.println(Thread.currentThread().getName() + &quot;----生产者----&quot; + this.name);
+            flag = true;
+            con_con.signal();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void out() {
+        lock.lock();
+        try {
+            while (!flag) {
+                try {
+                    con_con.await();
+                } catch (InterruptedException e) {
+
+                }
+            }
+            System.out.println(Thread.currentThread().getName() + &quot;---------消费者------------&quot; + this.name);
+            flag = false;
+            pro_con.signalAll();
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+</code></pre><p>NewProdsucer和NewConsumer类</p>
+<pre><code>class NewProducer implements Runnable {
+    private NewResource r;
+
+    NewProducer(NewResource r) {
+        this.r = r;
+    }
+
+    public void run() {
+        while (true) {
+            r.set(&quot;commodity&quot;);
+        }
+    }
+}
+
+class NewConsumer implements Runnable {
+    private NewResource r;
+
+    NewConsumer(NewResource r) {
+        this.r = r;
+    }
+
+    public void run() {
+        while (true) {
+            r.out();
+        }
+    }
+}
+</code></pre><h3 id="七、单例模式和多线程"><a href="#七、单例模式和多线程" class="headerlink" title="七、单例模式和多线程"></a>七、单例模式和多线程</h3><p>单例设计模式(饿汉式)</p>
+<pre><code>/* 空间换时间
+ * 
+ * 不会出现创建多个对象的问题
+ * */
+class Single1 {
+    //final防止对象被修改
+    private static /*final*/ Single1 s = new Single1();
+    //私有构造方法
+    private Single1() {
+    };
+    //使用本类的方法创建对象
+    public static Single1 getInstance() {
+        return s;
+    }
+
+}
+</code></pre><p>延迟加载单例设计设计模式(懒汉式)</p>
+<pre><code>/* 时间换空间
+ * */
+class Single2 {
+    private static Single2 s = null;
+
+    private Single2() {
+    };
+
+    public static Single2 getInstance() {
+        //此时多线程有安全隐患
+        /*if(s==null){
+            s=new Single1();
+        }*/
+        //改写成同步方法会降低效率，多一步判断锁的过程
+        if (s == null) {//双重判断，提高效率
+            synchronized (Single2.class) {//使用同步代码块
+                if (s == null) {
+                    s = new Single2();//对数据使用同步以防止多线程出问题
+                }
+            }
+        }
+        return s;
+    }
+}
+</code></pre>
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（二十二）Java连接数据库 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、关于数据库自己看书去 二、示例代码/**  * @throws ClassNotFoundException  * @throws SQLException  */ public static void demo_01() throws ClassNotFoundException, SQLException {     /*面向接口开发      *       * Java Data Ba">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（二十二）Java连接数据库 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/04/15/Java基础知识（二十二）Java连接数据库/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、关于数据库自己看书去 二、示例代码/**  * @throws ClassNotFoundException  * @throws SQLException  */ public static void demo_01() throws ClassNotFoundException, SQLException {     /*面向接口开发      *       * Java Data Ba">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.101Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（二十二）Java连接数据库 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、关于数据库自己看书去 二、示例代码/**  * @throws ClassNotFoundException  * @throws SQLException  */ public static void demo_01() throws ClassNotFoundException, SQLException {     /*面向接口开发      *       * Java Data Ba">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（二十二）Java连接数据库</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-04-15" class="post-meta__date date">2015-04-15</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、关于数据库"><a href="#一、关于数据库" class="headerlink" title="一、关于数据库"></a>一、关于数据库</h3><pre><code>自己看书去
+</code></pre><h3 id="二、示例代码"><a href="#二、示例代码" class="headerlink" title="二、示例代码"></a>二、示例代码</h3><pre><code>/**
+ * @throws ClassNotFoundException
+ * @throws SQLException
+ */
+public static void demo_01() throws ClassNotFoundException, SQLException {
+    /*面向接口开发
+     * 
+     * Java Data Base Connectivity java数据库连接
+     * 执行SQL语句的API
+     * 
+     * 驱动也是类库
+     * 其实现类一般由写数据库的公司写
+     * 
+     * */
+
+    /*    1、注册驱动
+     *         告知JVM使用的是哪一个数据库的驱动
+     */
+    //java.sql.DriverManager 类的静态方法registerDriver(Driver driver)
+    //Driver接口，MySQL驱动程序的实现类,
+    //使用构造会二次注册，浪费资源
+    //一般使用反射Class.forName()
+    //常用
+    Class.forName(&quot;com.mysql.jdbc.Driver&quot;);
+    /*
+     * 此时会执行Driver的静态代码块创建一个实例，然后调用DriverManager.registerDriver()注册
+     * 
+     * */
+    //注册驱动的另外两种方式
+    //System.setProperty(&quot;jdbc.driver&quot;, &quot;com.mysql.jdbc.Driver&quot;);
+    //new com.mysql.jdbc.Driver();
+
+
+
+    /*
+     *     2、获得链接
+     *         使用JDBC中的类，完成对MySQL的数据库连接
+     */
+    //static Connection getConnection(String url.String user,String password)
+    //返回值是 Connection 的实现类，在mysql驱动程序
+    //url数据库连接地址 jdbc:mysql://连接主机IP:端口号//数据库名字
+    String url=&quot;jdbc:mysql://localhost:3306/homework&quot;;
+    String username=&quot;root&quot;;
+    String password=&quot;root&quot;;
+    Connection con=DriverManager.getConnection(url,username,password);
+    System.out.println(con);
+
+
+    /*
+     *     3、获得语句执行平台
+     * Statement
+     *         通过连接对象获取对SQL语句的执行者对象
+     */
+    // con对象调用方法，Statement createStatement() 获取    Statement对象，将SQL语句发送到数据库
+    //  返回值是Statement接口的实现类，在mysql驱动对象
+    //Statement statement = con.createStatement();//容易被注入攻击，不推荐使用
+
+
+
+    /*
+     *     4、执行sql语句
+     *         使用执行者对象，向数据库执行SQl语句
+     *         获取到数据库执行后的结果
+     */
+    //int executeUpdate(String sql) 执行数据库的sql语句
+    //返回值int，操作成功数据的行数
+    //String sql=&quot;insert into sort(sname,sprice,sdesc) values(&apos;药&apos;,1000,&apos;biotech&apos;)&quot;;
+    //int row=statement.executeUpdate(sql);
+    //TestSystem.out.println(row+&quot; executed&quot;);
+
+    //String sql1=in.nextLine();//输入&apos; or true &apos;  实现注入攻击
+    String sql1=&quot;select * from sort where sid=?&quot;;
+    //调用Connection的preparedStatement()，实现参数绑定
+    PreparedStatement ps=con.prepareStatement(sql1);
+    ps.setObject(1, 5);//使用set设置？的参数
+
+
+
+    /*
+     *     5、处理结果
+     *         
+     */
+    //ResultSet executeQuery(Strin sql) 执行sql语句中的select查询
+    //返回值ResultSet接口的实现类对象，实现类在mysql中
+    //ResultSet rs=statement.executeQuery(sql1);
+    ResultSet rs=ps.executeQuery();//使用preparedstatement不需要传参数
+    while(rs.next()){//next() 将光标下移一行，返回值boolean,没有结果返回false
+        //行数从1开始
+        //getInt() getString() getObejct() .etc
+        System.out.println(rs.getInt(&quot;sid&quot;)+&quot;\t&quot;+rs.getString(&quot;sname&quot;)+&quot;\t\t&quot;+rs.getDouble(&quot;sprice&quot;)+&quot;\t\t&quot;+rs.getString(&quot;sdesc&quot;));
+    }
+
+
+    /*
+     *     6、释放资源
+     *         调用close()关闭资源
+     * */
+    rs.close();
+    ps.close();
+    con.close();
+}
+</code></pre>
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

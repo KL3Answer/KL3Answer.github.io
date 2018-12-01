@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Servlet工作原理简介 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="一、Servlet的三大方法 Servlet是在javax.serlvet包中定义的一个接口，使用了单例设计模式，其本身是无状态的。它声明了servlet生命周期中必不可少的三个方法-init()、service()和destroy()。  init()方法在servlet生命周期的初始化阶段被调用。它传递一个实现了javax.servlet.ServletConfig接口的对象，使得servle">
+<meta name="keywords" content="笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet工作原理简介 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2014/10/14/Servlet工作原理简介/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="一、Servlet的三大方法 Servlet是在javax.serlvet包中定义的一个接口，使用了单例设计模式，其本身是无状态的。它声明了servlet生命周期中必不可少的三个方法-init()、service()和destroy()。  init()方法在servlet生命周期的初始化阶段被调用。它传递一个实现了javax.servlet.ServletConfig接口的对象，使得servle">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Servlet工作原理简介 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="一、Servlet的三大方法 Servlet是在javax.serlvet包中定义的一个接口，使用了单例设计模式，其本身是无状态的。它声明了servlet生命周期中必不可少的三个方法-init()、service()和destroy()。  init()方法在servlet生命周期的初始化阶段被调用。它传递一个实现了javax.servlet.ServletConfig接口的对象，使得servle">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Servlet工作原理简介</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2014-10-14" class="post-meta__date date">2014-10-14</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/笔记/">笔记</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="一、Servlet的三大方法"><a href="#一、Servlet的三大方法" class="headerlink" title="一、Servlet的三大方法"></a>一、Servlet的三大方法</h3><p> Servlet是在javax.serlvet包中定义的一个接口，使用了单例设计模式，其本身是无状态的。它声明了servlet生命周期中必不可少的三个方法-init()、service()和destroy()。</p>
+<ol>
+<li><p>init()方法在servlet生命周期的初始化阶段被调用。它传递一个实现了javax.servlet.ServletConfig接口的对象，使得servlet能够从web application中获取初始化参数。</p>
+</li>
+<li><p>servlet初始化收，每接收一个请求，就会调用service()方法。每个请求的处理都在独立的线程中进行。Web服务器对每个请求都会调用一次service()方法。service()方法判断请求的类型，并把它转发给相应的方法进行处理。</p>
+</li>
+<li><p>当需要销毁servlet对象时，就要调用destroy()方法。该方法释放被占用的资源。销毁动作一般在应用结束时执行。</p>
+</li>
+</ol>
+<p>和所有的Java程序一样，servlet运行在JVM中。引入servlet容器是为了处理复杂的HTTP请求。Servlet容器负责servlet的创建、执行和销毁。</p>
+<h3 id="二、请求被处理的过程"><a href="#二、请求被处理的过程" class="headerlink" title="二、请求被处理的过程"></a>二、请求被处理的过程</h3><ol>
+<li><p>Web服务器接收到HTTP请求；</p>
+</li>
+<li><p>Web服务器将请求转发给servlet容器；</p>
+</li>
+<li><p>如果对应的url匹配但是serlvet容器中不存在该实例，则使用反射创建其实例；</p>
+</li>
+<li><p>容器调用servlet的init()方法对servlet进行初始化（该方法只会在servlet第一次被载入时调用）；</p>
+</li>
+<li><p>容器调用servlet的service()方法来处理HTTP请求，即，读取请求中的数据，创建一个响应。servlet会被保留在容器的地址空间中，继续处理其他的HTTP请求；</p>
+</li>
+<li><p>Web服务器将动态生成的结果返回； </p>
+</li>
+</ol>
+<p>使用servlet，就要允许JVM为处理每个请求分配独立的Java线程，这也是Servlet容器主要的优势之一。每一个servlet都是一个拥有能响应HTTP请求的特定元素的Java类。Servlet容器的主要作用是将请求转发给相应的servlet进行处理，并在JVM处理完请求后，将动态生成的结果返回至正确的地址。在大多数情况下，servlet容器运行在独立的JVM中，但如果容器需要多个JVM，也有相应的解决方案。</p>
+<h3 id="三、与Servlet相关的对象"><a href="#三、与Servlet相关的对象" class="headerlink" title="三、与Servlet相关的对象"></a>三、与Servlet相关的对象</h3><p>与Servlet关联的有四个对象servletContext,servletConfig,servletRequest,servletResponse。<br>Servlet的运行模式是典型的“握手型交互式”运行模式：servletContext提供交互场景模式，而交互场景的初始化由servletConfig来描述的。servletRequest和servletResponse是交互的具体对象。</p>
+<h3 id="四、JSP"><a href="#四、JSP" class="headerlink" title="四、JSP"></a>四、JSP</h3><pre><code>/*
+ * JSP  java Server Page 服务器端页面，由服务器处理之后（翻译成html）发送给客户端  ，其实本身就是一个Servlet
+ *     JSP页面由HTML代码和嵌入其中的Java代码所组成。
+ *     服务器在页面被客户端所请求以后对这些Java代码进行处理，
+ *     然后将生成的HTML页面返回给客户端的浏览器。 
+ * 
+ * 优点：
+ *     1、jsp既可以写html代码，也可以写java代码（&lt;% java代码 %&gt;，其实编写的代码都在sercvice()里面）
+ *     2、
+ * 
+ * JSP原理
+ *     一个jsp页面在第一次访问的时候，会被翻译成java文件，该java类继承了HttpServlet
+ *     然后把java文件编译成.class
+ *     然后创建该类的对象
+ *     最后调用Service()方法
+ *     第二次请求同一jsp时，直接调用service()方法
+ * 
+ * 
+ * 
+ * Jsp访问标签的过程
+    前提：tomcat启动过程中，会加载所有WEB-INF目录下的tld文件
+
+        1）访问jsp页面：   01.showip.jsp        （翻译和编译）
+        2）执行到导入标签库： 
+            &lt;%@taglib uri=&quot;http://www.itcast.cn&quot; prefix=&quot;itcast&quot;%&gt;
+
+            注意：uri一定要和tld的一致！！！prefix不一定跟short-name一致！
+        3）执行到指定的标签： &lt;itcast:showip&gt;&lt;/itcast:showip&gt;
+        4）在tld文件中搜索showip名称的一个&lt;tag&gt;标签    
+            注意：引用的标签一定在tld文件中有声明过！！
+        5）找到&lt;tag&gt;标签，查找对应的&lt;tag-class&gt;: gz.itcast.tags.ShowIPTag
+
+ * 
+ * 
+ * JSP和Servlet分工
+ *     jsp：
+ *         作为请求发起页面，例如显示表单、超链接
+ *         作为请求结束页面，例如显示数据
+ *    Servlet：
+ *        作为请求中处理数据的环节 
+ *     
+ * jsp组成：
+ *         html+java脚本+jsp标签（指令）
+ * 
+ * jsp模板代码：
+ *         就是指jsp中的html代码ii
+ *         
+ * jsp注释：
+ *         &lt;!-- html注释--&gt; 两者都可以 &lt;%--  jsp注释 --%&gt;(在编译成java时会忽略，不会在浏览器页面显示，建议使用)        
+ *         
+ * jsp脚本代码片段：
+ *        作用：如果需要在jsp页面上编写java代码，就会用上脚本代码片段 
+ *        格式：&lt;% code %&gt;
+ *        注意：
+ *            1、脚本代码片段的代码都在_JSPService方法的内部    
+ *             2、一个jsp中的代码都在同一个方法里            
+ * 
+ * jsp脚本表达式：（可使用el表达式取代）
+ *         作用：向页面输出数据
+ *         格式：
+ *         &lt;%= 数据 %&gt;        （相当于out.write()）  不用加&apos;;&apos;
+ * 
+ * jsp声明：
+ *         可以把定义的变量或者方法都写在成员位置上
+ *         格式:&lt;%! 声明  %&gt;
+ *         注意：
+ *             1、jsp声明不能直接使用out等内置对象
+ *             2、编写方法时不要与其中已经存在的方法同名
+ * 
+ * jsp的处理指令：
+ *         格式：&lt;%@ 指令名称 %&gt;
+ *         主要有三个：
+ *             page        
+ *                     language         目前jsp使用的语言，其实只有java        
+ *                     import          导包        
+ *                     pageEncoding     页面保存是的编码码表        
+ *                     buffer             输出流缓存（默认8kb）        注意：使用out对象输出时，会先写在缓存里，等缓存写满或者jsp页面结束时才写出到页面
+ *                     isElIgnore        是否忽略EL表达式，默认false
+ *                    errorPage        url，出现错误时的跳转页面，并且可以将出现的异常给跳转的页面 
+ *                    isErrorPage        默认false，仅当true时才接收传递的异常（缺陷：配置的jsp页面只能用于当前的jsp页面，一般使用全局的jsp页面）
+ *                         e.g.    &lt;%@ page    language=&quot;java&quot;  import=&quot;java.util.*,java.io.*&quot;  pageEncoidng=&quot;UTF-8&quot; buffer=&quot;8kb&quot; %&gt;
+ * 
+ *                配置全局错误页面     
+ *                1、可以根据响应码配置
+ *                e.g.
+ *                &lt;error-page&gt;
+ *                    &lt;error-code&gt;500&lt;/error-code&gt;    //响应码        
+ *                    &lt;location&gt;message.jsp&lt;/location&gt;//跳转的页面
+ *                &lt;/error-page&gt;
+ *                2、根据异常的类型配置
+ *                &lt;error-page&gt;
+ *                    &lt;exception-type&gt;java.lang.NullPionterException&lt;/exception-type&gt;
+ *                    &lt;location&gt;message.jsp&lt;/location&gt;//跳转的页面
+ *                &lt;/error-page&gt;
+ *                
+ *
+ * 
+ *             taglib        引入外部的标签， 让jsp可以使用更多的标签,可以和自定义标签一起使用
+ *                             
+ *                         e.g.    &lt;%@ taglib    uri=&quot;http://java.sun.com/jsp/jstl/core&quot; prefix=&quot;c&quot;%&gt;
+ *                 
+ * 
+ *            include         包含指定的页面（静态包含）    ,其实就是在翻译成java文件时就已经把两jsp合并起来了，只会产生一个java文件，成员变量可以共享使用
+ *                    注意：如果一个jsp页面包含了另外一个jsp页面，应该把相同的信息删除，处理page指令以外
+ *
+ *                        e.g.    &lt;%@ include file=&quot;/head.jsp&quot;%&gt;
+ * 
+ * jsp内置对象：
+ *         request
+ *         response
+ *         out
+ *         session
+ *         application(ServletContext)
+ *         config
+ *         exception(errorPage才有)
+ *         page(this)    
+ *         pageContext()当前页面的运行环境
+ *                         1、可以获取当前页面所有的内置对象
+ *                         getRequest()  getSession()  getOut()    getResponse()    getServletConfig()    getServletContext()    getXXX()
+ *                             
+ *                         2、也是一个域对象，其域的范围就是当前页面
+ *                         pageContext.setAttribute(&quot;name&quot;,&quot;alice&quot;);//默认存储在pageContext中
+ *                         pageContext.setAttribute(&quot;name&quot;,&quot;alice&quot;,pageContext.REQUEST_SCOPE);//存储在request域中
+ *                                            
+ *                        pageContext.getAttribute(&quot;name&quot;)
+ *                        pageContext.getAttribute(&quot;name&quot;,pageContext.REQUEST_SCOPE);//取数据
+ *         
+ *                        pageContext.findAttribute(String attr)//会从四大域对象中找搜索顺序是pageContext、request、session、ServletContext
+ * 
+ * jsp映射：
+ *         &lt;servlet&gt;    
+ *             &lt;servlet-name&gt;xx&lt;/servlet-name&gt;
+ *             &lt;jsp-file&gt;x.jsp&lt;/jsp-file&gt;//在WEB-INF根目录下：/WebRoot/WEb-INF/index.jsp?
+ *         &lt;/servlet&gt;    
+ *         &lt;servlet-mapping&gt;
+ *             &lt;servlet-name&gt;xx&lt;/servlet-name&gt;
+ *             &lt;url-pattern&gt;/xxx.html&lt;/url-pattern&gt;//将jsp映射到其他资源路径
+ *         &lt;/servlet-mapping&gt;
+ *         
+ *     
+ * jsp内置标签：（动作标签）
+ *         &lt;jsp:include page=&quot;/a.jsp&quot;&gt;动态包含（翻译的时候各自翻译，运行的时候在加入java文件,多个java文件），成员变量不可以共享使用
+ *         &lt;jsp:forward page=&quot;/1.jsp&quot;&gt;    请求转发
+ *         &lt;jsp:param value=&quot;username&quot; name=&quot;name&quot;&gt;    定义变量
+ *         &lt;jsp:useBean id=&quot;user&quot; class=&quot;com.hq.test.user&quot; &gt;        创建或查找javabean类
+ *         &lt;jsp:useBean id=&quot;user&quot; class=&quot;com.hq.test.user&quot; scope=&quot;request&quot;&gt;        在request域创建或查找javabean类
+ *         &lt;jsp:setProperty property=&quot;username&quot; name=&quot;user&quot; value=&quot;admin&quot;&gt;            给javabean设置属性值
+ *         &lt;jsp:setProperty property=&quot;password&quot; name=&quot;user&quot; value=&quot;123&quot;&gt;
+ *         &lt;jsp:setProperty property=&quot;password&quot; name=&quot;user&quot;&gt;                        获取javabean的属性值
+ * 
+ * 
+ * 
+ * 
+ * jsp传递数据给页面：代码或El表达式
+ * 页面数据传递给jsp：使用域对象获取(request.getParameter(&quot;but&quot;)&lt;input type=&quot;text&quot; name=&quot;but&quot;&gt;)
+ * */
+</code></pre><h3 id="五、关于Servlet3-0"><a href="#五、关于Servlet3-0" class="headerlink" title="五、关于Servlet3.0+"></a>五、关于Servlet3.0+</h3><p>Servlet3.0中的新特性：</p>
+<ul>
+<li><p>可插拔的Web框架</p>
+<p>  几乎所有基于Java的web框架都建立在servlet之上。现今大多数web框架要么通过servlet、要么通过Web.xml插入。利用标注（Annotation）来定义servlet、listener、filter将使之（可插拔）成为可能。程序访问web.xml和动态改变web应用配置是所期望的特性。该JSR将致力于提供把不同web框架无缝地插入到web应用的能力。</p>
+</li>
+<li><p>EOD</p>
+<p>  标注——利用标注来作为编程的声明风格。<br>  web应用零配置是EoD努力方向之一。部署描述符将被用来覆盖配置。<br>  范型（generic）——在API中尽可能利用范型。<br>  使用其它语言增强可能需要改善API可用性的地方。</p>
+</li>
+<li><p>支持异步和Comet</p>
+<p>  非阻塞输入——从客户端接收数据，即使数据到达缓慢也不会发生阻塞。<br>  非阻塞输出——发送数据到客户端，即使客户端或网络很慢也不会发生阻塞。<br>  延迟请求处理——Ajax web应用的Comet风格，可以要求一个请求处理被延迟，直到超时或一个事件发生。延迟请求处理对以下情况也很有用：如果远程的/迟缓的资源必须在为该请求服务之前被获得；或者如果访问一个特殊资源，其需要扼杀一些请求以防止太多的并发访问。<br>  延迟响应关闭——Ajax web应用的Comet风格，可以要求响应保持打开，以允许当异步事件产生时发送额外的数据。<br>  阻塞/非阻塞通知——通知阻塞或非阻塞事件。<br>  频道概念——订阅一个频道，以及从该频道获取异步事件的能力。这意味着可以创建、订阅、退订，以及应用一些诸如谁能加入、谁不能加入的安全限制。</p>
+</li>
+<li><p>安全</p>
+<p>  login/logout能力。<br>  自注册。</p>
+</li>
+<li><p>结合</p>
+<p>  结合/需求，来自REST JST JSR（JSR 311 ）。<br>  结合/需求，来自JSF 2.0 JSR（JSR 134 ）。</p>
+</li>
+<li><p>其它</p>
+<p>  支持更好的欢迎文件（welcome file）。<br>  ServletContextListener排序。<br>  容器范围内定义init参数。<br>  文件上载——过程侦听——存储中间或最终文件。<br>  澄清线程安全问题。</p>
+</li>
+</ul>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

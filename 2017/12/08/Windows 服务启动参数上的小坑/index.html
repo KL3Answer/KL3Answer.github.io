@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Windows 服务启动参数上的小坑 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="最近比较懒，不太想写东西，可能是传说中的悟道太懒了吧，所以准备写点对象东西，比如记录一个小坑什么的。 额。。其实这也不算是坑，严格意义上来说这是一个应该注意的地方。 首先看一张图：  这服务器上的MySQL的启动参数（windows 服务器），这里指定了启动时使用的配置文件，就是这个地方坑了我。  好吧，进入正题，上午在日志的看见一个异常  Error updating database.  Ca">
+<meta name="keywords" content="错误记录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows 服务启动参数上的小坑 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2017/12/08/Windows 服务启动参数上的小坑/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="最近比较懒，不太想写东西，可能是传说中的悟道太懒了吧，所以准备写点对象东西，比如记录一个小坑什么的。 额。。其实这也不算是坑，严格意义上来说这是一个应该注意的地方。 首先看一张图：  这服务器上的MySQL的启动参数（windows 服务器），这里指定了启动时使用的配置文件，就是这个地方坑了我。  好吧，进入正题，上午在日志的看见一个异常  Error updating database.  Ca">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://raw.githubusercontent.com/KL3Answer/KL3Answer.github.io/hexo/source/temp/t_01.png">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.710Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows 服务启动参数上的小坑 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="最近比较懒，不太想写东西，可能是传说中的悟道太懒了吧，所以准备写点对象东西，比如记录一个小坑什么的。 额。。其实这也不算是坑，严格意义上来说这是一个应该注意的地方。 首先看一张图：  这服务器上的MySQL的启动参数（windows 服务器），这里指定了启动时使用的配置文件，就是这个地方坑了我。  好吧，进入正题，上午在日志的看见一个异常  Error updating database.  Ca">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/KL3Answer/KL3Answer.github.io/hexo/source/temp/t_01.png">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Windows 服务启动参数上的小坑</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-12-08" class="post-meta__date date">2017-12-08</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/错误记录/">错误记录</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>最近比较懒，不太想写东西，可能是传说中的<del>悟道</del>太懒了吧，所以准备写点<del>对象</del>东西，比如记录一个小坑什么的。</p>
+<p>额。。其实这也不算是坑，严格意义上来说这是一个应该注意的地方。</p>
+<p>首先看一张图：</p>
+<p><img src="https://raw.githubusercontent.com/KL3Answer/KL3Answer.github.io/hexo/source/temp/t_01.png" alt=""></p>
+<p>这服务器上的MySQL的启动参数（windows 服务器），这里指定了启动时使用的配置文件，就是这个地方坑了我。</p>
+<hr>
+<p>好吧，进入正题，上午在日志的看见一个异常</p>
+<blockquote>
+<h3 id="Error-updating-database-Cause-java-sql-SQLException-The-total-number-of-locks-exceeds-the-lock-table-size"><a href="#Error-updating-database-Cause-java-sql-SQLException-The-total-number-of-locks-exceeds-the-lock-table-size" class="headerlink" title="Error updating database.  Cause: java.sql.SQLException: The total number of locks exceeds the lock table size"></a>Error updating database.  Cause: java.sql.SQLException: The total number of locks exceeds the lock table size</h3><p>具体的异常信息就不全放出来了，因为项目用的是随便搭的服务器（测试的项目），所以我猜想应该是innodb_buffer_size太小产生的问题。</p>
+</blockquote>
+<p>在MySQL上查了一下，发现果然innodb_buffer_size只有8388608(8M)，那问题就容易解决了，于是我打算使用set来把buffer size 改成 512M，结果发现是read only的，貌似只能改配置文件了。</p>
+<p>于是我兴冲冲的修改了MySQL安装目录下面的my.ini，然后重启了mysql，发现事情并没有那么简单，buffer size 还是没有变，然后我就简单的思索了以下，发现应该是windows服务的启动上有什么不对的，然后就发现了上面的那个。</p>
+<p>关于解决方法，这个就很简单了，要么改变启动参数中配置文件的指向，要么该百年启动参数中配置文件的配置，然后重启。</p>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>

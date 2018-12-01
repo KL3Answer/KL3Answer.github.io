@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java基础知识（十九）反射简单示例 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="示例 import java.lang.reflect.Constructor; import java.lang.reflect.Field; import java.lang.reflect.InvocationTargetException; import java.lang.reflect.Method; import java.util.ArrayList;  public class">
+<meta name="keywords" content="Java基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础知识（十九）反射简单示例 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2015/04/15/Java基础知识（十九）反射简单示例/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="示例 import java.lang.reflect.Constructor; import java.lang.reflect.Field; import java.lang.reflect.InvocationTargetException; import java.lang.reflect.Method; import java.util.ArrayList;  public class">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-18T21:36:26.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础知识（十九）反射简单示例 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="示例 import java.lang.reflect.Constructor; import java.lang.reflect.Field; import java.lang.reflect.InvocationTargetException; import java.lang.reflect.Method; import java.util.ArrayList;  public class">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java基础知识（十九）反射简单示例</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2015-04-15" class="post-meta__date date">2015-04-15</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Java基础知识/">Java基础知识</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>示例</p>
+<pre><code>import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+public class Demo_01_Reflective {
+    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchFieldException{
+        /*
+         * 工具构造
+         * Reflective
+         *         java 反射机制是在运行状态中，对于任意一个类，都能知道这个类的所有属性和方法
+         *         对于任意一个对象，都能够调用它的任意一个方法和属性
+         *         这种动态获取的信息以及动态调用对象的方法的功能称为java的反射机制
+         * 
+         *     反射:能够分析类能力的程序
+         *         可以使用在接口上
+         *         提高了扩展性
+         * 
+         * 反射可以：
+         *         在运行中分析类的能力
+         *         在运行中查看对象，例如，编写一个toString方法供所有类使用
+         *         实现通用的操作
+         *         利用Method对象，这个对象和C++的指针相似
+         */
+        /*
+         * class  Class
+         *     运行时的类型标识，跟踪每一个对象所属的类
+         *     任何数据类型都可以被class描述
+         * 
+         * 
+         * 
+         * e.g.
+         * 
+         * 源文件阶段：
+         *     Class clazz=Class.forName(全类名);
+         * 
+         * 字节码阶段：
+         *     Class clazz=全类名.class;
+         * 
+         * 创建对象阶段：
+         *     Class clazz=对象.getClass();
+         * 
+         * */
+//        demo_01();
+//        demo_02();
+//        demo_03();
+//        demo_04();
+//        demo_05();
+
+
+    }
+</code></pre><p>demo5</p>
+<pre><code>/**
+ * @throws NoSuchFieldException
+ * @throws IllegalAccessException
+ */
+public static void demo_05() throws NoSuchFieldException, IllegalAccessException {
+    test p=new test(&quot;alice&quot;,12);
+    setProperty(p, &quot;id&quot;, &quot;allen&quot;);//使用反射设置对象的域
+    System.out.println(p);
+}
+public static void setProperty(Object obj,String name,Object value) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+    Class clazz=obj.getClass();
+    Field f=clazz.getDeclaredField(name);//获取本类中的所有方法，所有！
+    f.setAccessible(true);
+    f.set(obj, value);
+}
+</code></pre><p>demo4</p>
+<pre><code>/**
+ * @throws NoSuchMethodException
+ * @throws IllegalAccessException
+ * @throws InvocationTargetException
+ */
+public static void demo_04() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    ArrayList&lt;Integer&gt; al=new ArrayList&lt;&gt;();
+    al.add(1);
+    al.add(2);
+    al.add(3);
+    // AccessibleObject  subclass：  Field      Method      Constructor
+    //提供了将反射对象标记为在使用时取消默认java语言访问控制检查的能力  暴力反射
+    //使用反射越过泛型的类型检查
+    Method m=java.util.ArrayList.class.getMethod(&quot;add&quot;,Object.class);
+    m.invoke(al, &quot;abc&quot;);
+    System.out.println(al);
+}
+
+/**
+ * @throws NoSuchMethodException
+ * @throws IllegalAccessException
+ * @throws InvocationTargetException
+ */
+</code></pre><p>demo3</p>
+<pre><code>public static void demo_03() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    test p=new test();
+    Method m=p.getClass().getMethod(&quot;print&quot;, int.class);//获取print方法
+    m.invoke(p, 2);                        //让p调用m方法，参数为2
+}
+
+/**
+ * @throws NoSuchMethodException
+ * @throws InstantiationException
+ * @throws IllegalAccessException
+ * @throws InvocationTargetException
+ * @throws NoSuchFieldException
+ */
+</code></pre><p>demo2</p>
+<pre><code>    public static void demo_02() throws NoSuchMethodException, InstantiationException, IllegalAccessException,
+            InvocationTargetException, NoSuchFieldException {
+        //获取Class对象
+        Class clazz=j2se_26_reflective.test.class;
+
+        //获取构造
+        Constructor c=clazz.getConstructor(String.class,int.class);//Constructor 有泛型
+
+        test p=(test)c.newInstance(&quot;12&quot;,2);//使用构造创建对象
+        System.out.println(p);
+        System.out.println(&quot;---------&quot;);
+//        Field f=clazz.getField(&quot;id&quot;);        获取一个域
+//        f.set(p,&quot;123&quot;);                        设置域
+        //getDeclaredField()                获取一个Field的数组
+        Field f=clazz.getDeclaredField(&quot;id&quot;);    //暴力反射获取私有域
+        f.setAccessible(true);                    //去除私有权限
+        f.set(p, &quot;123&quot;);                        
+        System.out.println(p);
+    }
+</code></pre><p>demo1</p>
+<pre><code>    /**
+     * @throws ClassNotFoundException
+     */
+    public static Class demo_01() throws ClassNotFoundException {
+        Class clazz1=Class.forName(&quot;demo_26.Demo_GUI&quot;);        
+        System.out.println(clazz1);
+        Class clazz2=j2se_gui.Demo_GUI.class;
+        System.out.println(clazz2);
+        System.out.println(clazz1==clazz2);
+        return clazz1;
+    }
+}
+</code></pre><p>test类</p>
+<pre><code>class test{
+    private String id;
+    private int num;
+    public void print(int a){
+        System.out.println(a+&quot;---------&quot;);
+    }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + num;
+        return result;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        test other = (test) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (num != other.num)
+            return false;
+        return true;
+    }
+    @Override
+    public String toString() {
+        return &quot;ppp [id=&quot; + id + &quot;, num=&quot; + num + &quot;]&quot;;
+    }
+    /**
+     * 
+     */
+    public test() {
+    }
+    /**
+     * @param id
+     * @param num
+     */
+    public test(String id, int num) {
+        super();
+        this.id = id;
+        this.num = num;
+    }
+}
+</code></pre>
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
