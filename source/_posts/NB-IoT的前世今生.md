@@ -5,7 +5,7 @@ tags:
 	- 其他
 ---
    
-根据《爱立信2018移动报告》（Ericsson Mobility Report,June 2016）预测，蜂窝物联网设备连接数将在2023年达到35亿——年增长率达到百分之三十。
+根据《爱立信2018移动报告》（Ericsson Mobility Report,June 2018）预测，蜂窝物联网设备连接数将在2023年达到35亿——年增长率达到百分之三十。
 ![](https://raw.githubusercontent.com/KL3Answer/sdgzzgsd/master/pics/Screenshot%20from%202018-11-28%2016-24-18.png)
 该文中尤其还提到了我国对IoT产业的推动对上述数据产生的巨大影响：
 
