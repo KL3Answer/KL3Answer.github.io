@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      OpenTSDB KairosDB DolphinDB 简单性能测试 | HQ&#39;s Cabin 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="HQ">
+    
+    
+
+    <meta name="description" content="OpenTSDB datapoint value 只能存储数字类型 部署运维较麻烦，占用资源多 Java API 不完善没有官方支持，需要根据 HTTP API 自行编写 性能一般 文档较乱 开放 HTTP API 和 Telnet API（Telnet API 只支持写数据） OpenTSDB 与 HBase 版本兼容性问题较多 tag 特殊字符存储问题（Only the following c">
+<meta name="keywords" content="笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenTSDB KairosDB DolphinDB 简单性能测试 | HQ&#39;s Cabin">
+<meta property="og:url" content="http://yoursite.com/2019/08/30/OpenTSDB KairosDB DolphinDB 简单性能测试/index.html">
+<meta property="og:site_name" content="HQ&#39;s Cabin">
+<meta property="og:description" content="OpenTSDB datapoint value 只能存储数字类型 部署运维较麻烦，占用资源多 Java API 不完善没有官方支持，需要根据 HTTP API 自行编写 性能一般 文档较乱 开放 HTTP API 和 Telnet API（Telnet API 只支持写数据） OpenTSDB 与 HBase 版本兼容性问题较多 tag 特殊字符存储问题（Only the following c">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-12-17T13:04:00.640Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenTSDB KairosDB DolphinDB 简单性能测试 | HQ&#39;s Cabin">
+<meta name="twitter:description" content="OpenTSDB datapoint value 只能存储数字类型 部署运维较麻烦，占用资源多 Java API 不完善没有官方支持，需要根据 HTTP API 自行编写 性能一般 文档较乱 开放 HTTP API 和 Telnet API（Telnet API 只支持写数据） OpenTSDB 与 HBase 版本兼容性问题较多 tag 特殊字符存储问题（Only the following c">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+        <a href="/" title="link to homepage for HQ&#39;s Cabin"><img src="/avatar.png" width="80" alt="HQ&#39;s Cabin logo" class="panel-cover__logo logo"></a>
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">HQ&#39;s Cabin</a></h1>
+        <hr class="panel-cover__divider">
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">笔记</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+                
+                <li class="navigation__item"><a href="/eggs" title="" class="">其他</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/KL3Answer" title="Huno on GitHub">
+          <i class="icon icon-social-github"></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">OpenTSDB KairosDB DolphinDB 简单性能测试</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2019-08-30" class="post-meta__date date">2019-08-30</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/笔记/">笔记</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h3 id="OpenTSDB"><a href="#OpenTSDB" class="headerlink" title="OpenTSDB"></a><a href="http://opentsdb.net/" target="_blank" rel="noopener">OpenTSDB</a></h3><ol>
+<li>datapoint value 只能存储数字类型</li>
+<li>部署运维较麻烦，占用资源多</li>
+<li>Java API 不完善没有官方支持，需要根据 HTTP API 自行编写</li>
+<li>性能一般</li>
+<li>文档较乱</li>
+<li>开放 HTTP API 和 Telnet API（Telnet API 只支持写数据）</li>
+<li>OpenTSDB 与 HBase 版本兼容性问题较多</li>
+<li>tag 特殊字符存储问题（Only the following characters are allowed: a to z, A to Z, 0 to 9, -, _, ., / or Unicode letters (as per the specification)）</li>
+<li>timestamp 精度问题</li>
+<li>DownSampling 与 Tags 笛卡尔积的问题</li>
+<li>tag 无法直接存储中文</li>
+<li>资源占用多</li>
+</ol>
+<h3 id="KairosDB"><a href="#KairosDB" class="headerlink" title="KairosDB"></a><a href="https://kairosdb.github.io/" target="_blank" rel="noopener">KairosDB</a></h3><ol>
+<li>性能较OpenTSDB好</li>
+<li>开放 HTTP API 和 Telnet API（Telnet API 只支持写数据）</li>
+<li>读写一致性设置不恰当有可能会有不一致问题（可以通过设置读写一致性解决）</li>
+<li>Java API 较完善</li>
+<li>使用较方便</li>
+<li>DownSampling 与 Tags 笛卡尔积的问题</li>
+<li>查询请求返回数据冗余多</li>
+<li>非数值型的 datapoint 在 frist、last等 aggregator时无法获取正确的结果（在新分支中修复）</li>
+<li>支持自定义 Query 插件和数据类型</li>
+</ol>
+<h3 id="DolphinDB"><a href="#DolphinDB" class="headerlink" title="DolphinDB"></a><a href="http://dolphindb.com/" target="_blank" rel="noopener">DolphinDB</a></h3><ol>
+<li>数据分区方案不够灵活</li>
+<li>downsampling不够灵活,且只按时间纬度 downsampling</li>
+<li>功能多（但是各个功能的详细文档较少），适合在线分析处理</li>
+<li>闭源,收费</li>
+<li>性能好</li>
+<li>新，不久前刚出的，目前（2019.08.29）最新版是 v0.97</li>
+<li>时序数据分区不够完善</li>
+<li>使用较复杂</li>
+<li>Java 数据类型转换API较麻烦</li>
+<li>使用较 KairosDB 、OpenTSDB 复杂</li>
+<li>timestamp 重复不会覆盖</li>
+<li>客户端使用 TCP 进行通信</li>
+<li>不同的表类型在不同场景下各有优缺点</li>
+<li>没有 TTL</li>
+<li>客户端 API BUG 多</li>
+<li>目前写入最大批次为1024（v0..3）</li>
+</ol>
+<h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><ul>
+<li><p>三种时序数据库都在同一台机器上进行部署，机器配置：</p>
+<ul>
+<li>cpu:Intel(R) Xeon(R) CPU E5-2620 0 @ 2.00GHz 24核</li>
+<li>memory: 125g ，clock speed 未知 ，24 插槽</li>
+<li>disk:HDD，型号未知，读取速度  460.92 MB/s，写入速度约 876 MB/s</li>
+</ul>
+</li>
+<li><p>2000一批量插入</p>
+</li>
+<li>OpenTSDB 和 KairosDB HTTP Connection 数为 16，DolphinDB Connection 为 16个</li>
+<li>测试并发线程为8</li>
+<li>OpenTSDB由于特殊字符的问题，在插入output 类型 tag 之前进行了 Base64 编码</li>
+<li><p>查询数据的时间周期跨度30天，rate 为 1h</p>
+</li>
+<li><p>OpenTSDB</p>
+<ul>
+<li><p>配置</p>
+<ul>
+<li>单机 </li>
+<li><p>opentsdb.conf 配置</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">tsd.network.port = 4399</span><br><span class="line">tsd.http.staticroot = ./staticroot</span><br><span class="line">tsd.http.cachedir = /root/openTSDB_temp</span><br><span class="line">tsd.core.auto_create_metrics = true</span><br><span class="line">tsd.storage.hbase.data_table = tsdb</span><br><span class="line">tsd.storage.hbase.zk_basedir = /hbase</span><br><span class="line">tsd.storage.hbase.zk_quorum = localhost</span><br><span class="line">tsd.http.request.enable_chunked = true</span><br><span class="line">tsd.http.request.max_chunk = 1048576</span><br><span class="line">tsd.core.tag.allow_specialchars= &quot;+=/:&#123;&#125;\n</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其他配置为默认配置,hbase（单机）、zk（单机） 也为默认配置</p>
+</li>
+</ul>
+</li>
+<li>版本 2.3.2</li>
+<li>Request 使用 GZIP 压缩</li>
+</ul>
+</li>
+<li>KairosDB<ul>
+<li>配置<ul>
+<li>单机</li>
+<li>默认配置</li>
+<li>cassandra 与 KairosDB 部署在同一台机器上，也是单机默认配置</li>
+</ul>
+</li>
+<li>版本 1.2.2-1</li>
+<li>Request 使用 GZIP 压缩</li>
+</ul>
+</li>
+<li><p>DolphinDB</p>
+<ul>
+<li>配置<ul>
+<li>单机</li>
+<li>最大内存为32G，最多可使用8核</li>
+</ul>
+</li>
+<li>版本 V0.97.3</li>
+<li><p>由于local disk 无法并发读写， distributed 表不适合横向对比，因此建 in-memory 表</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">t=table(100000:0,`timestamp`id`name`type`dp,[timestamp,STRING,STRING,STRING,STRING])</span><br><span class="line">share t as event_00</span><br></pre></td></tr></table></figure>
+<p>注： 可以使用下面建 local disk 表 测试：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dbPath = "/app/iot/dolphindb/data/U00"</span><br><span class="line">tbName = 'U00E00'</span><br><span class="line">if(existsDatabase(dbPath))&#123;dropDatabase(dbPath)&#125;</span><br><span class="line">db = database(dbPath,VALUE,2019.01M..2069.12M)</span><br><span class="line">t=table(100000:0,`timestamp`id`name`type`dp,[timestamp,STRING,STRING,STRING,STRING])</span><br><span class="line">db.createPartitionedTable(t,tbName,'timestamp')</span><br><span class="line">t.append!(event_00)</span><br><span class="line">db.saveTable(t,'U00E00')</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>dps 10,000,000</p>
+<table>
+<thead>
+<tr>
+<th>tsdb</th>
+<th>batch put(10,000,000 records)</th>
+<th>query range(1d,1h)</th>
+<th>query range(30d)</th>
+<th>query range with tag(1d,1h)</th>
+<th>query range with tag(30d)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenTSDB</td>
+<td>51994ms(3000 per batch)</td>
+<td>OpenTSDB 产生异常，未返回请求</td>
+<td>OpenTSDB 产生异常，未返回请求(range :1h)</td>
+<td>51961ms</td>
+<td>OpenTSDB 产生异常，未返回请求(range :1h)</td>
+</tr>
+<tr>
+<td>KairosDB</td>
+<td>67642ms(3000 per batch)</td>
+<td>135911ms</td>
+<td>单个请求超时未返回（tiemout 240s）(range :1h)</td>
+<td>26055ms</td>
+<td>85007ms(range :1h)</td>
+</tr>
+<tr>
+<td>DolphinDB</td>
+<td>13443ms (1000 per batch)</td>
+<td>4028ms</td>
+<td>4209ms(range:1d)</td>
+<td>1686ms</td>
+<td>1336ms(range :1d)</td>
+</tr>
+</tbody>
+</table>
+<p>注：查询请求时间为并发请求10次的累计时间（16线程并发）,OpenTSDB 和 kairosDB put 请求使用 Gzip 压缩,OpenTSDB,KairosDB TTL 21d,DolphinDB 查询的数据库表为 im-memory类型</p>
+<p>dps 1000,000</p>
+<table>
+<thead>
+<tr>
+<th>tsdb</th>
+<th>batch put(1000,000 records,1000 per batch)</th>
+<th>query range(1d,1h)</th>
+<th>query range(30d,1d)</th>
+<th>query range with tag(1d,1h)</th>
+<th>query range with tag(30d,1d)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenTSDB</td>
+<td>7214ms</td>
+<td>OpenTSDB 产生异常，未返回请求</td>
+<td>OpenTSDB 产生异常，未返回请求</td>
+<td>29993ms</td>
+<td>219127ms</td>
+</tr>
+<tr>
+<td>KairosDB</td>
+<td>10221ms</td>
+<td>64902ms</td>
+<td>190634ms</td>
+<td>25499ms</td>
+<td>38398ms</td>
+<td></td>
+</tr>
+<tr>
+<td>DolphinDB</td>
+<td>13648ms</td>
+<td>1052ms(in-memory)/16250ms(local-disk)</td>
+<td>6994ms/15982ms</td>
+<td>1201ms/12902ms</td>
+<td>2229ms/15192ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>OpenTSDB<ul>
+<li>强于数据写入和存储能力，但是大跨度时间范围大数据量的数据查询和分析能力弱，适合小跨度时间范围和小量数据分析场景或大时间范围但是数据经过预聚合和 rollUp 的粗粒度查询</li>
+</ul>
+</li>
+<li>KairosDB<ul>
+<li>适用于较长时间范围与数据量的时序数据的存储与查询分析，同时可以通过插件进行自定义数据结构与查询方式定义，可定制程度高，查询性能好</li>
+</ul>
+</li>
+<li>DolphinDB<ul>
+<li>分析处理数据功能强，写入查询性能强，同时提供多种模式的存储与多范式编程脚本来操作数据，缺乏时序数据的TTL、rollUp、pre-aggregate功能（但是可以通过流计算手动实现），属于偏分析性</li>
+</ul>
+</li>
+</ul>
+
+  </section>
+
+  
+  
+  
+
+<!-- 注释掉这段以关闭评论  -->
+<!-- <section class="post-comments">
+
+	<div id="lv-container" data-id="city" data-uid="MTAyMC8yNzk0NC80NTIx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+	</div>
+
+</section> -->
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
