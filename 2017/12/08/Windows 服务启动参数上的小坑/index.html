@@ -25,7 +25,7 @@
 <meta property="og:description" content="最近比较懒，不太想写东西，可能是传说中的悟道太懒了吧，所以准备写点对象东西，比如记录一个小坑什么的。 额。。其实这也不算是坑，严格意义上来说这是一个应该注意的地方。 首先看一张图：  这服务器上的MySQL的启动参数（windows 服务器），这里指定了启动时使用的配置文件，就是这个地方坑了我。  好吧，进入正题，上午在日志的看见一个异常  Error updating database.  Ca">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/KL3Answer/KL3Answer.github.io/hexo/source/temp/t_01.png">
-<meta property="og:updated_time" content="2019-12-25T13:04:21.299Z">
+<meta property="og:updated_time" content="2019-12-25T13:18:44.297Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Windows 服务启动参数上的小坑 | HQ&#39;s Cabin">
 <meta name="twitter:description" content="最近比较懒，不太想写东西，可能是传说中的悟道太懒了吧，所以准备写点对象东西，比如记录一个小坑什么的。 额。。其实这也不算是坑，严格意义上来说这是一个应该注意的地方。 首先看一张图：  这服务器上的MySQL的启动参数（windows 服务器），这里指定了启动时使用的配置文件，就是这个地方坑了我。  好吧，进入正题，上午在日志的看见一个异常  Error updating database.  Ca">
@@ -232,7 +232,7 @@ classes that you can use:
 </blockquote>
 <p>在MySQL上查了一下，发现果然innodb_buffer_size只有8388608(8M)，那问题就容易解决了，于是我打算使用set来把buffer size 改成 512M，结果发现是read only的，貌似只能改配置文件了。</p>
 <p>于是我兴冲冲的修改了MySQL安装目录下面的my.ini，然后重启了mysql，发现事情并没有那么简单，buffer size 还是没有变，然后我就简单的思索了以下，发现应该是windows服务的启动上有什么不对的，然后就发现了上面的那个。</p>
-<p>关于解决方法，这个就很简单了，要么改变启动参数中配置文件的指向，要么该百年启动参数中配置文件的配置，然后重启。</p>
+<p>关于解决方法，这个就很简单了，要么改变启动参数中配置文件的指向，要么改变启动参数中配置文件的配置，然后重启。</p>
 
   </section>
 
